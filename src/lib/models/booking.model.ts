@@ -8,7 +8,7 @@ export interface IBooking extends Document {
   eventType: string;
   meetingLink: string;
   status: string;
-  payload: any;
+  payload: Record<string, unknown>;
   createdAt: Date;
   updatedAt: Date;
 }

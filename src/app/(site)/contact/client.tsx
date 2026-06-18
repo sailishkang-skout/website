@@ -6,7 +6,16 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
-import { Mail, MapPin, Sparkles, Phone, Send, ChevronDown, Check, ArrowUpRight } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Sparkles,
+  Phone,
+  Send,
+  ChevronDown,
+  Check,
+  ArrowUpRight,
+} from "lucide-react";
 import { Section, Eyebrow, GradientText } from "@/components/site/Section";
 import "./contact.css";
 
@@ -35,8 +44,16 @@ export default function ContactClient() {
   const calLink = process.env.NEXT_PUBLIC_CAL_LINK || "rick";
   const [activeTab, setActiveTab] = useState<"calendar" | "form">("calendar");
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormData>({ resolver: zodResolver(contactSchema) });
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationFn: submitContact, onSuccess: () => reset() });
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormData>({ resolver: zodResolver(contactSchema) });
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+    mutationFn: submitContact,
+    onSuccess: () => reset(),
+  });
 
   const scrollToBooking = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -64,7 +81,9 @@ export default function ContactClient() {
                 Global Pipeline.
               </h1>
               <p className="contact-banner-desc">
-                Discover how Skout AI can help you find, verify, and reach top-tier B2B prospects globally while saving you from bounce-rate headaches and compliance issues. Book a demo today.
+                Discover how Skout AI can help you find, verify, and reach top-tier B2B prospects
+                globally while saving you from bounce-rate headaches and compliance issues. Book a
+                demo today.
               </p>
               <a href="#booking-section" onClick={scrollToBooking} className="contact-banner-btn">
                 Book a Demo <ArrowUpRight className="h-4 w-4" />
@@ -128,7 +147,8 @@ export default function ContactClient() {
               </div>
               <h2 className="card-title-text">Speak to someone in sales</h2>
               <p className="card-desc-text">
-                Let's jump on a video call, and we'll show you how simple it is to scale your outbound with Skout AI.
+                Let's jump on a video call, and we'll show you how simple it is to scale your
+                outbound with Skout AI.
               </p>
               <button className="card-btn">Book an Appointment</button>
             </div>
@@ -184,12 +204,36 @@ export default function ContactClient() {
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit((data) => mutate(data))} className="panel-form-container">
+                <form
+                  onSubmit={handleSubmit((data) => mutate(data))}
+                  className="panel-form-container"
+                >
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <Field label="Full name" name="name" register={register} error={errors.name?.message} />
-                    <Field label="Work email" name="email" type="email" register={register} error={errors.email?.message} />
-                    <Field label="Company" name="company" register={register} error={errors.company?.message} />
-                    <Field label="Team size" name="size" register={register} error={errors.size?.message} />
+                    <Field
+                      label="Full name"
+                      name="name"
+                      register={register}
+                      error={errors.name?.message}
+                    />
+                    <Field
+                      label="Work email"
+                      name="email"
+                      type="email"
+                      register={register}
+                      error={errors.email?.message}
+                    />
+                    <Field
+                      label="Company"
+                      name="company"
+                      register={register}
+                      error={errors.company?.message}
+                    />
+                    <Field
+                      label="Team size"
+                      name="size"
+                      register={register}
+                      error={errors.size?.message}
+                    />
                   </div>
                   <div className="mt-2">
                     <label className="text-sm font-medium">How can we help?</label>
@@ -199,7 +243,9 @@ export default function ContactClient() {
                       className="mt-2 w-full rounded-xl border border-border bg-background/60 px-4 py-3 text-sm outline-none transition focus:border-primary"
                       {...register("message")}
                     />
-                    {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message.message}</p>}
+                    {errors.message && (
+                      <p className="mt-1 text-xs text-destructive">{errors.message.message}</p>
+                    )}
                   </div>
                   {isSuccess && (
                     <p className="mt-4 rounded-xl bg-emerald-500/10 px-4 py-3 text-sm text-emerald-500">
@@ -240,7 +286,9 @@ type FieldProps = {
 function Field({ label, name, type = "text", register, error }: FieldProps) {
   return (
     <div>
-      <label htmlFor={name} className="text-sm font-medium">{label}</label>
+      <label htmlFor={name} className="text-sm font-medium">
+        {label}
+      </label>
       <input
         id={name}
         type={type}

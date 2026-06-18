@@ -8,7 +8,8 @@ export const runtime = "nodejs";
 export async function POST(req: NextRequest) {
   try {
     const bodyText = await req.text();
-    const signature = req.headers.get("x-cal-signature-256") || req.headers.get("X-Cal-Signature-256");
+    const signature =
+      req.headers.get("x-cal-signature-256") || req.headers.get("X-Cal-Signature-256");
     const webhookSecret = process.env.CAL_WEBHOOK_SECRET;
 
     // Verify webhook signature if secret is defined
@@ -41,8 +42,9 @@ export async function POST(req: NextRequest) {
     const startTime = payload.startTime ? new Date(payload.startTime) : new Date();
     const endTime = payload.endTime ? new Date(payload.endTime) : new Date();
     const eventType = payload.title || payload.type || "Demo";
-    const meetingLink = payload.videoCallData?.link || payload.metadata?.videoCallUrl || payload.location || "";
-    
+    const meetingLink =
+      payload.videoCallData?.link || payload.metadata?.videoCallUrl || payload.location || "";
+
     await connectDB();
 
     if (triggerEvent === "BOOKING_CREATED") {
@@ -62,7 +64,7 @@ export async function POST(req: NextRequest) {
       await Booking.findOneAndUpdate(
         { email, startTime },
         { status: "cancelled", payload: body },
-        { new: true }
+        { new: true },
       );
     } else if (triggerEvent === "BOOKING_RESCHEDULED") {
       // Update status to rescheduled
@@ -75,7 +77,7 @@ export async function POST(req: NextRequest) {
           status: "rescheduled",
           payload: body,
         },
-        { new: true, sort: { createdAt: -1 } }
+        { new: true, sort: { createdAt: -1 } },
       );
     }
 

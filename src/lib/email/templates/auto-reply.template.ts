@@ -18,7 +18,8 @@ export function autoReplyTemplate(name: string): string {
           <tr>
             <td style="background:linear-gradient(135deg,#6366f1,#8b5cf6);padding:40px 40px 36px;">
               <a href="${appUrl}" style="text-decoration:none;">
-                <img src="${appUrl}/logo.png" alt="Skout AI" height="32" style="display:block;" />
+                <img src="${appUrl}/logo.png" alt="Skout AI" height="32"
+                  style="display:block;border:0;height:32px;" />
               </a>
               <h1 style="margin:24px 0 0;color:#ffffff;font-size:26px;font-weight:600;letter-spacing:-0.5px;line-height:1.3;">
                 Thanks for reaching out, ${name}!

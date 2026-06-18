@@ -6,6 +6,7 @@ export interface IContact extends Document {
   company: string;
   size: string;
   message: string;
+  repliedAt?: Date | null;
   createdAt: Date;
 }
 
@@ -16,6 +17,7 @@ const ContactSchema = new Schema<IContact>(
     company: { type: String, required: true, trim: true },
     size: { type: String, required: true, trim: true },
     message: { type: String, required: true, trim: true },
+    repliedAt: { type: Date, default: null },
   },
   { timestamps: true },
 );

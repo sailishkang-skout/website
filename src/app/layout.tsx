@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/site/Header";
-import { Footer } from "@/components/site/Footer";
 import { QueryProvider } from "@/lib/providers/query-provider";
 import "@/styles.css";
 
@@ -60,11 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <QueryProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </QueryProvider>
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
