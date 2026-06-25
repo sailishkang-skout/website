@@ -10,70 +10,54 @@ import {
   HeartHandshake,
   ArrowRight,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Section, Eyebrow, GradientText } from "@/components/site/Section";
 
-const solutions = [
-  {
-    icon: Briefcase,
-    title: "Outbound sales",
-    description:
-      "Build verified lists, launch multi-channel cadences and pipe replies straight into your CRM.",
-    bullets: ["ICP & lookalikes", "Sequence builder", "Reply routing"],
-  },
-  {
-    icon: Rocket,
-    title: "Demand generation",
-    description:
-      "Identify intent surges and trigger ad audiences + email plays before competitors notice.",
-    bullets: ["Intent topics", "Audience sync", "Lift reports"],
-  },
-  {
-    icon: Users,
-    title: "Recruiting & sourcing",
-    description: "Source passive talent with people-graph filters and verified personal emails.",
-    bullets: ["Talent search", "Job change alerts", "ATS sync"],
-  },
-  {
-    icon: Building2,
-    title: "Agencies & lead-gen",
-    description:
-      "White-label dashboards, per-client workspaces and pooled credits with margin control.",
-    bullets: ["Workspaces", "White label", "Margin pricing"],
-  },
-  {
-    icon: GraduationCap,
-    title: "Founders & GTM",
-    description: "Skip the data-vendor maze. One subscription that scales from PMF to Series C.",
-    bullets: ["Self-serve onboarding", "Usage-based pricing", "Founder support"],
-  },
-  {
-    icon: HeartHandshake,
-    title: "RevOps",
-    description: "Keep your CRM clean with continuous enrichment, dedup and field standardization.",
-    bullets: ["Bi-directional sync", "Dedup engine", "Field mapping"],
-  },
+const SOLUTION_ICONS: LucideIcon[] = [
+  Briefcase,
+  Rocket,
+  Users,
+  Building2,
+  GraduationCap,
+  HeartHandshake,
 ];
 
-export default function SolutionsClient() {
+interface Solution {
+  title: string;
+  description: string;
+  bullets: string[];
+}
+
+interface Props {
+  content: Record<string, unknown>;
+}
+
+export default function SolutionsClient({ content }: Props) {
+  const hero = (content.hero as Record<string, unknown>) ?? {};
+  const solutions = (content.solutions as Solution[]) ?? [];
+  const cta = (content.cta as Record<string, unknown>) ?? {};
+  const ctaPrimary = (cta.primaryCta as { text: string; href: string }) ?? { text: "View pricing", href: "/pricing" };
+  const ctaSecondary = (cta.secondaryCta as { text: string; href: string }) ?? { text: "Book demo", href: "/contact" };
+
   return (
     <div>
       <div style={{ background: "var(--gradient-hero)" }} className="border-b border-border">
         <Section className="py-12! text-center md:py-20!">
-          <Eyebrow>Solutions</Eyebrow>
+          <Eyebrow>{String(hero.eyebrow ?? "Solutions")}</Eyebrow>
           <h1 className="mx-auto mt-4 max-w-3xl font-display text-3xl leading-[1.05] sm:text-4xl md:text-5xl">
-            Built for the way <GradientText>your team works.</GradientText>
+            {String(hero.title ?? "Built for the way")}{" "}
+            <GradientText>{String(hero.titleHighlight ?? "your team works.")}</GradientText>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground md:text-base">
-            Purpose-built workflows for sales, recruiting, RevOps, founders and agencies — all on
-            one platform.
+            {String(hero.description ?? "")}
           </p>
         </Section>
       </div>
 
       <Section>
         <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {solutions.map((solution) => {
-            const Icon = solution.icon;
+          {solutions.map((solution, i) => {
+            const Icon = SOLUTION_ICONS[i % SOLUTION_ICONS.length];
             return (
               <div
                 key={solution.title}
@@ -91,7 +75,7 @@ export default function SolutionsClient() {
                     </p>
                   </div>
                   <ul className="mt-4 space-y-2">
-                    {solution.bullets.map((bullet) => (
+                    {(solution.bullets ?? []).map((bullet) => (
                       <li
                         key={bullet}
                         className="flex items-center gap-3 text-sm text-muted-foreground"
@@ -123,27 +107,27 @@ export default function SolutionsClient() {
         >
           <div className="grid items-center gap-8 md:grid-cols-2">
             <div>
-              <Eyebrow>Use cases</Eyebrow>
+              <Eyebrow>{String(cta.eyebrow ?? "Use cases")}</Eyebrow>
               <h2 className="mt-3 max-w-2xl font-display text-2xl leading-tight sm:text-3xl md:text-4xl">
-                One platform for every <GradientText>revenue workflow.</GradientText>
+                {String(cta.title ?? "One platform for every")}{" "}
+                <GradientText>{String(cta.titleHighlight ?? "revenue workflow.")}</GradientText>
               </h2>
               <p className="mt-4 max-w-xl text-sm text-muted-foreground">
-                Replace disconnected point solutions with one unified data, outreach and automation
-                layer.
+                {String(cta.description ?? "")}
               </p>
             </div>
             <div className="flex flex-wrap gap-3 md:justify-end">
               <Link
-                href="/pricing"
+                href={ctaPrimary.href}
                 className="inline-flex h-10 items-center justify-center rounded-full bg-foreground px-5 text-sm font-medium text-background transition hover:opacity-90"
               >
-                View pricing
+                {ctaPrimary.text}
               </Link>
               <Link
-                href="/contact"
+                href={ctaSecondary.href}
                 className="inline-flex h-10 items-center justify-center rounded-full border border-border bg-background px-5 text-sm font-medium transition hover:bg-secondary"
               >
-                Book demo
+                {ctaSecondary.text}
               </Link>
             </div>
           </div>

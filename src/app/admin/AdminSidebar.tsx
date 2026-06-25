@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, MessageSquare, CalendarDays, Bell, LogOut } from "lucide-react";
+import { LayoutDashboard, MessageSquare, CalendarDays, Bell, LogOut, FileText } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 const navItems = [
@@ -10,6 +10,7 @@ const navItems = [
   { href: "/admin/enquiries", label: "Enquiries", icon: MessageSquare },
   { href: "/admin/bookings", label: "Bookings", icon: CalendarDays },
   { href: "/admin/waitlist", label: "Waitlist", icon: Bell },
+  { href: "/admin/content", label: "Content", icon: FileText },
 ];
 
 interface NavLinkProps {

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -10,11 +11,36 @@ import {
   Mail,
   BarChart3,
   Plug,
-  Search,
   Bell,
 } from "lucide-react";
 import { Section, Eyebrow, GradientText } from "@/components/site/Section";
-export default function HomePage() {
+import { getPageContent } from "@/lib/content/get-content";
+
+const EXTRA_ICONS = [Plug, Workflow, BarChart3, ShieldCheck, Bot, Activity, Mail, Database];
+
+export default async function HomePage() {
+  const content = await getPageContent("home");
+
+  const hero = (content.hero as Record<string, unknown>) ?? {};
+  const heroStats = (hero.stats as Array<{ key: string; value: string }>) ?? [];
+  const heroPrimary = (hero.primaryCta as { text: string; href: string }) ?? { text: "Start free", href: "/contact" };
+  const heroSecondary = (hero.secondaryCta as { text: string; href: string }) ?? { text: "Tour the platform →", href: "/features" };
+
+  const platform = (content.platform as Record<string, unknown>) ?? {};
+  const bigCard = (platform.bigCard as Record<string, unknown>) ?? {};
+  const enrichmentCard = (platform.enrichmentCard as Record<string, unknown>) ?? {};
+  const verificationCard = (platform.verificationCard as Record<string, unknown>) ?? {};
+  const outreachCard = (platform.outreachCard as Record<string, unknown>) ?? {};
+  const intentCard = (platform.intentCard as Record<string, unknown>) ?? {};
+
+  const manifesto = (content.manifesto as Record<string, unknown>) ?? {};
+  const extras = (content.extras as Record<string, unknown>) ?? {};
+  const extraItems = (extras.items as Array<{ title: string }>) ?? [];
+
+  const cta = (content.cta as Record<string, unknown>) ?? {};
+  const ctaPrimary = (cta.primaryCta as { text: string; href: string }) ?? { text: "Get started", href: "/contact" };
+  const ctaSecondary = (cta.secondaryCta as { text: string; href: string }) ?? { text: "See pricing", href: "/pricing" };
+
   return (
     <div>
       {/* HERO */}
@@ -22,52 +48,50 @@ export default function HomePage() {
         <Section className="py-10! md:py-24!">
           <div className="grid items-end gap-8 md:grid-cols-12">
             <div className="md:col-span-8">
-              <Eyebrow>Issue 01 · Revenue Intelligence</Eyebrow>
+              <Eyebrow>{String(hero.eyebrow ?? "Issue 01 · Revenue Intelligence")}</Eyebrow>
               <h1 className="font-display mt-4 text-4xl leading-[1.05] sm:text-5xl md:text-6xl">
-                Find the right
-                <br />
-                people. <GradientText>Faster.</GradientText>
+                {String(hero.title ?? "Find the right\npeople.").split("\n").map((line, i) => (
+                  <span key={i}>{i > 0 && <br />}{line}</span>
+                ))}
+                {hero.titleHighlight ? (
+                  <> <GradientText>{String(hero.titleHighlight)}</GradientText></>
+                ) : null}
               </h1>
             </div>
             <div className="md:col-span-4">
               <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
-                Skout AI is the unified data layer for modern revenue teams — 200M verified
-                contacts, real-time enrichment, intent signals and multi-channel outreach in one
-                place.
+                {String(hero.description ?? "")}
               </p>
               <div className="mt-5 flex flex-wrap items-center gap-3">
                 <Link
-                  href="/contact"
+                  href={heroPrimary.href}
                   className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-transform hover:scale-[1.02]"
                 >
-                  Start free <ArrowRight className="h-4 w-4" />
+                  {heroPrimary.text} <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/features"
+                  href={heroSecondary.href}
                   className="text-sm font-medium underline-offset-4 hover:underline"
                 >
-                  Tour the platform →
+                  {heroSecondary.text}
                 </Link>
               </div>
             </div>
           </div>
 
           {/* Stat strip */}
-          <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-4">
-            {[
-              { k: "200M+", v: "Verified contacts" },
-              { k: "45M+", v: "Companies tracked" },
-              { k: "98.5%", v: "Email accuracy" },
-              { k: "<400ms", v: "Avg enrichment" },
-            ].map((s) => (
-              <div key={s.v} className="bg-background p-4 md:p-6">
-                <div className="font-display text-2xl md:text-3xl">{s.k}</div>
-                <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
-                  {s.v}
+          {heroStats.length > 0 && (
+            <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-4">
+              {heroStats.map((s) => (
+                <div key={s.value} className="bg-background p-4 md:p-6">
+                  <div className="font-display text-2xl md:text-3xl">{s.key}</div>
+                  <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
+                    {s.value}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </Section>
       </div>
 
@@ -75,35 +99,37 @@ export default function HomePage() {
       <Section>
         <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <Eyebrow>The platform</Eyebrow>
+            <Eyebrow>{String(platform.eyebrow ?? "The platform")}</Eyebrow>
             <h2 className="font-display mt-3 text-2xl sm:text-3xl md:text-4xl">
-              A modular <GradientText>revenue stack.</GradientText>
+              {String(platform.title ?? "A modular")}{" "}
+              <GradientText>{String(platform.titleHighlight ?? "revenue stack.")}</GradientText>
             </h2>
           </div>
           <p className="max-w-sm text-sm text-muted-foreground">
-            Pick the pieces you need — they're built to compose, not collide.
+            {String(platform.description ?? "Pick the pieces you need — they're built to compose, not collide.")}
           </p>
         </div>
 
-        {/* ROW 1 — big card + 2 stacked small cards */}
+        {/* ROW 1 */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {/* BIG CARD */}
           <div className="flex flex-col justify-between rounded-3xl border border-border bg-card p-6 md:col-span-2 md:p-8">
             <div>
               <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
-                <Database className="h-3.5 w-3.5" /> Prospect Graph
+                <Database className="h-3.5 w-3.5" /> {String(bigCard.tag ?? "Prospect Graph")}
               </div>
               <h3 className="font-display mt-4 text-xl leading-tight sm:text-2xl">
-                200M people. <span className="italic-serif">40+ filters.</span> One search bar.
+                {String(bigCard.title ?? "200M people.")}{" "}
+                <span className="italic-serif">{String(bigCard.titleItalic ?? "40+ filters.")}</span>{" "}
+                {String(bigCard.subtitle ?? "One search bar.")}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Firmographics, technographics, hiring signals and intent — combined into one
-                queryable graph that updates every 4 hours.
+                {String(bigCard.description ?? "")}
               </p>
             </div>
             <div className="mt-6 rounded-2xl border border-border bg-background p-4 shadow-sm">
               <div className="flex items-center gap-2 border-b border-border pb-3 text-xs text-muted-foreground">
-                <Search className="h-3.5 w-3.5" /> Series B SaaS · US · hiring AE
+                Series B SaaS · US · hiring AE
               </div>
               <div className="mt-3 space-y-1">
                 {[
@@ -138,49 +164,58 @@ export default function HomePage() {
               style={{ background: "var(--gradient-accent)" }}
             >
               <Sparkles className="h-5 w-5" />
-              <h3 className="font-display mt-4 text-lg leading-tight">Waterfall enrichment</h3>
+              <h3 className="font-display mt-4 text-lg leading-tight">
+                {String(enrichmentCard.title ?? "Waterfall enrichment")}
+              </h3>
               <p className="mt-2 text-sm leading-relaxed text-white/85">
-                Query 12 vendors in priority order. Pay only for the first verified match.
+                {String(enrichmentCard.description ?? "")}
               </p>
             </div>
             <div className="flex flex-1 flex-col rounded-3xl border border-border bg-card p-5 md:p-6">
               <ShieldCheck className="h-5 w-5" />
-              <h3 className="font-display mt-4 text-lg leading-tight">Real-time verification</h3>
+              <h3 className="font-display mt-4 text-lg leading-tight">
+                {String(verificationCard.title ?? "Real-time verification")}
+              </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                SMTP + catch-all + risk scoring. 98.5% deliverability.
+                {String(verificationCard.description ?? "")}
               </p>
             </div>
           </div>
         </div>
 
-        {/* ROW 2 — 2 equal bottom cards */}
+        {/* ROW 2 */}
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="flex flex-col rounded-3xl border border-border bg-foreground p-6 text-background">
             <div className="flex items-center gap-2 text-xs uppercase tracking-wider opacity-70">
-              <Workflow className="h-3.5 w-3.5" /> Outreach engine
+              <Workflow className="h-3.5 w-3.5" /> {String(outreachCard.tag ?? "Outreach engine")}
             </div>
             <h3 className="font-display mt-4 text-lg leading-tight sm:text-xl">
-              Multi-channel cadences{" "}
-              <span className="italic-serif opacity-80">that actually land.</span>
+              {String(outreachCard.title ?? "Multi-channel cadences")}{" "}
+              <span className="italic-serif opacity-80">
+                {String(outreachCard.titleItalic ?? "that actually land.")}
+              </span>
             </h3>
             <p className="mt-2 text-sm leading-relaxed opacity-70">
-              Email, LinkedIn and calls in one sequence — with native warm-up and inbox rotation.
+              {String(outreachCard.description ?? "")}
             </p>
           </div>
           <div className="flex flex-col rounded-3xl border border-border bg-card p-6">
             <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
-              <Bell className="h-3.5 w-3.5" /> Buyer intent
+              <Bell className="h-3.5 w-3.5" /> {String(intentCard.tag ?? "Buyer intent")}
             </div>
             <h3 className="font-display mt-4 text-lg leading-tight sm:text-xl">
-              Reach accounts <GradientText>before</GradientText> they fill out forms.
+              {String(intentCard.title ?? "Reach accounts")}{" "}
+              <GradientText>{String(intentCard.titleHighlight ?? "before")}</GradientText>{" "}
+              {String(intentCard.subtitle ?? "they fill out forms.")}
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Track 5,000+ B2B topics and get surge alerts for accounts in-market right now.
+              {String(intentCard.description ?? "")}
             </p>
           </div>
         </div>
       </Section>
 
+      {/* MANIFESTO */}
       <div className="border-y border-border bg-card">
         <Section className="py-10! md:py-20!">
           <div className="grid items-start gap-8 md:grid-cols-12">
@@ -188,72 +223,107 @@ export default function HomePage() {
               <Eyebrow>Manifesto</Eyebrow>
             </div>
             <div className="md:col-span-8">
-              <p className="font-display text-2xl sm:text-3xl leading-snug md:text-4xl">
-                Modern revenue teams glue together <GradientText>five vendors</GradientText> just to
-                ship one outbound play. We thought that was nuts — so we built Skout AI as{" "}
-                <span className="italic-serif">one connected system</span>, priced for results, not
-                seats.
-              </p>
+              <ManifestoText
+                text={String(manifesto.text ?? "")}
+                highlight={String(manifesto.highlight ?? "")}
+                italic={String(manifesto.italic ?? "")}
+              />
             </div>
           </div>
         </Section>
       </div>
 
+      {/* EXTRAS */}
       <Section>
-        <Eyebrow>Also in the box</Eyebrow>
+        <Eyebrow>{String(extras.eyebrow ?? "Also in the box")}</Eyebrow>
         <h2 className="font-display mt-3 text-2xl sm:text-3xl md:text-4xl">
-          Eight more things <span className="italic-serif">you'd usually pay extra for.</span>
+          {String(extras.title ?? "Eight more things")}{" "}
+          <span className="italic-serif">{String(extras.titleItalic ?? "you'd usually pay extra for.")}</span>
         </h2>
-        <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-border bg-border md:grid-cols-4">
-          {[
-            { i: Plug, t: "Chrome extension" },
-            { i: Workflow, t: "Open API & webhooks" },
-            { i: BarChart3, t: "Pipeline analytics" },
-            { i: ShieldCheck, t: "GDPR & CCPA flows" },
-            { i: Bot, t: "AI research agent" },
-            { i: Activity, t: "Job change alerts" },
-            { i: Mail, t: "Deliverability suite" },
-            { i: Database, t: "Warehouse sync" },
-          ].map((f) => (
-            <div key={f.t} className="bg-background p-4 md:p-6">
-              <f.i className="h-5 w-5 text-muted-foreground" />
-              <div className="mt-3 text-sm font-medium">{f.t}</div>
-            </div>
-          ))}
-        </div>
+        {extraItems.length > 0 && (
+          <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-border bg-border md:grid-cols-4">
+            {extraItems.map((item, i) => {
+              const Icon = EXTRA_ICONS[i % EXTRA_ICONS.length];
+              return (
+                <div key={i} className="bg-background p-4 md:p-6">
+                  <Icon className="h-5 w-5 text-muted-foreground" />
+                  <div className="mt-3 text-sm font-medium">{item.title}</div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </Section>
 
+      {/* CTA */}
       <Section className="py-12!">
         <div
           className="grid items-end gap-6 rounded-3xl border border-border p-6 md:grid-cols-2 md:p-12"
           style={{ background: "var(--gradient-hero)" }}
         >
           <h2 className="font-display text-2xl sm:text-3xl leading-[1.05] md:text-4xl">
-            Replace 5 tools.
+            {String(cta.title ?? "Replace 5 tools.")}
             <br />
-            <GradientText>Ship this week.</GradientText>
+            <GradientText>{String(cta.titleHighlight ?? "Ship this week.")}</GradientText>
           </h2>
           <div className="flex flex-col items-start gap-4 md:items-end">
             <p className="text-sm text-muted-foreground md:text-right">
-              50 free credits. No credit card. Cancel anytime.
+              {String(cta.description ?? "50 free credits. No credit card. Cancel anytime.")}
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/contact"
+                href={ctaPrimary.href}
                 className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background"
               >
-                Get started <ArrowRight className="h-4 w-4" />
+                {ctaPrimary.text} <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="/pricing"
+                href={ctaSecondary.href}
                 className="rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium"
               >
-                See pricing
+                {ctaSecondary.text}
               </Link>
             </div>
           </div>
         </div>
       </Section>
     </div>
+  );
+}
+
+function ManifestoText({
+  text,
+  highlight,
+  italic,
+}: {
+  text: string;
+  highlight: string;
+  italic: string;
+}) {
+  if (!text) return null;
+
+  let result: ReactNode = text;
+
+  if (highlight && text.includes(highlight)) {
+    const parts = text.split(highlight);
+    result = (
+      <>
+        {parts[0]}
+        <GradientText>{highlight}</GradientText>
+        {italic && parts[1]?.includes(italic) ? (
+          <>
+            {parts[1].split(italic)[0]}
+            <span className="italic-serif">{italic}</span>
+            {parts[1].split(italic)[1]}
+          </>
+        ) : (
+          parts[1]
+        )}
+      </>
+    );
+  }
+
+  return (
+    <p className="font-display text-2xl sm:text-3xl leading-snug md:text-4xl">{result}</p>
   );
 }
