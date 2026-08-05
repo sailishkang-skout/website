@@ -6,8 +6,34 @@ import PageView from "@/lib/models/pageview.model";
 import Waitlist from "@/lib/models/waitlist.model";
 import { subDays, startOfDay, format } from "date-fns";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
-  await connectDB();
+  const conn = await connectDB();
+  if (!conn) {
+    return NextResponse.json({
+      totals: {
+        totalEnquiries: 0,
+        totalBookings: 0,
+        activeBookings: 0,
+        cancelledBookings: 0,
+        totalPageViews: 0,
+        uniqueVisitorsToday: 0,
+        totalWaitlist: 0,
+      },
+      series: Array.from({ length: 30 }, (_, i) => {
+        const date = subDays(new Date(), 29 - i);
+        return {
+          date: format(date, "MMM d"),
+          enquiries: 0,
+          bookings: 0,
+          visitors: 0,
+        };
+      }),
+      statusChart: [],
+      sizeChart: [],
+    });
+  }
 
   const since30 = subDays(new Date(), 29);
   const todayStart = startOfDay(new Date());

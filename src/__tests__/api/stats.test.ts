@@ -1,7 +1,9 @@
 import { NextRequest } from "next/server";
 import { GET } from "@/app/api/admin/stats/route";
 
-jest.mock("@/lib/db/connect", () => ({ connectDB: jest.fn().mockResolvedValue(undefined) }));
+jest.mock("@/lib/db/connect", () => ({
+  connectDB: jest.fn().mockResolvedValue({ connection: { db: {} } }),
+}));
 
 jest.mock("@/lib/models/contact.model", () => ({
   __esModule: true,
