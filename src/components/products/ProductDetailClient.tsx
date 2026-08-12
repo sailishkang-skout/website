@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ProductData } from "@/lib/productData";
+import { WORKSPACE_URL } from "@/lib/constants";
 import { Section, Eyebrow, GradientText } from "@/components/site/Section";
 import {
   Search,
@@ -93,12 +94,14 @@ export default function ProductDetailClient({ product }: Props) {
               >
                 Book a demo <ArrowRight className="h-3.5 w-3.5" />
               </Link>
-              <Link
-                href="/coming-soon"
+              <a
+                href={WORKSPACE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-border bg-card/60 px-6 py-2.5 text-xs sm:text-sm font-medium text-foreground backdrop-blur-md transition-colors hover:bg-muted/80"
               >
                 Log in to workspace
-              </Link>
+              </a>
             </div>
 
             {/* METRICS STRIP - HOMEPAGE MATCHING & MOBILE RESPONSIVE */}

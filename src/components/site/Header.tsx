@@ -33,6 +33,7 @@ import {
   LucideIcon,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { LOGIN_URL, WORKSPACE_URL } from "@/lib/constants";
 
 export function Header() {
   const pathname = usePathname();
@@ -415,12 +416,14 @@ export function Header() {
 
         {/* RIGHT CTAS */}
         <div className="hidden md:flex items-center gap-3">
-          <Link
-            href="/coming-soon"
+          <a
+            href={LOGIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             Log in
-          </Link>
+          </a>
           <Link
             href="/contact"
             className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.02]"
@@ -494,7 +497,15 @@ export function Header() {
               <Link href="/resources/setup-guides" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-foreground py-0.5">Setup Guides</Link>
 
               <div className="pt-3 flex flex-col gap-2">
-                <Link href="/coming-soon" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-muted-foreground text-center py-1.5">Log in to workspace</Link>
+                <a
+                  href={WORKSPACE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-sm font-medium text-muted-foreground text-center py-1.5"
+                >
+                  Log in to workspace
+                </a>
                 <Link
                   href="/contact"
                   onClick={() => setMobileOpen(false)}

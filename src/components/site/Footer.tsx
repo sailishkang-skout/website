@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/assets/logo.png";
+import { WORKSPACE_URL } from "@/lib/constants";
 import "./footer.css";
 
 // ALL ITEMS FROM HEADER DROPDOWNS
@@ -118,13 +119,26 @@ export function Footer() {
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Platform</h4>
               <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
-                {platformNavItems.map((l) => (
-                  <li key={l.label}>
-                    <Link href={l.to} className="transition-colors hover:text-foreground font-medium">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
+                <li>
+                  <Link href="/pricing" className="transition-colors hover:text-foreground font-medium">
+                    Pricing
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href={WORKSPACE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-colors hover:text-foreground font-medium"
+                  >
+                    Log In to Workspace
+                  </a>
+                </li>
+                <li>
+                  <Link href="/contact" className="transition-colors hover:text-foreground font-medium">
+                    Book a Demo
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

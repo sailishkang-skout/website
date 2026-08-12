@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Check, ArrowRight, Zap, ShieldCheck, Sparkles, HelpCircle, ChevronDown, Bot, Building2 } from "lucide-react";
 import { Section, Eyebrow, GradientText } from "@/components/site/Section";
+import { WORKSPACE_URL } from "@/lib/constants";
 
 interface Props {
   content: Record<string, unknown>;
@@ -368,12 +369,14 @@ export default function PricingClient({ content }: Props) {
             >
               Book a Demo <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-            <Link
-              href="/coming-soon"
+            <a
+              href={WORKSPACE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-xs sm:text-sm font-medium text-foreground hover:bg-muted"
             >
               Start Free Trial
-            </Link>
+            </a>
           </div>
         </div>
       </Section>
