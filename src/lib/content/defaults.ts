@@ -1,693 +1,309 @@
 export const defaultContent: Record<string, Record<string, unknown>> = {
   home: {
     hero: {
-      eyebrow: "Issue 01 · Revenue Intelligence",
-      title: "Find the right\npeople.",
-      titleHighlight: "Faster.",
+      eyebrow: "AI-Powered GTM Platform",
+      title: "Find the right prospects.",
+      titleHighlight: "Know why they matter.",
+      titleSuffix: "Sell with context.",
+      subheadline:
+        "Skout AI brings prospecting, enrichment, outreach, CRM, and GTM intelligence into one workspace — so your team can spend less time moving data between tools and more time creating pipeline.",
+      primaryCta: { text: "Book a demo", href: "/contact" },
+      secondaryCta: { text: "Explore platform", href: "#scavenger-hunt" },
+      supportingLine: "From first prospect to active opportunity — Skout keeps the context connected.",
+      dexterEyebrow: "Meet Dexter",
+      dexterTagline: "Your GTM intelligence layer.",
+      dexterDescription:
+        "Dexter helps your team turn prospect and account information into decisions — from who to target and what to know about them, to how to approach them and what to do next.",
+      dexterPrompt: "Find accounts that look like our best customers and identify the right people to contact.",
+      dexterReply:
+        "Here are the accounts that match your ICP. I've prioritized them based on the signals available in Skout and identified the contacts most relevant to your target roles.",
+    },
+    trust: {
+      headline: "Built for modern GTM teams",
+      subheadline: "One workspace for prospecting, intelligence, outreach, and pipeline execution.",
+    },
+    valueProp: {
+      eyebrow: "Primary Value Proposition",
+      headline: "Your sales stack shouldn't feel like a scavenger hunt.",
+      body: "Sales teams shouldn't have to discover an account in one platform, find contacts in another, enrich them somewhere else, write messaging with an AI tool, send from another system, and finally update the CRM by hand. Skout connects those workflows. Find prospects, enrich their information, understand the account, engage the right people, and manage the resulting pipeline from one connected workspace.",
+      points: [
+        {
+          title: "Less context switching",
+          description: "Keep prospect intelligence, outreach, conversations, and pipeline activity connected.",
+        },
+        {
+          title: "Better decisions",
+          description: "Give your team more context before they decide who to contact and why.",
+        },
+        {
+          title: "One connected workflow",
+          description: "Move from discovery to outreach to opportunity without constantly moving data between systems.",
+        },
+      ],
+    },
+    discover: {
+      eyebrow: "01 — Discover",
+      headline: "Start with the right accounts — not a giant list.",
       description:
-        "Skout AI is the unified data layer for modern revenue teams — 200M verified contacts, real-time enrichment, intent signals and multi-channel outreach in one place.",
-      primaryCta: { text: "Start free", href: "/contact" },
-      secondaryCta: { text: "Tour the platform →", href: "/features" },
-      stats: [
-        { key: "200M+", value: "Verified contacts" },
-        { key: "45M+", value: "Companies tracked" },
-        { key: "98.5%", value: "Email accuracy" },
-        { key: "<400ms", value: "Avg enrichment" },
+        "Define who you want to reach and use Skout to discover companies and contacts that fit your targeting criteria. Build focused lists, import your existing prospects, and organize your market around the accounts and people your team actually wants to reach.",
+      cards: [
+        {
+          title: "Prospect Search",
+          description: "Find companies and contacts based on the criteria that matter to your sales strategy.",
+        },
+        {
+          title: "Smart Lists",
+          description: "Create organized prospect lists around your targeting requirements and sales priorities.",
+        },
+        {
+          title: "Import",
+          description: "Bring existing leads into Skout and enrich them with additional context.",
+        },
+        {
+          title: "ICP Setup",
+          description: "Define your ideal customer profile and use it as the foundation for prospecting.",
+        },
       ],
     },
-    platform: {
-      eyebrow: "The platform",
-      title: "A modular",
-      titleHighlight: "revenue stack.",
-      description: "Pick the pieces you need — they're built to compose, not collide.",
-      bigCard: {
-        tag: "Prospect Graph",
-        title: "200M people.",
-        titleItalic: "40+ filters.",
-        subtitle: "One search bar.",
-        description:
-          "Firmographics, technographics, hiring signals and intent — combined into one queryable graph that updates every 4 hours.",
-      },
-      enrichmentCard: {
-        title: "Waterfall enrichment",
-        description:
-          "Query 12 vendors in priority order. Pay only for the first verified match.",
-      },
-      verificationCard: {
-        title: "Real-time verification",
-        description: "SMTP + catch-all + risk scoring. 98.5% deliverability.",
-      },
-      outreachCard: {
-        tag: "Outreach engine",
-        title: "Multi-channel cadences",
-        titleItalic: "that actually land.",
-        description:
-          "Email, LinkedIn and calls in one sequence — with native warm-up and inbox rotation.",
-      },
-      intentCard: {
-        tag: "Buyer intent",
-        title: "Reach accounts",
-        titleHighlight: "before",
-        subtitle: "they fill out forms.",
-        description:
-          "Track 5,000+ B2B topics and get surge alerts for accounts in-market right now.",
-      },
-    },
-    manifesto: {
-      text: "Modern revenue teams glue together five vendors just to ship one outbound play. We thought that was nuts — so we built Skout AI as one connected system, priced for results, not seats.",
-      highlight: "five vendors",
-      italic: "one connected system",
-    },
-    extras: {
-      eyebrow: "Also in the box",
-      title: "Eight more things",
-      titleItalic: "you'd usually pay extra for.",
-      items: [
-        { title: "Chrome extension" },
-        { title: "Open API & webhooks" },
-        { title: "Pipeline analytics" },
-        { title: "GDPR & CCPA flows" },
-        { title: "AI research agent" },
-        { title: "Job change alerts" },
-        { title: "Deliverability suite" },
-        { title: "Warehouse sync" },
-      ],
-    },
-    cta: {
-      title: "Replace 5 tools.",
-      titleHighlight: "Ship this week.",
-      description: "50 free credits. No credit card. Cancel anytime.",
-      primaryCta: { text: "Get started", href: "/contact" },
-      secondaryCta: { text: "See pricing", href: "/pricing" },
-    },
-  },
-
-  about: {
-    hero: {
-      eyebrow: "The company",
-      title: "Rebuilding the",
-      titleHighlight: "B2B data stack",
-      titleSuffix: "— from the schema up.",
+    understand: {
+      eyebrow: "02 — Understand",
+      headline: "Don't just know who they are. Understand the account.",
       description:
-        "Modern revenue teams glue together five vendors just to ship one outbound campaign. We thought that was nuts — so we built Skout AI. One graph, one bill, one workflow.",
-      primaryCta: { text: "Work with us", href: "/contact" },
-      secondaryCta: { text: "Explore the product", href: "/features" },
-      stats: [
-        { key: "2024", value: "Founded" },
-        { key: "40+", value: "Countries" },
-        { key: "$18M", value: "Series A" },
-        { key: "3,200+", value: "Teams" },
-        { key: "98.5%", value: "Accuracy" },
-        { key: "9", value: "Timezones" },
-      ],
+        "A name and email address are not enough. Skout helps enrich contact and company information so your team can work with more context before starting a conversation. Connect prospect information with account intelligence, targeting criteria, and the sales workflow around it.",
+      cardTitle: "Enrichment",
+      cardDescription:
+        "Fill gaps in contact and company information and build a more complete picture of the accounts you're targeting.",
+      dexterCalloutHeadline: "Dexter turns information into context.",
+      dexterCalloutBody:
+        "Instead of making your team interpret disconnected data points, Dexter can help summarize what matters about an account and how that information should influence the sales workflow.",
     },
-    manifesto: {
-      eyebrow: "Manifesto",
-      title: "We believe",
-      titleHighlight: "data is a craft,",
-      titleSuffix: "not a CSV.",
-      paragraphs: [
-        "For two decades the B2B data industry sold volume. Bigger lists. More rows. More seats. The result: bloated CRMs, bounced emails, and revenue teams who trust nothing.",
-        "Skout AI is a bet in the other direction. Fewer signals, verified deeper. Sources stitched into one graph. Workflows composed instead of stitched together.",
-        "We don't think this is the end state. But it's the right next one.",
-      ],
-    },
-    values: {
-      eyebrow: "Values",
-      title: "Four rules we don't break.",
-      items: [
-        {
-          number: "01",
-          title: "Data with consent",
-          description:
-            "We only ingest public and consented signals. Privacy is a product feature, not a policy page.",
-        },
-        {
-          number: "02",
-          title: "One bill, no surprises",
-          description:
-            "Transparent credit pricing. No per-seat tax, no usage shock at quarter end.",
-        },
-        {
-          number: "03",
-          title: "Quality over volume",
-          description:
-            "98.5% verified accuracy beats one billion unverified rows every single quarter.",
-        },
-        {
-          number: "04",
-          title: "Open by default",
-          description:
-            "Your data flows out as easily as in — REST, GraphQL, exports, warehouse sync.",
-        },
-      ],
-    },
-    timeline: {
-      eyebrow: "Timeline",
-      title: "A short,",
-      titleHighlight: "fast",
-      titleSuffix: "story.",
-      subtitle: "Two years in. Plenty left to build.",
-      items: [
-        {
-          year: "2024",
-          time: "Spring",
-          description: "Founded by ex-RevOps leaders frustrated with five-vendor outbound stacks.",
-        },
-        {
-          year: "2024",
-          time: "Summer",
-          description: "First 100 design partners. Waterfall enrichment ships in private beta.",
-        },
-        {
-          year: "2024",
-          time: "Winter",
-          description: "Public launch. 1,200 teams across 22 countries onboard in 90 days.",
-        },
-        {
-          year: "2025",
-          time: "Spring",
-          description: "$18M Series A. Native CRM, warehouse and AI SDR agent shipped.",
-        },
-        {
-          year: "2026",
-          time: "Today",
-          description: "3,200+ revenue teams. SOC 2 Type II. Nine timezones, one mission.",
-        },
-      ],
-    },
-    team: {
-      eyebrow: "Team",
-      title: "Operators,",
-      titleHighlight: "not pundits.",
-      members: [
-        { name: "Ava Larsen", role: "Co-founder & CEO", location: "Oslo" },
-        { name: "Mateo Rivera", role: "Co-founder & CTO", location: "Lisbon" },
-        { name: "Priya Shah", role: "Head of Product", location: "Bangalore" },
-        { name: "Jonas Weber", role: "Head of Data", location: "London" },
-        { name: "Mira Tanaka", role: "Design Director", location: "Tokyo" },
-        { name: "Léa Dupont", role: "Head of GTM", location: "Paris" },
-      ],
-    },
-    press: {
-      eyebrow: "Featured in",
-      publications: ["TechCrunch", "Forbes", "The Information", "Sifted", "Bloomberg"],
-    },
-    cta: {
-      eyebrow: "Join us",
-      title: "Help us build the",
-      titleHighlight: "last data tool",
-      titleSuffix: "your team installs.",
-      primaryCta: { text: "Get in touch", href: "/contact" },
-      secondaryCta: { text: "See pricing", href: "/pricing" },
-    },
-  },
-
-  features: {
-    hero: {
-      eyebrow: "Platform",
-      title: "One platform.",
-      titleHighlight: "Five tools you can cancel.",
+    engage: {
+      eyebrow: "03 — Engage",
+      headline: "Turn intelligence into outreach.",
       description:
-        "From the first ICP search to a closed-won deal — every step lives in Skout AI.",
+        "Once you know who you're targeting and why they matter, Skout helps your team move into outreach without rebuilding the workflow somewhere else. Create sequences, manage conversations, review outbound messaging, and monitor deliverability from the same workspace.",
+      cards: [
+        {
+          title: "Sequences",
+          description: "Build and manage multichannel outbound workflows.",
+        },
+        {
+          title: "Inbox",
+          description: "Keep prospect replies and conversations connected to the people and accounts behind them.",
+        },
+        {
+          title: "AI Review",
+          description: "Use AI-assisted review to improve outbound content before it is sent.",
+        },
+        {
+          title: "Deliverability",
+          description: "Monitor email health and the signals that influence your ability to reach the inbox.",
+        },
+      ],
     },
-    groups: [
+    convert: {
+      eyebrow: "04 — Convert",
+      headline: "When interest turns into opportunity, keep the context.",
+      description:
+        "Prospecting shouldn't end when someone replies. Skout connects contacts and companies with deals, tasks, meetings, and pipeline activity so your team can continue working from the same context that started the conversation.",
+      cards: [
+        {
+          title: "Companies & Contacts",
+          description: "Keep account and contact information organized in one place.",
+        },
+        {
+          title: "Deals",
+          description: "Manage opportunities through a visual pipeline.",
+        },
+        {
+          title: "Tasks",
+          description: "Turn conversations and opportunities into clear next actions.",
+        },
+        {
+          title: "Meetings & Calendar",
+          description: "Keep meetings connected to the accounts and opportunities your team is working.",
+        },
+      ],
+    },
+    icp: {
+      eyebrow: "Your ICP. Built into the workflow.",
+      headline: "Stop treating your ideal customer profile like a slide deck.",
+      description:
+        "Your ICP should influence who you search for, which accounts you prioritize, and how you build your pipeline. Skout brings ICP configuration into the product so your targeting strategy can become part of the actual prospecting workflow.",
+      tagline: "Define it. Find it. Work it.",
+    },
+    dexterDeepDive: {
+      eyebrow: "Meet Dexter",
+      headline: "Your GTM intelligence layer.",
+      description:
+        "Most AI sales tools start with a blank chat box. Dexter starts with your GTM workflow. Because Dexter operates inside Skout, it can help your team work with the prospect, account, targeting, outreach, and pipeline context already available in the platform.",
+      prompts: [
+        {
+          category: "Finding",
+          prompt: "Which accounts match our ICP?",
+          answer:
+            "Found 42 accounts matching Series B+ B2B SaaS with 50-200 employees currently hiring VP of Sales roles.",
+        },
+        {
+          category: "Prioritizing",
+          prompt: "Which prospects should our team focus on first?",
+          answer:
+            "Prioritized Linear, Notion, and Loom based on recent funding, hiring surge (+15%), and tech stack compatibility.",
+        },
+        {
+          category: "Understanding",
+          prompt: "What should I know about this company before reaching out?",
+          answer:
+            "Linear expanded their European sales team last month, recently integrated with HubSpot, and currently has 3 open AE seats.",
+        },
+        {
+          category: "Preparing",
+          prompt: "Help me understand this prospect and the context around the account.",
+          answer:
+            "Sofia Alvarez (CMO) leads a team of 14, evaluates GTM efficiency tools quarterly, and was referenced in a recent RevOps podcast.",
+        },
+        {
+          category: "Messaging",
+          prompt: "Review this outbound message and tell me what could be improved.",
+          answer:
+            "Message focuses too heavily on product features. Recommend leading with their current team growth signal and shortening the call to action.",
+        },
+        {
+          category: "Acting",
+          prompt: "What should I do next with this opportunity?",
+          answer:
+            "Schedule follow-up demo meeting with David Chen and update deal stage to 'Proposal Sent' in your Skout pipeline.",
+        },
+      ],
+      coreStatement: "Dexter doesn't replace your sales team. It gives your sales team better context to act on.",
+    },
+    outboundIntel: {
+      headline: "More automation isn't the goal. Better outbound is.",
+      description:
+        "Automation can make a bad process faster. Skout is built to connect intelligence with execution — helping your team start with better targeting, add context before outreach, review messaging, and keep the resulting activity connected to the CRM.",
+      steps: [
+        {
+          number: "01 — Know",
+          title: "Understand the account",
+          description: "Understand the account and the people inside it.",
+        },
+        {
+          number: "02 — Decide",
+          title: "Focus on fit",
+          description: "Use context and targeting intelligence to determine who deserves attention.",
+        },
+        {
+          number: "03 — Engage",
+          title: "Personalized outreach",
+          description: "Move into personalized, structured outreach with the relevant context attached.",
+        },
+      ],
+    },
+    crmSection: {
+      headline: "A CRM that starts before the opportunity.",
+      description:
+        "Traditional CRM workflows often begin after a lead already exists. Skout connects the earlier stages of the journey — discovery, enrichment, outreach, conversations — with companies, contacts, deals, tasks, and meetings.",
+      keyStatement:
+        "Your CRM shouldn't be where context goes to disappear. It should be where context comes together.",
+    },
+    integrations: {
+      eyebrow: "Works with the tools you already use",
+      headline: "Connect Skout to your existing workflow.",
+      description:
+        "Skout is designed to complement your existing GTM stack rather than force your team to rebuild everything from scratch.",
+      cards: [
+        {
+          name: "HubSpot",
+          description: "Sync relevant CRM data and connect Skout prospecting workflows with HubSpot.",
+        },
+        {
+          name: "Google Calendar",
+          description: "Keep meetings and calendar activity connected to your sales workflow.",
+        },
+        {
+          name: "Bring Your Own Key",
+          description: "Connect supported AI/provider services using your own credentials where available.",
+        },
+      ],
+    },
+    differentiation: {
+      headline: "The problem isn't that sales teams need another tool.",
+      bodyLines: [
+        "They need fewer disconnected workflows.",
+        "A prospecting database tells you who exists.",
+        "An enrichment platform tells you more about them.",
+        "An outreach platform sends the message.",
+        "A CRM records what happened.",
+        "An AI tool writes something.",
+        "Skout is designed to connect the journey between all of them.",
+      ],
+      closingLine: "Discover → Understand → Engage → Convert",
+      subClosing: "One connected GTM workspace.",
+    },
+    pricingTeaser: {
+      headline: "Built around the way your team sells.",
+      ctaText: "See Skout AI",
+      ctaHref: "/pricing",
+    },
+    faq: [
       {
-        title: "Lead Intelligence",
-        features: [
-          {
-            title: "Company search",
-            description:
-              "Filter 45M companies by industry, size, geo, funding stage and revenue band.",
-          },
-          {
-            title: "Employee search",
-            description:
-              "Surface decision-makers across 200M profiles with 40+ persona filters.",
-          },
-          {
-            title: "Email finder",
-            description: "Resolve verified work emails from a name, domain or LinkedIn URL.",
-          },
-          {
-            title: "Phone finder",
-            description:
-              "Compliant mobile and direct dials with carrier validation and DNC screening.",
-          },
-          {
-            title: "LinkedIn enrichment",
-            description:
-              "Hydrate profiles with titles, tenure, skills and recent activity in one call.",
-          },
-          {
-            title: "Technology stack detection",
-            description:
-              "Track 30,000+ tools across your TAM with adoption and churn signals.",
-          },
-          {
-            title: "Funding & growth data",
-            description:
-              "Rounds, investors, hiring velocity and M&A — refreshed every 4 hours.",
-          },
-          {
-            title: "CSV import & export",
-            description:
-              "Drop any list — we match, enrich and return it without changing the schema.",
-          },
-          {
-            title: "Bulk enrichment",
-            description:
-              "Run waterfall enrichment across millions of rows with vendor-priority routing.",
-          },
-          {
-            title: "Saved lists & smart filters",
-            description:
-              "Living ICPs that auto-refresh as new matches appear in the graph.",
-          },
-          {
-            title: "Advanced search",
-            description: "Boolean operators, exclusion logic and lookalike search built in.",
-          },
-          {
-            title: "Lookalike accounts",
-            description:
-              "Feed in 10 best customers — get the 1,000 closest twins ranked by fit.",
-          },
-        ],
+        question: "What is Skout AI?",
+        answer:
+          "Skout AI is an AI-powered GTM platform that combines prospecting, enrichment, outreach, CRM, and sales intelligence in one workspace.",
       },
       {
-        title: "AI Research",
-        features: [
-          {
-            title: "AI lead research",
-            description:
-              "Autonomous agent scans 50+ sources per lead and returns a structured brief.",
-          },
-          {
-            title: "AI company summaries",
-            description:
-              "Plain-English overviews of strategy, products and recent milestones.",
-          },
-          {
-            title: "AI personalized first lines",
-            description: "Hooks grounded in real signals — never generic filler.",
-          },
-          {
-            title: "AI cold email generation",
-            description:
-              "Full sequences in your brand voice, tuned for the recipient's persona.",
-          },
-          {
-            title: "AI lead scoring",
-            description: "Fit + intent + timing scored on a 0-100 scale you can trust.",
-          },
-          {
-            title: "AI ICP matching",
-            description:
-              "Train a custom ICP from 5 closed-won examples in under 60 seconds.",
-          },
-          {
-            title: "GPT-based workflows",
-            description:
-              "Drop AI steps anywhere — extraction, classification, rewriting, scoring.",
-          },
-          {
-            title: "AI-generated notes",
-            description:
-              "Meeting summaries, call recaps and follow-up drafts written automatically.",
-          },
-        ],
+        question: "Who is Skout AI built for?",
+        answer:
+          "Skout is designed for sales and GTM teams that need to find prospects, understand accounts, execute outbound, and manage pipeline without stitching together disconnected tools.",
       },
       {
-        title: "Cold Outreach",
-        features: [
-          {
-            title: "Campaign creation",
-            description:
-              "Launch multi-step campaigns in minutes with reusable templates and blocks.",
-          },
-          {
-            title: "Unlimited mailboxes",
-            description: "Connect as many sending inboxes as you need — no per-seat tax.",
-          },
-          {
-            title: "Email warmup",
-            description:
-              "Built-in warm-up network keeps domains healthy before and during sending.",
-          },
-          {
-            title: "Inbox rotation",
-            description: "Distribute volume across mailboxes automatically.",
-          },
-          {
-            title: "Follow-up sequences",
-            description: "Conditional branches based on opens, clicks and replies.",
-          },
-          {
-            title: "A/B testing",
-            description:
-              "Test subject lines, CTAs and send times with statistical confidence.",
-          },
-          { title: "Smart sending", description: "Adaptive throttling and bounce handling." },
-          {
-            title: "Tracking",
-            description: "Open / click / reply tracking with full attribution.",
-          },
-          {
-            title: "AI-generated sequences",
-            description: "Generate a full 5-touch cadence from one product description.",
-          },
-        ],
+        question: "What makes Skout different from a prospecting database?",
+        answer:
+          "A database primarily helps you find people. Skout is designed to connect what happens before, during, and after prospect discovery — from ICP targeting and enrichment through outreach and pipeline management.",
       },
       {
-        title: "CRM",
-        features: [
-          {
-            title: "Deal pipelines",
-            description: "Drag-and-drop boards with forecasts and custom stages.",
-          },
-          { title: "Tasks", description: "Auto-created from triggers and activities." },
-          { title: "Notes", description: "Rich-text notes attached to contacts and deals." },
-          {
-            title: "Meeting scheduling",
-            description: "Native scheduler with round-robin and buffers.",
-          },
-          {
-            title: "Team collaboration",
-            description: "Shared inboxes, deal rooms and mentions.",
-          },
-          {
-            title: "Activity tracking",
-            description: "Every touch auto-stitched to the right record.",
-          },
-        ],
+        question: "What is Dexter?",
+        answer:
+          "Dexter is Skout AI's GTM intelligence layer. Dexter helps teams work with the prospect, account, outreach, and pipeline context available inside Skout to make better sales decisions and take the next action.",
       },
       {
-        title: "Workflow Automation",
-        features: [
-          { title: "Drag-and-drop builder", description: "Visual no-code workflow builder." },
-          { title: "200+ blocks", description: "Pre-built enrichment and automation blocks." },
-          {
-            title: "Conditional branching",
-            description: "Nested logic with visual conditions.",
-          },
-          {
-            title: "HTTP & webhook nodes",
-            description: "Call any API directly inside workflows.",
-          },
-          { title: "AI nodes", description: "Drop GPT steps into any workflow." },
-          {
-            title: "Schedules & triggers",
-            description: "Run on cron jobs, forms or CRM events.",
-          },
-        ],
+        question: "Does Skout replace my CRM?",
+        answer:
+          "Skout includes native CRM functionality for companies, contacts, deals, tasks, and meetings. It can also connect with supported external systems such as HubSpot.",
       },
       {
-        title: "Chrome Extension",
-        features: [
-          {
-            title: "LinkedIn sidebar",
-            description: "Full prospect profile on any LinkedIn page.",
-          },
-          {
-            title: "One-click enrichment",
-            description: "Grab verified data without leaving the tab.",
-          },
-          { title: "Save to CRM", description: "Push contacts and notes instantly." },
-          { title: "Find email instantly", description: "Verified email in under 400ms." },
-        ],
+        question: "How does Skout help with enrichment?",
+        answer:
+          "Skout can enrich contact and company information so teams have more context around the people and accounts they are targeting.",
       },
       {
-        title: "Analytics",
-        features: [
-          { title: "Leads analytics", description: "Funnel and source analytics." },
-          {
-            title: "Open & reply rates",
-            description: "Deliverability and engagement insights.",
-          },
-          {
-            title: "Deliverability monitoring",
-            description: "Spam-trap and blacklist monitoring.",
-          },
-          {
-            title: "Revenue tracking",
-            description: "Closed-won attribution analytics.",
-          },
-          { title: "Campaign analytics", description: "Per-step performance insights." },
-          {
-            title: "Team performance",
-            description: "Rep leaderboards and contribution tracking.",
-          },
-          {
-            title: "AI insights",
-            description: "Weekly written summaries and anomaly detection.",
-          },
-          {
-            title: "Recent activities",
-            description: "Unified activity feed across the team.",
-          },
-        ],
+        question: "Can I use my own AI/provider keys?",
+        answer:
+          "Skout supports BYOK for supported providers and integrations. The exact providers should be listed based on the integrations currently exposed in the product.",
       },
       {
-        title: "AI SDR Agent",
-        features: [
-          {
-            title: "Finds leads automatically",
-            description: "Searches the graph 24/7 for ICP matches.",
-          },
-          { title: "Generates outreach", description: "Writes personalized first touches." },
-          {
-            title: "Sends follow-ups",
-            description: "Smart timing and branching sequences.",
-          },
-          {
-            title: "Qualifies leads",
-            description: "Conversational qualification workflows.",
-          },
-          { title: "Books meetings", description: "Schedules meetings automatically." },
-        ],
+        question: "Does Skout automate outbound?",
+        answer:
+          "Skout provides sequence and outreach functionality that helps teams structure and automate outbound workflows while keeping prospect context, conversations, and CRM activity connected.",
+      },
+      {
+        question: "How does Skout approach deliverability?",
+        answer:
+          "Skout includes deliverability functionality and AI-assisted review designed to help teams make more informed decisions around outbound messaging and sending workflows.",
+      },
+      {
+        question: "Can I import my existing prospects?",
+        answer:
+          "Yes. Skout supports importing prospects so teams can bring existing data into their workspace and continue enriching and managing it there.",
       },
     ],
-    cta: {
-      title: "Ready to consolidate your stack?",
-      description:
-        "Replace five disconnected tools with one unified revenue operating system.",
-      ctaText: "Start free",
-      ctaHref: "/contact",
-    },
-  },
-
-  pricing: {
-    hero: {
-      eyebrow: "Pricing",
-      title: "Pay for results,",
-      titleHighlight: "not per seat.",
-      description:
-        "Credit-based pricing means every team member gets full access. You only pay for what you enrich and send.",
-    },
-    tiers: [
-      {
-        name: "Free",
-        price: "$0",
-        per: "forever",
-        desc: "For founders kicking the tires.",
-        cta: "Start free",
-        ctaHref: "/contact",
-        highlight: false,
-        features: [
-          "50 enrichment credits / mo",
-          "Email verification",
-          "Chrome extension",
-          "1 user",
-        ],
-      },
-      {
-        name: "Growth",
-        price: "$79",
-        per: "user / month",
-        desc: "For teams running daily outbound.",
-        cta: "Start trial",
-        ctaHref: "/contact",
-        highlight: true,
-        features: [
-          "3,000 credits / user",
-          "Waterfall enrichment",
-          "Multi-channel sequences",
-          "CRM sync (HubSpot, Salesforce)",
-          "Intent topics (50)",
-        ],
-      },
-      {
-        name: "Scale",
-        price: "$199",
-        per: "user / month",
-        desc: "For revenue orgs of 10+.",
-        cta: "Talk to sales",
-        ctaHref: "/contact",
-        highlight: false,
-        features: [
-          "10,000 credits / user",
-          "Unlimited intent topics",
-          "Job change alerts",
-          "API + webhooks",
-          "SSO & SCIM",
-        ],
-      },
-      {
-        name: "Enterprise",
-        price: "Custom",
-        per: "annual",
-        desc: "Custom volume, security and SLAs.",
-        cta: "Contact sales",
-        ctaHref: "/contact",
-        highlight: false,
-        features: [
-          "Unlimited credits",
-          "Dedicated CSM",
-          "Warehouse sync",
-          "DPA, SOC 2, HIPAA-ready",
-          "Private workspace",
-        ],
-      },
-    ],
-    compare: {
-      eyebrow: "Compare",
-      title: "Compare plans",
-      rows: [
-        ["Contacts in database", "200M", "200M", "200M", "200M"],
-        ["Waterfall enrichment", "—", "✓", "✓", "✓"],
-        ["Multi-channel sequences", "—", "✓", "✓", "✓"],
-        ["Intent signals", "—", "50 topics", "Unlimited", "Unlimited"],
-        ["API access", "—", "—", "✓", "✓"],
-        ["SSO / SCIM", "—", "—", "✓", "✓"],
-        ["Dedicated CSM", "—", "—", "—", "✓"],
-      ],
-    },
-  },
-
-  solutions: {
-    hero: {
-      eyebrow: "Solutions",
-      title: "Built for the way",
-      titleHighlight: "your team works.",
-      description:
-        "Purpose-built workflows for sales, recruiting, RevOps, founders and agencies — all on one platform.",
-    },
-    solutions: [
-      {
-        title: "Outbound sales",
-        description:
-          "Build verified lists, launch multi-channel cadences and pipe replies straight into your CRM.",
-        bullets: ["ICP & lookalikes", "Sequence builder", "Reply routing"],
-      },
-      {
-        title: "Demand generation",
-        description:
-          "Identify intent surges and trigger ad audiences + email plays before competitors notice.",
-        bullets: ["Intent topics", "Audience sync", "Lift reports"],
-      },
-      {
-        title: "Recruiting & sourcing",
-        description:
-          "Source passive talent with people-graph filters and verified personal emails.",
-        bullets: ["Talent search", "Job change alerts", "ATS sync"],
-      },
-      {
-        title: "Agencies & lead-gen",
-        description:
-          "White-label dashboards, per-client workspaces and pooled credits with margin control.",
-        bullets: ["Workspaces", "White label", "Margin pricing"],
-      },
-      {
-        title: "Founders & GTM",
-        description:
-          "Skip the data-vendor maze. One subscription that scales from PMF to Series C.",
-        bullets: ["Self-serve onboarding", "Usage-based pricing", "Founder support"],
-      },
-      {
-        title: "RevOps",
-        description:
-          "Keep your CRM clean with continuous enrichment, dedup and field standardization.",
-        bullets: ["Bi-directional sync", "Dedup engine", "Field mapping"],
-      },
-    ],
-    cta: {
-      eyebrow: "Use cases",
-      title: "One platform for every",
-      titleHighlight: "revenue workflow.",
-      description:
-        "Replace disconnected point solutions with one unified data, outreach and automation layer.",
-      primaryCta: { text: "View pricing", href: "/pricing" },
-      secondaryCta: { text: "Book demo", href: "/contact" },
-    },
-  },
-
-  integrations: {
-    hero: {
-      eyebrow: "Integrations",
-      title: "Plays nicely with",
-      titleHighlight: "everything you already use.",
-      description:
-        "Native connectors, an open API and webhooks for the rest. Your data, your warehouse — always.",
-    },
-    groups: [
-      {
-        name: "CRM",
-        blurb: "Two-way sync with the systems of record your revenue team lives in.",
-        items: [
-          { name: "Salesforce", caption: "Bi-directional sync", key: "SF" },
-          { name: "HubSpot", caption: "Native app", key: "HS" },
-          { name: "Pipedrive", caption: "Real-time push", key: "PD" },
-          { name: "Close", caption: "Activity sync", key: "CL" },
-          { name: "Attio", caption: "Workspace sync", key: "AT" },
-          { name: "Folk", caption: "Contact sync", key: "FK" },
-        ],
-      },
-      {
-        name: "Warehouse & ETL",
-        blurb: "Land enriched data in your warehouse with reverse ETL out of the box.",
-        items: [
-          { name: "Snowflake", caption: "Reverse ETL", key: "SN" },
-          { name: "BigQuery", caption: "Streaming", key: "BQ" },
-          { name: "Redshift", caption: "Batch loads", key: "RS" },
-          { name: "Postgres", caption: "Direct connect", key: "PG" },
-          { name: "Segment", caption: "Event stream", key: "SG" },
-          { name: "Fivetran", caption: "Managed sync", key: "FT" },
-        ],
-      },
-      {
-        name: "Outreach & Comms",
-        blurb:
-          "Send from your inbox, log calls, and book meetings without context switching.",
-        items: [
-          { name: "Slack", caption: "Alerts & DMs", key: "SL" },
-          { name: "Gmail", caption: "Send & track", key: "GM" },
-          { name: "Outlook", caption: "Send & track", key: "OL" },
-          { name: "Zoom", caption: "Meeting logs", key: "ZM" },
-          { name: "Calendly", caption: "Auto-booking", key: "CD" },
-          { name: "Aircall", caption: "Dialer", key: "AC" },
-        ],
-      },
-      {
-        name: "Workflow & Data",
-        blurb: "Compose Skout AI into anything via low-code, no-code, or raw HTTP.",
-        items: [
-          { name: "Zapier", caption: "5,000+ apps", key: "ZP" },
-          { name: "Make", caption: "Visual scenarios", key: "MK" },
-          { name: "n8n", caption: "Self-hosted", key: "N8" },
-          { name: "Webhook", caption: "Real-time events", key: "WH" },
-          { name: "REST API", caption: "Full coverage", key: "RA" },
-          { name: "GraphQL", caption: "Typed queries", key: "GQ" },
-        ],
-      },
-    ],
-    custom: {
-      eyebrow: "Custom",
-      title: "Don't see",
-      titleHighlight: "your stack?",
-      description:
-        "Every Skout AI object is exposed through a typed REST and GraphQL API, plus signed webhooks for every event. If it has an HTTP endpoint, it integrates.",
-      features: ["REST API", "GraphQL", "Webhooks", "OAuth 2.0", "SCIM", "Audit logs"],
+    finalCta: {
+      eyebrow: "Your next pipeline opportunity is probably buried in your workflow.",
+      headline: "Give your GTM team one place to find it, understand it, and act on it.",
+      body: "Bring prospecting, intelligence, outreach, and pipeline together with Skout AI.",
+      primaryCta: { text: "Book a demo", href: "/contact" },
+      secondaryCta: { text: "See Skout AI", href: "/pricing" },
+      supportingLine: "Discover better. Engage smarter. Sell with context.",
     },
   },
 };

@@ -19,11 +19,17 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const data = contactSchema.parse(body);
 
-    // 1. Save to MongoDB
-    await connectDB();
-    await Contact.create(data);
+    // 1. Try to save to MongoDB if connected
+    try {
+      const conn = await connectDB();
+      if (conn) {
+        await Contact.create(data);
+      }
+    } catch (dbErr) {
+      console.warn("[contact/POST] DB offline, proceeding with email notification:", dbErr);
+    }
 
-    // 2. Send emails (notification + auto-reply)
+    // 2. Send email notification
     await sendContactEmail(data);
 
     return NextResponse.json({

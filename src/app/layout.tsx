@@ -5,42 +5,46 @@ import "@/styles.css";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(APP_URL),
+  metadataBase: new URL("https://skoutai.io"),
   title: {
-    default: "Skout AI — Unified B2B Revenue Intelligence",
+    default: "Skout AI | AI-Powered GTM Platform for Smarter Outbound",
     template: "%s | Skout AI",
   },
   description:
-    "Find, verify, and reach your next customer with the all-in-one B2B data, enrichment, intent signals and outreach platform. 200M+ verified contacts.",
+    "Find the right prospects, enrich accounts, personalize outreach, and manage your pipeline with Skout AI's intelligent GTM platform.",
   keywords: [
-    "B2B data",
-    "lead intelligence",
-    "sales prospecting",
-    "email finder",
-    "revenue intelligence",
-    "outbound sales",
-    "AI SDR",
-    "waterfall enrichment",
+    "Skout AI",
+    "GTM platform",
+    "prospect discovery",
+    "contact enrichment",
+    "sales intelligence",
+    "outreach sequences",
+    "deliverability",
+    "Dexter AI",
+    "B2B CRM",
+    "ICP targeting",
   ],
-  authors: [{ name: "Skout AI", url: APP_URL }],
+  authors: [{ name: "Skout AI", url: "https://skoutai.io/" }],
   creator: "Skout AI",
+  alternates: {
+    canonical: "https://skoutai.io/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: APP_URL,
+    url: "https://skoutai.io/",
     siteName: "Skout AI",
-    title: "Skout AI — Unified B2B Revenue Intelligence",
+    title: "Skout AI — Find Better Prospects. Sell Smarter.",
     description:
-      "Find, verify, and reach your next customer with the all-in-one B2B data, enrichment and outreach platform.",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Skout AI" }],
+      "One intelligent workspace for prospecting, enrichment, outreach, CRM, and GTM intelligence. Meet Dexter, your AI-powered sales intelligence layer.",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Skout AI — Find → Understand → Engage → Convert" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Skout AI — Unified B2B Revenue Intelligence",
+    title: "Skout AI — Find Better Prospects. Sell Smarter.",
     description:
-      "Find, verify, and reach your next customer with the all-in-one B2B data, enrichment and outreach platform.",
+      "One intelligent workspace for prospecting, enrichment, outreach, CRM, and GTM intelligence. Meet Dexter, your AI-powered sales intelligence layer.",
     images: ["/og.png"],
-    creator: "@skoutai",
   },
   robots: {
     index: true,

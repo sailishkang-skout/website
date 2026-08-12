@@ -21,11 +21,18 @@ export async function POST(request: NextRequest) {
     const ip = getClientIp(request);
     const userAgent = request.headers.get("user-agent") ?? "";
 
-    await connectDB();
-    await PageView.create({ ip, path, userAgent });
+    try {
+      const conn = await connectDB();
+      if (conn) {
+        await PageView.create({ ip, path, userAgent });
+      }
+    } catch (dbErr) {
+      // Gracefully ignore DB connection failure for pageview tracking
+      console.warn("[analytics/pageview] DB offline, tracking skipped silently.");
+    }
 
     return NextResponse.json({ ok: true });
   } catch {
-    return NextResponse.json({ error: "Internal error" }, { status: 500 });
+    return NextResponse.json({ ok: true, fallback: true });
   }
 }
