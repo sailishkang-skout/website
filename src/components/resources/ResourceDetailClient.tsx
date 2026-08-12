@@ -73,7 +73,7 @@ export default function ResourceDetailClient({ resource }: Props) {
       <Section className="py-8! md:py-12!">
         <div className="flex flex-wrap items-center justify-center gap-2.5">
           {categoriesList.map((cat) => {
-            const Icon = ICON_MAP[cat.iconName] || ShieldCheck;
+            const Icon = (cat.iconName && ICON_MAP[cat.iconName]) || ShieldCheck;
             const isActive = activeCategory === cat.id;
 
             return (

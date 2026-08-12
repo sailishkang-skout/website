@@ -8,7 +8,7 @@ export interface SimpleStep {
 
 export interface SetupCategory {
   id: string;
-  iconName: string;
+  iconName?: string;
   title: string;
   badge: string;
   summary: string;
@@ -106,6 +106,7 @@ export const RESOURCES_DATA: Record<string, ResourceData> = {
       },
       {
         id: "extension",
+        iconName: "Chrome",
         title: "3. Chrome Extension V3",
         badge: "LinkedIn",
         summary: "Install the Skout Extension to capture and enrich leads directly on LinkedIn.",
@@ -125,6 +126,7 @@ export const RESOURCES_DATA: Record<string, ResourceData> = {
       },
       {
         id: "crm-ai",
+        iconName: "Bot",
         title: "4. CRM Sync & Dexter AI",
         badge: "Automation",
         summary: "Connect your HubSpot CRM and configure Dexter AI for automated prospect research.",
