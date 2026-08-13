@@ -8,13 +8,11 @@ import {
   Zap,
   ShieldCheck,
   Sparkles,
-  HelpCircle,
   ChevronDown,
   Building2,
   Lock,
   Layers,
   Users,
-  TrendingUp,
   X,
   Star,
   Shield,
@@ -22,8 +20,16 @@ import {
   Globe,
   Database,
   RefreshCw,
+  Sliders,
+  Bot,
+  Mail,
+  BarChart3,
+  Cpu,
+  HelpCircle,
+  ArrowUpRight,
+  CheckCircle2,
 } from "lucide-react";
-import { Section, Eyebrow, GradientText } from "@/components/site/Section";
+import { Section, Eyebrow } from "@/components/site/Section";
 import { WORKSPACE_URL } from "@/lib/constants";
 
 interface Props {
@@ -32,7 +38,7 @@ interface Props {
 
 export default function PricingClient({ content }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [activeTab, setActiveTab] = useState<"all" | "included" | "limits">("all");
+  const [selectedTab, setSelectedTab] = useState<"all" | "core" | "ai" | "deliverability">("all");
 
   const plans = [
     {
@@ -47,6 +53,8 @@ export default function PricingClient({ content }: Props) {
       subtext: "No credit card required.",
       ctaText: "Start Free →",
       ctaHref: WORKSPACE_URL,
+      accentColor: "border-border/80 bg-card/60 hover:border-accent/40",
+      badgeColor: "bg-muted text-muted-foreground",
       includes: [
         "Prospect search",
         "Basic company information",
@@ -93,6 +101,8 @@ export default function PricingClient({ content }: Props) {
       subtext: "Everything in Free, plus:",
       ctaText: "Start Starter →",
       ctaHref: WORKSPACE_URL,
+      accentColor: "border-indigo-500/40 bg-card/80 hover:border-indigo-500/80 hover:shadow-indigo-500/10",
+      badgeColor: "bg-indigo-500/15 text-indigo-400 border border-indigo-500/30",
       includes: [
         "5,000 enrichment credits/month",
         "Multiple connected mailboxes",
@@ -124,13 +134,15 @@ export default function PricingClient({ content }: Props) {
       price: "$79",
       period: "/ month",
       popular: true,
-      badge: "Most Popular",
+      badge: "★ MOST POPULAR",
       tagline: "Build a serious outbound engine.",
       description:
         "For growing sales teams that need more automation, intelligence, and scale.",
       subtext: "Everything in Starter, plus:",
       ctaText: "Start Scale →",
       ctaHref: WORKSPACE_URL,
+      accentColor: "border-accent bg-gradient-to-b from-indigo-950/40 via-card to-card shadow-2xl shadow-indigo-500/20 scale-[1.02] lg:scale-[1.04] z-10",
+      badgeColor: "bg-gradient-to-r from-accent via-indigo-500 to-purple-500 text-white shadow-lg",
       includes: [
         "15,000 enrichment credits/month",
         "Increased sending capacity",
@@ -165,6 +177,7 @@ export default function PricingClient({ content }: Props) {
       price: "Custom",
       period: "",
       popular: false,
+      badge: "ORGANIZATION SCALE",
       tagline: "Your sales infrastructure, built around your organization.",
       description:
         "For larger teams that require higher volumes, custom workflows, advanced controls, integrations, security requirements, and dedicated support.",
@@ -172,6 +185,8 @@ export default function PricingClient({ content }: Props) {
         "Pricing is based on your team size, usage, data requirements, integrations, and operational requirements. Everything in Scale, plus:",
       ctaText: "Talk to Sales →",
       ctaHref: "/contact",
+      accentColor: "border-purple-500/40 bg-gradient-to-b from-purple-950/20 via-card to-card hover:border-purple-500/80",
+      badgeColor: "bg-purple-500/15 text-purple-300 border border-purple-500/30",
       includes: [
         "Custom enrichment volumes",
         "Custom sending requirements",
@@ -207,6 +222,8 @@ export default function PricingClient({ content }: Props) {
     {
       title: "Free",
       price: "$0",
+      icon: Zap,
+      accent: "from-blue-500/10 to-indigo-500/5 border-blue-500/20",
       subtitle: "Find prospects. Enrich contacts. Manage your CRM. Send your first 1,000 emails.",
       bestFor: "Best for: Getting started",
       cta: "Start Free",
@@ -215,6 +232,8 @@ export default function PricingClient({ content }: Props) {
     {
       title: "Starter",
       price: "$54/mo",
+      icon: Mail,
+      accent: "from-indigo-500/10 to-purple-500/5 border-indigo-500/30",
       subtitle: "Automate your email outbound. Build sequences. Personalize outreach. Manage your pipeline.",
       bestFor: "Best for: Founders & small teams",
       cta: "Start Starter",
@@ -223,7 +242,9 @@ export default function PricingClient({ content }: Props) {
     {
       title: "Scale",
       price: "$79/mo",
+      icon: Sparkles,
       highlight: true,
+      accent: "from-indigo-500/20 via-purple-500/15 to-accent/10 border-accent shadow-lg shadow-indigo-500/15",
       subtitle: "Automate serious outbound. Add multi-channel workflows. Use AI prospect intelligence. Scale your sales operation.",
       bestFor: "Best for: Growing sales teams",
       cta: "Start Scale",
@@ -232,6 +253,8 @@ export default function PricingClient({ content }: Props) {
     {
       title: "Enterprise",
       price: "Custom",
+      icon: Building2,
+      accent: "from-purple-500/10 to-pink-500/5 border-purple-500/30",
       subtitle: "Custom infrastructure. Advanced permissions. Custom integrations. Dedicated support.",
       bestFor: "Best for: Larger organizations",
       cta: "Talk to Sales",
@@ -239,56 +262,91 @@ export default function PricingClient({ content }: Props) {
     },
   ];
 
-  const comparisonRows = [
-    { feature: "Pricing", free: "$0", starter: "$54/mo", scale: "$79/mo", enterprise: "Custom" },
-    { feature: "Prospect Search", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Company Data", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Contact Data", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Contact Enrichment", free: "Limited", starter: "5K/mo", scale: "15K/mo", enterprise: "Custom" },
-    { feature: "Email Verification", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Email Sending", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Emails / Month", free: "1,000", starter: "Higher limits", scale: "Higher limits", enterprise: "Custom" },
-    { feature: "Manual Sequences", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Automated Sequences", free: "—", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Multi-Step Sequences", free: "Limited", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Automated Follow-ups", free: "—", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Multi-Channel Outreach", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-    { feature: "LinkedIn Workflows", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-    { feature: "Call Tasks", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-    { feature: "CRM", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Pipeline Management", free: "Basic", starter: "✓", scale: "Advanced", enterprise: "Custom" },
-    { feature: "CSV Import", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "CSV Export", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Smart Lists", free: "Limited", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Automated Prospect Ingestion", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-    { feature: "Email Tracking", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Reply Detection", free: "—", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Unified Inbox", free: "Basic", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "AI Assistance", free: "Limited", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "AI Personalization", free: "Limited", starter: "✓", scale: "Advanced", enterprise: "Advanced" },
-    { feature: "AI Prospect Research", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-    { feature: "AI Sequence Creation", free: "—", starter: "Basic", scale: "✓", enterprise: "✓" },
-    { feature: "AI Outbound Review", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-    { feature: "Connected Mailboxes", free: "Limited", starter: "Multiple", scale: "More", enterprise: "Custom" },
-    { feature: "Mailbox Rotation", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-    { feature: "Deliverability Monitoring", free: "Basic", starter: "✓", scale: "Advanced", enterprise: "Advanced" },
-    { feature: "DNS Checks", free: "—", starter: "✓", scale: "Automated", enterprise: "Advanced" },
-    { feature: "Warm-up Capabilities", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-    { feature: "Suppression Management", free: "✓", starter: "✓", scale: "Advanced", enterprise: "Advanced" },
-    { feature: "Analytics", free: "Basic", starter: "✓", scale: "Advanced", enterprise: "Custom" },
-    { feature: "Revenue Analytics", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-    { feature: "HubSpot", free: "—", starter: "Standard", scale: "Two-way", enterprise: "Custom" },
-    { feature: "Chrome Extension", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-    { feature: "API", free: "—", starter: "—", scale: "Limited/optional", enterprise: "✓" },
-    { feature: "Webhooks", free: "—", starter: "—", scale: "—", enterprise: "✓" },
-    { feature: "Advanced Permissions", free: "—", starter: "—", scale: "—", enterprise: "✓" },
-    { feature: "Multiple Workspaces", free: "—", starter: "—", scale: "—", enterprise: "✓" },
-    { feature: "Custom Workflows", free: "—", starter: "—", scale: "—", enterprise: "✓" },
-    { feature: "Custom Integrations", free: "—", starter: "—", scale: "—", enterprise: "✓" },
-    { feature: "DPA", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-    { feature: "Security Documentation", free: "Standard", starter: "Standard", scale: "Standard", enterprise: "Advanced" },
-    { feature: "Support", free: "Standard", starter: "Priority", scale: "Priority", enterprise: "Dedicated" },
-    { feature: "SLA", free: "—", starter: "—", scale: "—", enterprise: "Custom" },
+  const comparisonCategories = [
+    {
+      category: "Pricing & Core Volume",
+      rows: [
+        { feature: "Pricing", free: "$0", starter: "$54/mo", scale: "$79/mo", enterprise: "Custom" },
+        { feature: "Emails / Month", free: "1,000", starter: "Higher limits", scale: "Higher limits", enterprise: "Custom" },
+        { feature: "Contact Enrichment", free: "Limited", starter: "5K/mo", scale: "15K/mo", enterprise: "Custom" },
+        { feature: "Email Verification", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Email Sending", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
+      ],
+    },
+    {
+      category: "Prospecting & Data Sourcing",
+      rows: [
+        { feature: "Prospect Search", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Company Data", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Contact Data", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "CSV Import", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "CSV Export", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Smart Lists", free: "Limited", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Automated Prospect Ingestion", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
+      ],
+    },
+    {
+      category: "Outbound Sequences & Multi-Channel",
+      rows: [
+        { feature: "Manual Sequences", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Automated Sequences", free: "—", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Multi-Step Sequences", free: "Limited", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Automated Follow-ups", free: "—", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Multi-Channel Outreach", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
+        { feature: "LinkedIn Workflows", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
+        { feature: "Call Tasks", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
+      ],
+    },
+    {
+      category: "CRM & Pipeline Management",
+      rows: [
+        { feature: "CRM", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Pipeline Management", free: "Basic", starter: "✓", scale: "Advanced", enterprise: "Custom" },
+        { feature: "Email Tracking", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Reply Detection", free: "—", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Unified Inbox", free: "Basic", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "HubSpot", free: "—", starter: "Standard", scale: "Two-way", enterprise: "Custom" },
+        { feature: "Chrome Extension", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
+      ],
+    },
+    {
+      category: "AI Sales Intelligence",
+      rows: [
+        { feature: "AI Assistance", free: "Limited", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "AI Personalization", free: "Limited", starter: "✓", scale: "Advanced", enterprise: "Advanced" },
+        { feature: "AI Prospect Research", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
+        { feature: "AI Sequence Creation", free: "—", starter: "Basic", scale: "✓", enterprise: "✓" },
+        { feature: "AI Outbound Review", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
+      ],
+    },
+    {
+      category: "Infrastructure & Deliverability",
+      rows: [
+        { feature: "Connected Mailboxes", free: "Limited", starter: "Multiple", scale: "More", enterprise: "Custom" },
+        { feature: "Mailbox Rotation", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
+        { feature: "Deliverability Monitoring", free: "Basic", starter: "✓", scale: "Advanced", enterprise: "Advanced" },
+        { feature: "DNS Checks", free: "—", starter: "✓", scale: "Automated", enterprise: "Advanced" },
+        { feature: "Warm-up Capabilities", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
+        { feature: "Suppression Management", free: "✓", starter: "✓", scale: "Advanced", enterprise: "Advanced" },
+      ],
+    },
+    {
+      category: "Analytics & Enterprise Controls",
+      rows: [
+        { feature: "Analytics", free: "Basic", starter: "✓", scale: "Advanced", enterprise: "Custom" },
+        { feature: "Revenue Analytics", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
+        { feature: "API", free: "—", starter: "—", scale: "Limited/optional", enterprise: "✓" },
+        { feature: "Webhooks", free: "—", starter: "—", scale: "—", enterprise: "✓" },
+        { feature: "Advanced Permissions", free: "—", starter: "—", scale: "—", enterprise: "✓" },
+        { feature: "Multiple Workspaces", free: "—", starter: "—", scale: "—", enterprise: "✓" },
+        { feature: "Custom Workflows", free: "—", starter: "—", scale: "—", enterprise: "✓" },
+        { feature: "Custom Integrations", free: "—", starter: "—", scale: "—", enterprise: "✓" },
+        { feature: "DPA", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
+        { feature: "Security Documentation", free: "Standard", starter: "Standard", scale: "Standard", enterprise: "Advanced" },
+        { feature: "Support", free: "Standard", starter: "Priority", scale: "Priority", enterprise: "Dedicated" },
+        { feature: "SLA", free: "—", starter: "—", scale: "—", enterprise: "Custom" },
+      ],
+    },
   ];
 
   const whyUpgrade = [
@@ -297,24 +355,32 @@ export default function PricingClient({ content }: Props) {
       description:
         "Build sequences that automatically follow up with prospects instead of manually managing every interaction.",
       icon: RefreshCw,
+      badge: "Automation",
+      color: "from-blue-500/20 to-indigo-500/10 text-blue-400 border-blue-500/30",
     },
     {
       title: "From data → intelligence",
       description:
         "Go beyond basic contact information with enrichment, prospect research, personalization, and AI-assisted workflows.",
       icon: Sparkles,
+      badge: "AI & Data",
+      color: "from-purple-500/20 to-pink-500/10 text-purple-400 border-purple-500/30",
     },
     {
       title: "From one channel → multiple channels",
       description:
         "Bring email, LinkedIn, tasks, and other outbound activities into a single workflow.",
       icon: Layers,
+      badge: "Multi-Channel",
+      color: "from-emerald-500/20 to-teal-500/10 text-emerald-400 border-emerald-500/30",
     },
     {
       title: "From individual → team",
       description:
         "Give your sales team the CRM, automation, analytics, permissions, and collaboration tools needed to operate at scale.",
       icon: Users,
+      badge: "Scale & Team",
+      color: "from-amber-500/20 to-orange-500/10 text-amber-400 border-amber-500/30",
     },
   ];
 
@@ -394,115 +460,161 @@ export default function PricingClient({ content }: Props) {
     },
   ];
 
-  return (
-    <div className="flex flex-col gap-0 text-foreground">
-      {/* 1. HERO SECTION */}
-      <div style={{ background: "var(--gradient-hero)" }} className="border-b border-border/60">
-        <Section className="py-12! md:py-20! text-center">
-          <div className="mx-auto max-w-4xl space-y-6">
-            <Eyebrow>Pricing</Eyebrow>
+  const renderTableCell = (val: string, isScale = false) => {
+    if (val === "✓") {
+      return (
+        <span className={`inline-flex items-center justify-center h-6 w-6 rounded-full ${isScale ? "bg-emerald-500/20 text-emerald-400" : "bg-emerald-500/10 text-emerald-400"}`}>
+          <Check className="h-3.5 w-3.5" />
+        </span>
+      );
+    }
+    if (val === "—") {
+      return <span className="text-muted-foreground/40 font-mono">—</span>;
+    }
+    return (
+      <span className={`font-semibold ${isScale ? "text-accent" : "text-foreground/90"}`}>
+        {val}
+      </span>
+    );
+  };
 
-            <h1 className="mx-auto max-w-3xl font-display text-3xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight text-foreground">
-              Start free. Scale when your outbound <GradientText>grows.</GradientText>
+  return (
+    <div className="flex flex-col gap-0 text-foreground overflow-x-hidden">
+      {/* 1. HERO SECTION WITH RICH GLOOMING RADIAL GRADIENTS */}
+      <div className="relative border-b border-border/60 overflow-hidden bg-background">
+        {/* Subtle Background Glow Orbs */}
+        <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[800px] rounded-full bg-gradient-to-tr from-indigo-600/20 via-purple-600/15 to-accent/10 blur-[120px] opacity-70" />
+        <div className="pointer-events-none absolute top-1/2 -right-40 h-[350px] w-[350px] rounded-full bg-accent/10 blur-[100px]" />
+
+        <Section className="py-14! md:py-24! text-center relative z-10">
+          <div className="mx-auto max-w-4xl space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold text-accent shadow-sm backdrop-blur-md">
+              <Sparkles className="h-3.5 w-3.5 animate-pulse text-accent" />
+              <span>TRANSPARENT INFRASTRUCTURE PRICING</span>
+            </div>
+
+            <h1 className="mx-auto max-w-3xl font-display text-3xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight">
+              Start free. Scale when your outbound{" "}
+              <span className="bg-gradient-to-r from-accent via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                grows.
+              </span>
             </h1>
 
-            <p className="mx-auto max-w-2xl text-sm sm:text-base leading-relaxed text-muted-foreground">
+            <p className="mx-auto max-w-2xl text-xs sm:text-base leading-relaxed text-muted-foreground font-normal">
               Everything you need to find prospects, enrich contacts, organize your pipeline, and start outbound — with more automation, intelligence, and scale as your team grows. No long-term commitment. Upgrade when you need more.
             </p>
 
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+            {/* ACTION BUTTONS */}
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
               <a
                 href={WORKSPACE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto rounded-xl bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground shadow-lg shadow-accent/20 transition-all hover:scale-105 hover:bg-accent/90"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-accent px-8 py-3.5 text-sm font-bold text-accent-foreground shadow-xl shadow-accent/25 transition-all hover:scale-[1.03] hover:bg-accent/90"
               >
-                Start Free — $0
+                <span>Start Free — $0</span>
+                <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href="#feature-comparison"
-                className="w-full sm:w-auto rounded-xl border border-border bg-card/60 px-7 py-3.5 text-sm font-semibold text-foreground backdrop-blur-md transition-all hover:bg-card hover:border-accent/40"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-border/80 bg-card/80 px-7 py-3.5 text-sm font-semibold text-foreground backdrop-blur-md transition-all hover:bg-card hover:border-accent/40"
               >
-                Compare Plans ↓
+                <span>Compare Plans ↓</span>
               </a>
             </div>
 
-            <div className="pt-1 text-xs text-muted-foreground flex flex-wrap items-center justify-center gap-2 sm:gap-4 font-medium">
-              <span>No credit card required</span>
-              <span>•</span>
-              <span>Upgrade anytime</span>
-              <span>•</span>
-              <span>Cancel anytime</span>
+            {/* SUBTEXT PILLS */}
+            <div className="pt-2 text-xs text-muted-foreground flex flex-wrap items-center justify-center gap-3 sm:gap-6 font-medium">
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> No credit card required
+              </span>
+              <span className="text-border">•</span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Upgrade anytime
+              </span>
+              <span className="text-border">•</span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Cancel anytime
+              </span>
             </div>
 
-            <div className="pt-4 inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/80 px-4 py-1.5 text-xs font-semibold text-muted-foreground shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Monthly billing — transparent, flexible pricing</span>
+            {/* MONTHLY BILLING NOTICE BADGE */}
+            <div className="pt-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/90 px-4 py-1.5 text-xs font-semibold text-foreground/90 shadow-sm backdrop-blur-md">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Monthly billing — Pay only for the infrastructure you use</span>
+              </div>
             </div>
           </div>
         </Section>
       </div>
 
-      {/* 2. PRICING CARDS */}
-      <Section className="py-12! md:py-16!">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+      {/* 2. PRICING CARDS SECTION */}
+      <Section className="py-14! md:py-20! relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 items-stretch">
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`relative flex flex-col justify-between rounded-2xl border p-6 transition-all duration-300 ${
-                plan.popular
-                  ? "border-accent/80 bg-gradient-to-b from-accent/10 via-card to-card shadow-2xl shadow-accent/15 scale-102 z-10"
-                  : "border-border bg-card/70 hover:border-border/80 hover:bg-card shadow-lg"
-              }`}
+              className={`relative flex flex-col justify-between rounded-3xl border p-6 sm:p-7 transition-all duration-300 backdrop-blur-xl ${plan.accentColor}`}
             >
               {plan.popular && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-accent via-indigo-500 to-purple-500 px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-accent-foreground shadow-md flex items-center gap-1">
-                  <Star className="h-3 w-3 fill-current" /> {plan.badge}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-accent via-indigo-500 to-purple-500 px-4 py-1 text-[11px] font-extrabold uppercase tracking-widest text-white shadow-xl shadow-accent/30 flex items-center gap-1.5">
+                  <Star className="h-3 w-3 fill-current text-amber-300" /> {plan.badge}
                 </div>
               )}
 
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <div>
-                  <h3 className="font-display text-lg font-bold tracking-wide text-foreground">
-                    {plan.name}
-                  </h3>
-                  <p className="text-xs font-semibold text-accent mt-0.5">{plan.tagline}</p>
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-display text-xl font-bold tracking-tight text-foreground">
+                      {plan.name}
+                    </h3>
+                    {!plan.popular && plan.badge && (
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${plan.badgeColor}`}>
+                        {plan.badge}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs font-bold text-accent mt-1">{plan.tagline}</p>
                 </div>
 
                 <div className="flex items-baseline gap-1 border-b border-border/60 pb-4">
-                  <span className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+                  <span className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
                     {plan.price}
                   </span>
                   {plan.period && (
-                    <span className="text-xs font-medium text-muted-foreground">{plan.period}</span>
+                    <span className="text-xs font-semibold text-muted-foreground">{plan.period}</span>
                   )}
                 </div>
 
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-xs text-muted-foreground leading-relaxed font-normal">
                   {plan.description}
                 </p>
 
-                <p className="text-[11px] font-semibold text-foreground/80 italic">
+                <p className="text-[11px] font-bold text-foreground/90 italic pt-1">
                   {plan.subtext}
                 </p>
 
-                {/* FEATURES LIST */}
-                <ul className="space-y-2 pt-2 text-xs text-muted-foreground">
-                  {plan.includes.map((inc, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <Check className="h-3.5 w-3.5 text-accent mt-0.5 shrink-0" />
-                      <span>{inc}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* INCLUDES LIST */}
+                <div className="space-y-2 pt-1">
+                  <p className="text-[11px] font-bold text-accent uppercase tracking-wider">Features Included</p>
+                  <ul className="space-y-2 text-xs text-muted-foreground">
+                    {plan.includes.map((inc, idx) => (
+                      <li key={idx} className="flex items-start gap-2 leading-snug">
+                        <Check className="h-3.5 w-3.5 text-emerald-400 mt-0.5 shrink-0" />
+                        <span>{inc}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
                 {/* LIMITS LIST FOR FREE PLAN */}
                 {plan.limits.length > 0 && (
-                  <div className="pt-3 border-t border-border/50">
-                    <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-2">Limits</p>
-                    <ul className="space-y-1.5 text-xs text-muted-foreground/75">
+                  <div className="pt-3 border-t border-border/50 space-y-2">
+                    <p className="text-[11px] font-bold text-rose-400 uppercase tracking-wider">Free Plan Limits</p>
+                    <ul className="space-y-1.5 text-xs text-muted-foreground/80">
                       {plan.limits.map((lim, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
+                        <li key={idx} className="flex items-start gap-2 leading-snug">
                           <X className="h-3.5 w-3.5 text-rose-400/80 mt-0.5 shrink-0" />
                           <span>{lim}</span>
                         </li>
@@ -517,13 +629,13 @@ export default function PricingClient({ content }: Props) {
                   href={plan.ctaHref}
                   target={plan.ctaHref.startsWith("http") ? "_blank" : undefined}
                   rel={plan.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className={`w-full flex items-center justify-center gap-1.5 rounded-xl py-3 text-xs font-bold transition-all shadow-md ${
+                  className={`w-full flex items-center justify-center gap-2 rounded-xl py-3.5 text-xs font-extrabold transition-all shadow-md ${
                     plan.popular
-                      ? "bg-accent text-accent-foreground shadow-accent/20 hover:scale-[1.02] hover:bg-accent/90"
-                      : "bg-muted/80 text-foreground hover:bg-accent hover:text-accent-foreground"
+                      ? "bg-accent text-accent-foreground shadow-accent/25 hover:scale-[1.02] hover:bg-accent/90"
+                      : "bg-muted/90 text-foreground hover:bg-accent hover:text-accent-foreground"
                   }`}
                 >
-                  {plan.ctaText}
+                  <span>{plan.ctaText}</span>
                 </a>
               </div>
             </div>
@@ -531,82 +643,107 @@ export default function PricingClient({ content }: Props) {
         </div>
       </Section>
 
-      {/* 3. SIMPLE COMPARISON FOR VISITORS CARDS */}
-      <Section className="py-8! md:py-12! border-t border-border/40">
+      {/* 3. QUICK SUMMARY VISITOR CARDS */}
+      <Section className="py-10! md:py-14! border-t border-border/40 bg-card/20">
         <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
           <Eyebrow>Quick Summary</Eyebrow>
           <h2 className="font-display text-xl sm:text-2xl font-bold text-foreground">
-            Simple plan comparison at a glance
+            Simple comparison for fast decision-making
           </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {quickCards.map((qc, i) => (
-            <div
-              key={i}
-              className={`rounded-2xl border p-5 space-y-3 flex flex-col justify-between transition-all ${
-                qc.highlight
-                  ? "border-accent bg-accent/10 shadow-lg"
-                  : "border-border bg-card/50 hover:bg-card"
-              }`}
-            >
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-display font-bold text-base text-foreground">{qc.title}</span>
-                  <span className="font-mono text-sm font-bold text-accent">{qc.price}</span>
+          {quickCards.map((qc, i) => {
+            const IconComponent = qc.icon;
+            return (
+              <div
+                key={i}
+                className={`rounded-2xl border p-5 space-y-4 flex flex-col justify-between transition-all duration-300 bg-gradient-to-br ${qc.accent} hover:-translate-y-1`}
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="p-1.5 rounded-lg bg-accent/10 text-accent">
+                        <IconComponent className="h-4 w-4" />
+                      </div>
+                      <span className="font-display font-bold text-base text-foreground">{qc.title}</span>
+                    </div>
+                    <span className="font-mono text-sm font-bold text-accent">{qc.price}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{qc.subtitle}</p>
                 </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">{qc.subtitle}</p>
+                <div className="space-y-3 pt-3 border-t border-border/40">
+                  <span className="block text-[11px] font-bold text-foreground/90">
+                    {qc.bestFor}
+                  </span>
+                  <a
+                    href={qc.href}
+                    target={qc.href.startsWith("http") ? "_blank" : undefined}
+                    rel={qc.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="flex items-center justify-center gap-1.5 w-full text-center rounded-xl border border-border/80 bg-background/80 py-2.5 text-xs font-bold text-foreground hover:border-accent hover:text-accent transition-colors shadow-sm"
+                  >
+                    <span>{qc.cta}</span>
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                </div>
               </div>
-              <div className="space-y-3 pt-2 border-t border-border/40">
-                <span className="inline-block text-[11px] font-semibold text-foreground/80">
-                  {qc.bestFor}
-                </span>
-                <a
-                  href={qc.href}
-                  target={qc.href.startsWith("http") ? "_blank" : undefined}
-                  rel={qc.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="block w-full text-center rounded-lg border border-border bg-background py-2 text-xs font-bold text-foreground hover:border-accent hover:text-accent transition-colors"
-                >
-                  {qc.cta}
-                </a>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </Section>
 
       {/* 4. DETAILED FEATURE COMPARISON MATRIX */}
       <section id="feature-comparison" className="scroll-mt-24 border-t border-border/60">
-        <Section className="py-12! md:py-16!">
+        <Section className="py-14! md:py-20!">
           <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-            <Eyebrow>Feature Comparison</Eyebrow>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground">
+            <Eyebrow>Feature Matrix</Eyebrow>
+            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-foreground">
               Everything you need to build and scale outbound.
             </h2>
             <p className="text-xs sm:text-sm text-muted-foreground">
-              Compare features across Free, Starter, Scale, and Enterprise plans.
+              Detailed feature breakdown across Free, Starter, Scale, and Enterprise plans.
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-2xl border border-border bg-card/80 shadow-xl backdrop-blur-xl">
+          <div className="overflow-x-auto rounded-3xl border border-border/80 bg-card/80 shadow-2xl backdrop-blur-2xl">
             <table className="w-full text-left text-xs">
-              <thead>
-                <tr className="border-b border-border/80 bg-muted/50 font-display font-bold text-foreground">
-                  <th className="p-4 sm:p-5 min-w-[200px]">Feature</th>
-                  <th className="p-4 sm:p-5 text-center min-w-[100px]">Free</th>
-                  <th className="p-4 sm:p-5 text-center min-w-[110px]">Starter</th>
-                  <th className="p-4 sm:p-5 text-center min-w-[110px] text-accent">Scale ⭐</th>
+              <thead className="sticky top-16 z-20 bg-card/95 backdrop-blur-md border-b border-border shadow-sm">
+                <tr className="font-display font-bold text-foreground">
+                  <th className="p-4 sm:p-5 min-w-[220px]">Feature</th>
+                  <th className="p-4 sm:p-5 text-center min-w-[100px]">Free ($0)</th>
+                  <th className="p-4 sm:p-5 text-center min-w-[110px]">Starter ($54)</th>
+                  <th className="p-4 sm:p-5 text-center min-w-[120px] text-accent bg-accent/10 border-x border-accent/20">
+                    Scale ⭐ ($79)
+                  </th>
                   <th className="p-4 sm:p-5 text-center min-w-[120px]">Enterprise</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border/60">
-                {comparisonRows.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-muted/30 transition-colors">
-                    <td className="p-3.5 sm:p-4 font-semibold text-foreground">{row.feature}</td>
-                    <td className="p-3.5 sm:p-4 text-center text-muted-foreground">{row.free}</td>
-                    <td className="p-3.5 sm:p-4 text-center text-muted-foreground">{row.starter}</td>
-                    <td className="p-3.5 sm:p-4 text-center font-bold text-accent bg-accent/5">{row.scale}</td>
-                    <td className="p-3.5 sm:p-4 text-center text-muted-foreground font-semibold">{row.enterprise}</td>
+              <tbody className="divide-y divide-border/50">
+                {comparisonCategories.map((cat, catIdx) => (
+                  <tr key={catIdx} className="contents">
+                    {/* CATEGORY HEADER ROW */}
+                    <tr className="bg-muted/60 border-y border-border/80">
+                      <td
+                        colSpan={5}
+                        className="py-3 px-4 sm:px-5 font-display font-extrabold text-xs text-accent uppercase tracking-wider flex items-center gap-2"
+                      >
+                        <Sliders className="h-3.5 w-3.5" />
+                        <span>{cat.category}</span>
+                      </td>
+                    </tr>
+                    {cat.rows.map((row, rowIdx) => (
+                      <tr key={rowIdx} className="hover:bg-muted/30 transition-colors">
+                        <td className="p-3.5 sm:p-4 font-semibold text-foreground/90 pl-6 sm:pl-8">
+                          {row.feature}
+                        </td>
+                        <td className="p-3.5 sm:p-4 text-center">{renderTableCell(row.free)}</td>
+                        <td className="p-3.5 sm:p-4 text-center">{renderTableCell(row.starter)}</td>
+                        <td className="p-3.5 sm:p-4 text-center bg-accent/5 border-x border-accent/15">
+                          {renderTableCell(row.scale, true)}
+                        </td>
+                        <td className="p-3.5 sm:p-4 text-center">{renderTableCell(row.enterprise)}</td>
+                      </tr>
+                    ))}
                   </tr>
                 ))}
               </tbody>
@@ -616,10 +753,10 @@ export default function PricingClient({ content }: Props) {
       </section>
 
       {/* 5. WHY UPGRADE? SECTION */}
-      <Section className="py-12! md:py-16! border-t border-border/60">
-        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
+      <Section className="py-14! md:py-20! border-t border-border/60">
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
           <Eyebrow>Why Upgrade?</Eyebrow>
-          <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground">
+          <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-foreground">
             Start free. Upgrade when your workflow demands more.
           </h2>
         </div>
@@ -630,17 +767,24 @@ export default function PricingClient({ content }: Props) {
             return (
               <div
                 key={idx}
-                className="rounded-2xl border border-border bg-card/70 p-6 space-y-3 shadow-lg hover:border-accent/40 transition-colors"
+                className="relative rounded-3xl border border-border/80 bg-card/70 p-7 space-y-4 shadow-xl hover:border-accent/50 transition-all duration-300 backdrop-blur-xl group"
               >
-                <div className="flex items-center gap-3">
-                  <div className="rounded-xl border border-accent/30 bg-accent/10 p-2.5 text-accent">
-                    <IconComp className="h-5 w-5" />
+                <div className="flex items-center justify-between">
+                  <div className={`p-3 rounded-2xl border bg-gradient-to-br ${item.color}`}>
+                    <IconComp className="h-6 w-6" />
                   </div>
-                  <h3 className="font-display text-base font-bold text-foreground">{item.title}</h3>
+                  <span className={`text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border ${item.color}`}>
+                    {item.badge}
+                  </span>
                 </div>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed pl-12">
-                  {item.description}
-                </p>
+                <div className="space-y-2">
+                  <h3 className="font-display text-lg font-bold text-foreground group-hover:text-accent transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
               </div>
             );
           })}
@@ -648,25 +792,26 @@ export default function PricingClient({ content }: Props) {
       </Section>
 
       {/* 6. NO SEAT-BASED COMPLEXITY SECTION */}
-      <Section className="py-10! md:py-14! border-t border-border/60">
-        <div className="rounded-3xl border border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-card to-card p-6 sm:p-10 shadow-2xl text-center max-w-4xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3.5 py-1 text-xs font-semibold text-accent">
-            <Building2 className="h-3.5 w-3.5" /> No Seat-Based Complexity
+      <Section className="py-12! md:py-16! border-t border-border/60">
+        <div className="relative overflow-hidden rounded-3xl border border-indigo-500/30 bg-gradient-to-r from-indigo-950/50 via-card to-card p-7 sm:p-12 shadow-2xl text-center max-w-4xl mx-auto space-y-5">
+          <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/15 px-4 py-1.5 text-xs font-bold text-accent">
+            <Building2 className="h-4 w-4" /> No Seat-Based Tax
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground">
+          <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-foreground">
             Pay for the outbound infrastructure you need — not unnecessary complexity.
           </h2>
-          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-2xl mx-auto font-normal">
             Skout AI is designed to let individuals start free and let growing teams upgrade based on the amount of prospecting, enrichment, automation, and infrastructure they actually need. For Enterprise customers, pricing can be customized around usage, team structure, integrations, and operational requirements.
           </p>
         </div>
       </Section>
 
       {/* 7. TRUST & SECURITY SECTION (directly above FAQ) */}
-      <Section className="py-12! md:py-16! border-t border-border/60">
-        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
+      <Section className="py-14! md:py-20! border-t border-border/60">
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
           <Eyebrow>Security & Compliance</Eyebrow>
-          <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground">
+          <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-foreground">
             Built with privacy and security in mind.
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground">
@@ -680,13 +825,15 @@ export default function PricingClient({ content }: Props) {
             return (
               <div
                 key={i}
-                className="rounded-2xl border border-border bg-card/60 p-5 space-y-2 shadow-md hover:border-accent/40 transition-colors"
+                className="rounded-2xl border border-border/80 bg-card/60 p-6 space-y-3 shadow-md hover:border-accent/40 transition-colors backdrop-blur-xl"
               >
-                <div className="flex items-center gap-2.5 text-accent font-bold text-sm">
-                  <Icon className="h-4 w-4 shrink-0" />
+                <div className="flex items-center gap-3 text-accent font-bold text-sm">
+                  <div className="p-2 rounded-xl bg-accent/10 text-accent">
+                    <Icon className="h-4 w-4 shrink-0" />
+                  </div>
                   <h4>{tb.title}</h4>
                 </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">{tb.desc}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed pl-1">{tb.desc}</p>
               </div>
             );
           })}
@@ -694,36 +841,40 @@ export default function PricingClient({ content }: Props) {
       </Section>
 
       {/* 8. FAQ SECTION */}
-      <Section className="py-12! md:py-16! border-t border-border/60">
-        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
+      <Section className="py-14! md:py-20! border-t border-border/60">
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
           <Eyebrow>Frequently Asked Questions</Eyebrow>
-          <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground">
+          <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-foreground">
             Everything you need to know
           </h2>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-3">
+        <div className="max-w-3xl mx-auto space-y-3.5">
           {faqs.map((faq, idx) => {
             const isOpen = openFaq === idx;
             return (
               <div
                 key={idx}
-                className="rounded-2xl border border-border bg-card/70 overflow-hidden shadow-sm transition-colors"
+                className={`rounded-2xl border transition-all duration-300 overflow-hidden shadow-sm ${
+                  isOpen
+                    ? "border-accent/60 bg-card shadow-md"
+                    : "border-border/80 bg-card/70 hover:border-border"
+                }`}
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left font-display font-semibold text-sm sm:text-base text-foreground hover:text-accent transition-colors"
+                  className="w-full flex items-center justify-between p-5 text-left font-display font-semibold text-sm sm:text-base text-foreground hover:text-accent transition-colors"
                 >
-                  <span>{faq.q}</span>
+                  <span className="pr-4">{faq.q}</span>
                   <ChevronDown
-                    className={`h-4 w-4 text-accent shrink-0 transition-transform ${
+                    className={`h-4 w-4 text-accent shrink-0 transition-transform duration-300 ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-4 pb-5 pt-0 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-border/40">
-                    <p className="pt-3">{faq.a}</p>
+                  <div className="px-5 pb-5 pt-0 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-border/40">
+                    <p className="pt-3.5">{faq.a}</p>
                   </div>
                 )}
               </div>
@@ -733,22 +884,25 @@ export default function PricingClient({ content }: Props) {
       </Section>
 
       {/* 9. PRICING-PAGE LEGAL FOOTER */}
-      <Section className="py-8! border-t border-border/60 bg-card/30">
-        <div className="max-w-4xl mx-auto space-y-4 text-center">
-          <p className="text-[11px] text-muted-foreground/80 leading-relaxed text-left sm:text-center">
+      <Section className="py-10! border-t border-border/60 bg-card/30">
+        <div className="max-w-4xl mx-auto space-y-5 text-center">
+          <p className="text-[11px] text-muted-foreground/80 leading-relaxed text-left sm:text-center font-normal">
             Pricing and feature availability may vary by plan, usage, region, integrations, and applicable service terms. Certain features may be subject to usage limits, fair-use requirements, third-party provider restrictions, or additional terms. Skout AI does not guarantee specific business outcomes, including email delivery, inbox placement, open rates, reply rates, meetings, leads, pipeline, revenue, or return on investment. Use of Skout AI is subject to our Terms of Service, Privacy Policy, and Acceptable Use Policy.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-accent">
-            <Link href="/terms" className="hover:underline">
-              Terms of Service
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-bold text-accent">
+            <Link href="/terms" className="hover:underline flex items-center gap-1">
+              <span>Terms of Service</span>
+              <ArrowUpRight className="h-3 w-3" />
             </Link>
-            <span>•</span>
-            <Link href="/privacy-policy" className="hover:underline">
-              Privacy Policy
+            <span className="text-border">•</span>
+            <Link href="/privacy-policy" className="hover:underline flex items-center gap-1">
+              <span>Privacy Policy</span>
+              <ArrowUpRight className="h-3 w-3" />
             </Link>
-            <span>•</span>
-            <Link href="/trust" className="hover:underline">
-              Trust & Security
+            <span className="text-border">•</span>
+            <Link href="/trust" className="hover:underline flex items-center gap-1">
+              <span>Trust & Security</span>
+              <ArrowUpRight className="h-3 w-3" />
             </Link>
           </div>
         </div>
