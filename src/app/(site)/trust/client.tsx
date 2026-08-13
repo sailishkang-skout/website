@@ -145,7 +145,7 @@ export default function TrustClient() {
               <div className="mb-3 px-2 text-xs font-bold uppercase tracking-wider text-accent flex items-center gap-1.5 border-b border-border/60 pb-2">
                 <ShieldCheck className="h-4 w-4" /> Navigation Index
               </div>
-              <div className="max-h-[calc(100vh-10rem)] overflow-y-auto pr-1 space-y-1 text-xs">
+              <div className="max-h-[calc(100vh-10rem)] overflow-y-auto space-y-1 text-xs [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 {sections.map((s) => {
                   const isActive = activeSection === s.id;
                   return (
