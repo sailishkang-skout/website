@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ShieldCheck,
   Lock,
@@ -15,6 +15,7 @@ import {
   CheckCircle2,
   ExternalLink,
   ChevronRight,
+  Menu,
 } from "lucide-react";
 import { Section, GradientText } from "@/components/site/Section";
 
@@ -44,11 +45,43 @@ const sections = [
 export default function TrustClient() {
   const [activeSection, setActiveSection] = useState("security-reliability");
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-20% 0px -55% 0px",
+        threshold: 0.1,
+      }
+    );
+
+    sections.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const scrollToSection = (id: string) => {
     setActiveSection(id);
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      const offset = 100;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = el.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
     }
   };
 
@@ -87,6 +120,24 @@ export default function TrustClient() {
 
       {/* MAIN CONTENT AREA */}
       <Section className="py-8! md:py-12!">
+        {/* MOBILE STICKY INDEX SELECTOR */}
+        <div className="block lg:hidden sticky top-16 z-30 mb-6 rounded-xl border border-border bg-card/95 p-3 shadow-lg backdrop-blur-md">
+          <div className="flex items-center gap-2 mb-1.5 text-xs font-bold text-accent uppercase tracking-wider">
+            <Menu className="h-4 w-4" /> Jump to Policy Section
+          </div>
+          <select
+            value={activeSection}
+            onChange={(e) => scrollToSection(e.target.value)}
+            className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+          >
+            {sections.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* STICKY NAVIGATION MENU (DESKTOP) */}
           <div className="hidden lg:block lg:col-span-4 xl:col-span-3">
@@ -95,20 +146,23 @@ export default function TrustClient() {
                 <ShieldCheck className="h-4 w-4" /> Navigation Index
               </div>
               <div className="max-h-[calc(100vh-10rem)] overflow-y-auto pr-1 space-y-1 text-xs">
-                {sections.map((s) => (
-                  <button
-                    key={s.id}
-                    onClick={() => scrollToSection(s.id)}
-                    className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left font-medium transition-colors ${
-                      activeSection === s.id
-                        ? "bg-accent/15 text-accent font-semibold"
-                        : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-                    }`}
-                  >
-                    <span className="truncate">{s.title}</span>
-                    <ChevronRight className="h-3 w-3 shrink-0 opacity-50" />
-                  </button>
-                ))}
+                {sections.map((s) => {
+                  const isActive = activeSection === s.id;
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={() => scrollToSection(s.id)}
+                      className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left font-medium transition-colors ${
+                        isActive
+                          ? "bg-accent/15 text-accent font-semibold border-l-2 border-accent pl-2.5"
+                          : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
+                      }`}
+                    >
+                      <span className="truncate">{s.title}</span>
+                      <ChevronRight className={`h-3 w-3 shrink-0 transition-transform ${isActive ? "text-accent translate-x-0.5" : "opacity-40"}`} />
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
