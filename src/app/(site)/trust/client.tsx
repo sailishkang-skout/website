@@ -112,7 +112,7 @@ export default function TrustClient() {
               Trust, Security & <GradientText>Privacy</GradientText>
             </h1>
 
-            <div className="mx-auto max-w-3xl text-xs sm:text-sm leading-relaxed text-muted-foreground space-y-3 px-2 text-left sm:text-center">
+            <div className="mx-auto max-w-2xl text-xs sm:text-sm leading-relaxed text-muted-foreground text-center space-y-3">
               <p>
                 At Skout AI, we understand that our customers rely on our Services to support prospecting, sales intelligence, outbound engagement, workflow automation, communications, and AI-enabled sales operations.
               </p>

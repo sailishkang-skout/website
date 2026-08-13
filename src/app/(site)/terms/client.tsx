@@ -144,11 +144,9 @@ export default function TermsClient() {
               Terms of <GradientText>Service</GradientText>
             </h1>
 
-            <div className="mx-auto max-w-3xl text-xs sm:text-sm leading-relaxed text-muted-foreground space-y-2 px-2 text-left sm:text-center">
-              <p>
-                These Terms of Service (&quot;Terms&quot;) govern your access to and use of the websites, applications, software, APIs, SaaS platform, integrations, and related services provided by Skout AI Private Limited (&quot;Skout AI&quot;, &quot;Skout&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;).
-              </p>
-            </div>
+            <p className="mx-auto max-w-2xl text-xs sm:text-sm leading-relaxed text-muted-foreground text-center">
+              These Terms of Service (&quot;Terms&quot;) govern your access to and use of the websites, applications, software, APIs, SaaS platform, integrations, and related services provided by Skout AI Private Limited (&quot;Skout AI&quot;, &quot;Skout&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;).
+            </p>
           </div>
         </Section>
       </div>

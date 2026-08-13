@@ -119,11 +119,9 @@ export default function PrivacyPolicyClient() {
               Privacy <GradientText>Policy</GradientText>
             </h1>
 
-            <div className="mx-auto max-w-3xl text-xs sm:text-sm leading-relaxed text-muted-foreground space-y-2 px-2 text-left sm:text-center">
-              <p>
-                This Privacy Policy explains how Skout AI Private Limited (&quot;Skout AI&quot;, &quot;Skout&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) collects, uses, stores, discloses, and otherwise processes information in connection with our websites, applications, software, SaaS platform, APIs, integrations, communications, and related services (collectively, the &quot;Services&quot;).
-              </p>
-            </div>
+            <p className="mx-auto max-w-2xl text-xs sm:text-sm leading-relaxed text-muted-foreground text-center">
+              This Privacy Policy explains how Skout AI Private Limited (&quot;Skout AI&quot;, &quot;Skout&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) collects, uses, stores, discloses, and otherwise processes information in connection with our websites, applications, software, SaaS platform, APIs, integrations, communications, and related services (collectively, the &quot;Services&quot;).
+            </p>
           </div>
         </Section>
       </div>
