@@ -4,13 +4,14 @@ import { POST } from "@/app/api/analytics/pageview/route";
 jest.mock("@/lib/db/connect", () => ({ connectDB: jest.fn().mockResolvedValue(true) }));
 
 jest.mock("@/lib/models/pageview.model", () => ({
-  PageView: {
+  __esModule: true,
+  default: {
     create: jest.fn().mockResolvedValue({}),
   },
 }));
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { PageView } = require("@/lib/models/pageview.model");
+const PageView = require("@/lib/models/pageview.model").default;
 
 function makeRequest(body: unknown, headers: Record<string, string> = {}) {
   return new NextRequest("http://localhost/api/analytics/pageview", {

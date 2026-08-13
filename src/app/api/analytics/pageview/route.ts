@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { connectDB } from "@/lib/db/connect";
-import { PageView } from "@/lib/models/pageview.model";
+import PageView from "@/lib/models/pageview.model";
 
 function getClientIp(request: NextRequest): string {
   return (

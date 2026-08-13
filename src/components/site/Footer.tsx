@@ -138,9 +138,7 @@ export function Footer() {
 
           {/* LEGAL DROPDOWN LINKS */}
           <div className="md:col-span-2">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
-              Legal
-            </h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Legal</h4>
             <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
               {legalDropdownItems.map((l) => (
                 <li key={l.label}>
@@ -154,9 +152,7 @@ export function Footer() {
 
           {/* PLATFORM LINKS */}
           <div className="md:col-span-1">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
-              Platform
-            </h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Platform</h4>
             <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
               <li>
                 <Link

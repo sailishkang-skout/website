@@ -3,10 +3,8 @@ import { QueryProvider } from "@/lib/providers/query-provider";
 import { ThemeProvider } from "next-themes";
 import "@/styles.css";
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-
 export const metadata: Metadata = {
-  metadataBase: new URL("https://skoutai.io"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://skoutai.io"),
   title: {
     default: "Skout AI | AI-Powered GTM Platform for Smarter Outbound",
     template: "%s | Skout AI",
