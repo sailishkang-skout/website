@@ -68,6 +68,18 @@ export default function TrustClient() {
     return () => observer.disconnect();
   }, []);
 
+  // AUTO-SCROLL ACTIVE INDEX BUTTON INSIDE SIDEBAR CONTAINER
+  useEffect(() => {
+    if (!activeSection) return;
+    const activeBtn = document.getElementById(`nav-btn-${activeSection}`);
+    if (activeBtn) {
+      activeBtn.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  }, [activeSection]);
+
   const scrollToSection = (id: string) => {
     setActiveSection(id);
     const el = document.getElementById(id);
@@ -150,6 +162,7 @@ export default function TrustClient() {
                   const isActive = activeSection === s.id;
                   return (
                     <button
+                      id={`nav-btn-${s.id}`}
                       key={s.id}
                       onClick={() => scrollToSection(s.id)}
                       className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left font-medium transition-colors ${
