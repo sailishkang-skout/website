@@ -1,10 +1,15 @@
 import mongoose from "mongoose";
+import dns from "dns";
 
-const MONGODB_URI = process.env.MONGODB_URI!;
-
-if (!MONGODB_URI) {
-  throw new Error("Please define MONGODB_URI in .env.local");
+// Set reliable DNS servers for MongoDB Atlas SRV resolution on Windows
+try {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+  dns.setDefaultResultOrder("ipv4first");
+} catch {
+  // Ignore if not permitted
 }
+
+const MONGODB_URI = process.env.MONGODB_URI;
 
 // Global cache to reuse connection across hot reloads in dev
 const globalWithMongoose = global as typeof global & {
@@ -18,12 +23,31 @@ if (!globalWithMongoose.mongoose) {
 const cached = globalWithMongoose.mongoose;
 
 export async function connectDB() {
+  if (process.env.NEXT_DISABLE_DB === "true") {
+    return null;
+  }
+
+  if (!MONGODB_URI) {
+    return null;
+  }
+
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI, { bufferCommands: false });
+    const opts = {
+      bufferCommands: false,
+      serverSelectionTimeoutMS: 8000,
+    };
+    cached.promise = mongoose.connect(MONGODB_URI, opts);
   }
 
-  cached.conn = await cached.promise;
+  try {
+    cached.conn = await cached.promise;
+    console.log("[MongoDB] Connected successfully to Atlas.");
+  } catch (e) {
+    cached.promise = null;
+    throw e;
+  }
+
   return cached.conn;
 }

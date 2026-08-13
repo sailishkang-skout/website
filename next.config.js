@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  transpilePackages: ["@tanstack/react-query", "@tanstack/query-core"],
+};
 
-export default nextConfig;
+module.exports = nextConfig;
