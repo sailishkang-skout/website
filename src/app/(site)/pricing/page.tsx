@@ -2,9 +2,9 @@ import { getPageContent } from "@/lib/content/get-content";
 import PricingClient from "./client";
 
 export const metadata = {
-  title: "Pricing",
+  title: "Pricing | Skout AI",
   description:
-    "Credit-based pricing — Free forever, Growth at $79/user, Scale at $199/user, and Enterprise custom plans. No per-seat tax.",
+    "Start free with Skout AI. Find prospects, enrich contacts, manage your CRM, and build outbound sequences. Upgrade to automate and scale your sales outreach.",
 };
 
 export default async function PricingPage() {
