@@ -338,6 +338,15 @@ export function Header() {
             )}
           </div>
 
+          {/* INTELLIGENCE LINK */}
+          <Link
+            href="/intelligence"
+            className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground flex items-center gap-1.5"
+          >
+            <Sparkles className="h-3.5 w-3.5 text-accent" />
+            <span>Intelligence</span>
+          </Link>
+
           {/* PRICING LINK */}
           <Link
             href="/pricing"
