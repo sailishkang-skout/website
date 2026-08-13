@@ -1,12 +1,41 @@
-import React from "react";
+"use client";
 
-export default function Client() {
+import React from "react";
+import { FileCheck } from "lucide-react";
+import LegalUnderConstruction from "@/components/legal/LegalUnderConstruction";
+
+export default function DPAClient() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-8">Data Processing Agreement</h1>
-      <div className="prose dark:prose-invert max-w-none">
-        <p className="mb-4">This is a placeholder page for the Data Processing Agreement (DPA). This page is currently under construction.</p>
-      </div>
-    </div>
+    <LegalUnderConstruction
+      badgeText="SKOUT AI — DPA & ENTERPRISE COMPLIANCE"
+      title="Data Processing"
+      gradientWord="Agreement (DPA)"
+      description="Standard Contractual Clauses (SCCs), GDPR Data Processor terms, and enterprise subprocessor guarantees for European and global enterprise customers."
+      icon={<FileCheck className="h-4 w-4 text-accent" />}
+      statusLabel="Enterprise Review"
+      expectedDate="Q1 2026"
+      topics={[
+        {
+          title: "Standard Contractual Clauses (SCCs)",
+          description:
+            "EU and UK approved Standard Contractual Clauses governing lawful cross-border data transfers between data controllers and processors.",
+        },
+        {
+          title: "Data Processor Rights & Obligations",
+          description:
+            "Strict contractual commitments specifying data processing boundaries, confidentiality, and technical/organizational security measures (TOMs).",
+        },
+        {
+          title: "Subprocessor Transparency & Approval",
+          description:
+            "30-day advance notice window for subprocessor modifications and clear auditing rights for enterprise customers.",
+        },
+        {
+          title: "Data Return & Permanent Destruction",
+          description:
+            "Guaranteed protocols for post-termination data extraction and verified cryptographic deletion from all production databases.",
+        },
+      ]}
+    />
   );
 }
