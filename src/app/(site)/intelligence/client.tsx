@@ -96,36 +96,36 @@ export default function IntelligenceClient() {
 
   return (
     <div className="flex flex-col gap-0 text-foreground overflow-x-hidden">
-      {/* 1. ARCHITECTURE HERO */}
-      <div className="relative border-b border-border/60 bg-background">
-        <Section className="py-12! md:py-20! text-center relative z-10">
-          <div className="mx-auto max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-semibold text-accent">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>SKOUT PLATFORM ARCHITECTURE</span>
+      {/* 1. ARCHITECTURE HERO (MATCHES INTEGRATIONS HERO EXACTLY) */}
+      <div style={{ background: "var(--gradient-hero)" }} className="border-b border-border/60">
+        <Section className="py-8! md:py-14! text-center">
+          <div className="mx-auto max-w-4xl space-y-4">
+            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3.5 py-1 text-xs font-semibold text-accent">
+              <Zap className="h-3.5 w-3.5 text-accent" />
+              <span>SKOUT PLATFORM INTELLIGENCE</span>
             </div>
 
-            <h1 className="mx-auto max-w-3xl font-display text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight text-foreground">
-              The intelligence layer behind your <span className="text-accent">GTM ecosystem.</span>
+            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
+              The intelligence layer behind your <GradientText>GTM ecosystem.</GradientText>
             </h1>
 
-            <p className="mx-auto max-w-2xl text-xs sm:text-base leading-relaxed text-muted-foreground">
+            <p className="mx-auto max-w-xl text-xs sm:text-sm leading-relaxed text-muted-foreground">
               Explore how Skout transforms fragmented data into verified context, intelligent prioritization, and automated revenue execution.
             </p>
 
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
               <a
                 href={WORKSPACE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-accent px-8 py-3.5 text-sm font-bold text-accent-foreground shadow-lg transition-transform hover:scale-[1.02] hover:bg-accent/90"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-accent px-7 py-3 text-xs sm:text-sm font-bold text-accent-foreground shadow-md transition-all hover:bg-accent/90"
               >
                 <span>Launch Workspace</span>
                 <ArrowRight className="h-4 w-4" />
               </a>
               <Link
                 href="/contact"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-7 py-3.5 text-sm font-semibold text-foreground transition-all hover:bg-muted"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-6 py-3 text-xs sm:text-sm font-semibold text-foreground hover:bg-muted"
               >
                 <span>Book Architecture Demo</span>
               </Link>

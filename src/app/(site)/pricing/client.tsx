@@ -24,7 +24,7 @@ import {
   CheckCircle2,
   ArrowUpRight,
 } from "lucide-react";
-import { Section, Eyebrow } from "@/components/site/Section";
+import { Section, Eyebrow, GradientText } from "@/components/site/Section";
 import { WORKSPACE_URL } from "@/lib/constants";
 
 interface Props {
@@ -262,29 +262,29 @@ export default function PricingClient({ content }: Props) {
 
   return (
     <div className="flex flex-col gap-0 text-foreground overflow-x-hidden">
-      {/* 1. HERO SECTION */}
-      <div className="border-b border-border/60 bg-background">
-        <Section className="py-8! md:py-12! text-center">
-          <div className="mx-auto max-w-3xl space-y-3">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3.5 py-1 text-xs font-semibold text-accent">
-              <Sparkles className="h-3.5 w-3.5 text-accent" />
-              <span>SKOUT AI PRICING</span>
+      {/* 1. HERO SECTION (MATCHES INTEGRATIONS HERO EXACTLY) */}
+      <div style={{ background: "var(--gradient-hero)" }} className="border-b border-border/60">
+        <Section className="py-8! md:py-14! text-center">
+          <div className="mx-auto max-w-4xl space-y-4">
+            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3.5 py-1 text-xs font-semibold text-accent">
+              <Zap className="h-3.5 w-3.5 text-accent" />
+              <span>TRANSPARENT OUTBOUND PRICING</span>
             </div>
 
-            <h1 className="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground">
-              Start free. Scale when your outbound <span className="text-accent">grows.</span>
+            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
+              Start free. Scale when your outbound <GradientText>grows.</GradientText>
             </h1>
 
-            <p className="text-xs sm:text-sm text-muted-foreground max-w-xl mx-auto">
+            <p className="mx-auto max-w-xl text-xs sm:text-sm leading-relaxed text-muted-foreground">
               Everything you need to find prospects, enrich contacts, organize your pipeline, and start outbound. No long-term commitment.
             </p>
 
-            <div className="pt-1 text-[11px] text-muted-foreground flex flex-wrap items-center justify-center gap-2 sm:gap-4 font-medium">
-              <span>No credit card required</span>
-              <span>•</span>
-              <span>Monthly billing</span>
-              <span>•</span>
-              <span>Cancel anytime</span>
+            <div className="pt-1 text-xs text-muted-foreground flex flex-wrap items-center justify-center gap-3 sm:gap-5 font-medium">
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> No credit card required</span>
+              <span className="text-border">•</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Monthly billing</span>
+              <span className="text-border">•</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Cancel anytime</span>
             </div>
           </div>
         </Section>
