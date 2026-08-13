@@ -111,7 +111,7 @@ export function Header() {
 
             {activeMenu === "products" && (
               <div className="absolute left-1/2 top-full w-[880px] -translate-x-1/2 pt-2">
-                <div className="overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
+                <div className="max-h-[calc(100vh-100px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
                   <div className="grid grid-cols-3 gap-6">
                     {/* DISCOVER COLUMN */}
                     <div>
@@ -294,7 +294,7 @@ export function Header() {
 
             {activeMenu === "solutions" && (
               <div className="absolute left-1/2 top-full w-[600px] -translate-x-1/2 pt-2">
-                <div className="overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
+                <div className="max-h-[calc(100vh-100px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
                   <div className="grid grid-cols-2 gap-4">
                     <MegaItem
                       title="Outbound Prospecting"
@@ -378,7 +378,7 @@ export function Header() {
 
             {activeMenu === "resources" && (
               <div className="absolute left-0 top-full w-[420px] pt-2">
-                <div className="overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-2xl backdrop-blur-2xl">
+                <div className="max-h-[calc(100vh-100px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-5 shadow-2xl backdrop-blur-2xl">
                   <div className="space-y-4">
                     <Link
                       href="/resources/gtm-outbound-calculator"
@@ -444,7 +444,7 @@ export function Header() {
 
       {/* MOBILE DRAWER (MATCHING DESKTOP NAVBAR 100%) */}
       {mobileOpen && (
-        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-border bg-background p-6 md:hidden">
+        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-t border-border bg-background p-6 md:hidden">
           <div className="flex flex-col gap-6">
             {/* PRODUCTS */}
             <div>
