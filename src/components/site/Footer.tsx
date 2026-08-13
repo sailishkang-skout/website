@@ -37,6 +37,7 @@ const resourceDropdownItems = [
   { to: "/resources/setup-guides", label: "Setup Guides" },
   { to: "/trust", label: "Trust & Security" },
   { to: "/privacy-policy", label: "Privacy Policy" },
+  { to: "/terms", label: "Terms of Service" },
 ];
 
 const platformNavItems = [
