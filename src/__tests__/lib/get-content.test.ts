@@ -1,6 +1,6 @@
 import { getPageContent } from "@/lib/content/get-content";
 
-jest.mock("@/lib/db/connect", () => ({ connectDB: jest.fn().mockResolvedValue(undefined) }));
+jest.mock("@/lib/db/connect", () => ({ connectDB: jest.fn().mockResolvedValue(true) }));
 
 jest.mock("@/lib/models/content.model", () => ({
   Content: {
@@ -15,8 +15,7 @@ jest.mock("@/lib/content/defaults", () => ({
   },
 }));
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { Content } = require("@/lib/models/content.model");
+import { Content } from "@/lib/models/content.model";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -24,14 +23,16 @@ beforeEach(() => {
 
 describe("getPageContent", () => {
   it("returns DB content when a record exists", async () => {
-    const dbData = { hero: { title: "Custom Title from DB" } };
+    const dbData = {
+      data: { hero: { title: "Custom Title from DB" } },
+    };
     (Content.findOne as jest.Mock).mockReturnValue({
-      lean: () => Promise.resolve({ data: dbData }),
+      lean: () => Promise.resolve(dbData),
     });
 
     const result = await getPageContent("home");
 
-    expect(result).toEqual(dbData);
+    expect(result).toEqual(expect.objectContaining(dbData.data));
     expect(Content.findOne).toHaveBeenCalledWith({ pageId: "home" });
   });
 

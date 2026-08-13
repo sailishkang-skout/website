@@ -36,8 +36,14 @@ export default function SolutionsClient({ content }: Props) {
   const hero = (content.hero as Record<string, unknown>) ?? {};
   const solutions = (content.solutions as Solution[]) ?? [];
   const cta = (content.cta as Record<string, unknown>) ?? {};
-  const ctaPrimary = (cta.primaryCta as { text: string; href: string }) ?? { text: "View pricing", href: "/pricing" };
-  const ctaSecondary = (cta.secondaryCta as { text: string; href: string }) ?? { text: "Book demo", href: "/contact" };
+  const ctaPrimary = (cta.primaryCta as { text: string; href: string }) ?? {
+    text: "View pricing",
+    href: "/pricing",
+  };
+  const ctaSecondary = (cta.secondaryCta as { text: string; href: string }) ?? {
+    text: "Book demo",
+    href: "/contact",
+  };
 
   return (
     <div>

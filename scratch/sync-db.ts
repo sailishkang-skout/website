@@ -40,7 +40,7 @@ async function syncAll() {
     const res = await Content.findOneAndUpdate(
       { pageId },
       { $set: { data, updatedAt: new Date() } },
-      { upsert: true, new: true }
+      { upsert: true, new: true },
     );
     console.log(`[Synced Page] -> pageId: "${pageId}" updated in MongoDB Atlas.`);
   }

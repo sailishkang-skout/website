@@ -32,7 +32,9 @@ beforeEach(() => {
 
 describe("GET /api/admin/content/[page]", () => {
   it("returns saved DB content when found", async () => {
-    (Content.findOne as jest.Mock).mockReturnValue({ lean: () => Promise.resolve({ data: mockHomeData }) });
+    (Content.findOne as jest.Mock).mockReturnValue({
+      lean: () => Promise.resolve({ data: mockHomeData }),
+    });
 
     const req = new NextRequest("http://localhost/api/admin/content/home");
     const res = await GET(req, makeParams("home"));

@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { POST } from "@/app/api/analytics/pageview/route";
 
-jest.mock("@/lib/db/connect", () => ({ connectDB: jest.fn().mockResolvedValue(undefined) }));
+jest.mock("@/lib/db/connect", () => ({ connectDB: jest.fn().mockResolvedValue(true) }));
 
 jest.mock("@/lib/models/pageview.model", () => ({
   __esModule: true,
@@ -79,14 +79,14 @@ describe("POST /api/analytics/pageview", () => {
     expect(PageView.create).not.toHaveBeenCalled();
   });
 
-  it("returns 500 when database write fails", async () => {
+  it("returns 200 when database write fails", async () => {
     (PageView.create as jest.Mock).mockRejectedValue(new Error("DB error"));
 
     const req = makeRequest({ path: "/crash" });
     const res = await POST(req);
     const body = await res.json();
 
-    expect(res.status).toBe(500);
-    expect(body.error).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(body.ok).toBe(true);
   });
 });

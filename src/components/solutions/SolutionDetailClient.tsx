@@ -60,8 +60,7 @@ export default function SolutionDetailClient({ solution }: Props) {
               </div>
 
               <h1 className="font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
-                {solution.headline}{" "}
-                <br />
+                {solution.headline} <br />
                 <GradientText>{solution.headlineGradient}</GradientText>
               </h1>
 
@@ -88,8 +87,13 @@ export default function SolutionDetailClient({ solution }: Props) {
               {/* HERO METRICS CARDS - MOBILE RESPONSIVE */}
               <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 border-t border-border/60">
                 {solution.metrics.map((m, idx) => (
-                  <div key={idx} className="rounded-xl border border-border/80 bg-card/40 p-3 text-left backdrop-blur-md">
-                    <div className="font-display text-lg font-bold text-foreground sm:text-xl">{m.value}</div>
+                  <div
+                    key={idx}
+                    className="rounded-xl border border-border/80 bg-card/40 p-3 text-left backdrop-blur-md"
+                  >
+                    <div className="font-display text-lg font-bold text-foreground sm:text-xl">
+                      {m.value}
+                    </div>
                     <div className="mt-0.5 text-xs text-muted-foreground">{m.label}</div>
                   </div>
                 ))}
@@ -102,7 +106,9 @@ export default function SolutionDetailClient({ solution }: Props) {
                 <div className="flex items-center justify-between border-b border-border/60 pb-3">
                   <div className="flex items-center gap-2">
                     <div className="h-3 w-3 rounded-full bg-emerald-500/80 animate-pulse" />
-                    <span className="text-xs font-mono text-muted-foreground">Skout Solution Engine</span>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      Skout Solution Engine
+                    </span>
                   </div>
                   <span className="rounded-full bg-accent/10 border border-accent/20 px-2.5 py-0.5 text-[10px] font-semibold text-accent">
                     Live Operational
@@ -137,24 +143,37 @@ export default function SolutionDetailClient({ solution }: Props) {
               <div className="flex items-center gap-2 font-semibold text-foreground text-sm">
                 <X className="h-4 w-4 text-muted-foreground" /> Traditional Fragmented Sales Stack
               </div>
-              <span className="text-[10px] font-semibold text-muted-foreground uppercase">High Friction</span>
+              <span className="text-[10px] font-semibold text-muted-foreground uppercase">
+                High Friction
+              </span>
             </div>
             <ul className="space-y-3 text-xs sm:text-sm text-muted-foreground">
               <li className="flex items-start gap-2.5">
                 <X className="mt-0.5 h-4 w-4 text-muted-foreground shrink-0" />
-                <span>Stitching together 5 separate tools for search, enrichment, sequencing, CRM, and warmup.</span>
+                <span>
+                  Stitching together 5 separate tools for search, enrichment, sequencing, CRM, and
+                  warmup.
+                </span>
               </li>
               <li className="flex items-start gap-2.5">
                 <X className="mt-0.5 h-4 w-4 text-muted-foreground shrink-0" />
-                <span>Manual CSV downloads and upload errors leading to duplicate outreach and burned prospect relationships.</span>
+                <span>
+                  Manual CSV downloads and upload errors leading to duplicate outreach and burned
+                  prospect relationships.
+                </span>
               </li>
               <li className="flex items-start gap-2.5">
                 <X className="mt-0.5 h-4 w-4 text-muted-foreground shrink-0" />
-                <span>High bounce rates and spam folder placement ruining sending domain reputation.</span>
+                <span>
+                  High bounce rates and spam folder placement ruining sending domain reputation.
+                </span>
               </li>
               <li className="flex items-start gap-2.5">
                 <X className="mt-0.5 h-4 w-4 text-muted-foreground shrink-0" />
-                <span>Single-threaded conversations with low-level contacts causing deals to stall in pipeline.</span>
+                <span>
+                  Single-threaded conversations with low-level contacts causing deals to stall in
+                  pipeline.
+                </span>
               </li>
             </ul>
           </div>
@@ -168,24 +187,38 @@ export default function SolutionDetailClient({ solution }: Props) {
               <div className="flex items-center gap-2 font-semibold text-foreground text-sm">
                 <CheckCircle2 className="h-4 w-4 text-accent" /> Skout AI Unified Solution
               </div>
-              <span className="text-[10px] font-semibold text-accent uppercase">Single Workspace</span>
+              <span className="text-[10px] font-semibold text-accent uppercase">
+                Single Workspace
+              </span>
             </div>
             <ul className="space-y-3 text-xs sm:text-sm text-foreground">
               <li className="flex items-start gap-2.5">
                 <Check className="mt-0.5 h-4 w-4 text-accent shrink-0" />
-                <span>All-in-one platform connecting prospecting, waterfall enrichment, multi-channel outreach, and CRM.</span>
+                <span>
+                  All-in-one platform connecting prospecting, waterfall enrichment, multi-channel
+                  outreach, and CRM.
+                </span>
               </li>
               <li className="flex items-start gap-2.5">
                 <Check className="mt-0.5 h-4 w-4 text-accent shrink-0" />
-                <span>Automated workspace deduplication and global suppressions to protect team efficiency.</span>
+                <span>
+                  Automated workspace deduplication and global suppressions to protect team
+                  efficiency.
+                </span>
               </li>
               <li className="flex items-start gap-2.5">
                 <Check className="mt-0.5 h-4 w-4 text-accent shrink-0" />
-                <span>Peer-to-peer automated warmup, SPF/DKIM/DMARC audits, and 99.4% inbox delivery rates.</span>
+                <span>
+                  Peer-to-peer automated warmup, SPF/DKIM/DMARC audits, and 99.4% inbox delivery
+                  rates.
+                </span>
               </li>
               <li className="flex items-start gap-2.5">
                 <Check className="mt-0.5 h-4 w-4 text-accent shrink-0" />
-                <span>Multi-threaded buying committee mapping and Dexter AI context briefings to close deals faster.</span>
+                <span>
+                  Multi-threaded buying committee mapping and Dexter AI context briefings to close
+                  deals faster.
+                </span>
               </li>
             </ul>
           </div>
@@ -247,7 +280,10 @@ export default function SolutionDetailClient({ solution }: Props) {
             <span className="font-semibold text-accent flex items-center gap-1.5">
               <Zap className="h-3.5 w-3.5" /> Skout Production Engine Active
             </span>
-            <Link href="/contact" className="font-medium text-foreground hover:underline inline-flex items-center gap-1">
+            <Link
+              href="/contact"
+              className="font-medium text-foreground hover:underline inline-flex items-center gap-1"
+            >
               Talk to a solution specialist <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -265,13 +301,22 @@ export default function SolutionDetailClient({ solution }: Props) {
 
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {solution.workflow.map((st) => (
-            <div key={st.stepNumber} className="relative rounded-3xl border border-border bg-card p-5 shadow-sm">
+            <div
+              key={st.stepNumber}
+              className="relative rounded-3xl border border-border bg-card p-5 shadow-sm"
+            >
               <div className="flex items-center justify-between">
                 <span className="font-mono text-2xl font-bold text-accent">{st.stepNumber}</span>
-                <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-bold text-muted-foreground">PHASE {st.stepNumber}</span>
+                <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-bold text-muted-foreground">
+                  PHASE {st.stepNumber}
+                </span>
               </div>
-              <h3 className="mt-3 text-sm font-semibold md:text-base text-foreground">{st.title}</h3>
-              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">{st.description}</p>
+              <h3 className="mt-3 text-sm font-semibold md:text-base text-foreground">
+                {st.title}
+              </h3>
+              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">
+                {st.description}
+              </p>
             </div>
           ))}
         </div>
@@ -292,12 +337,17 @@ export default function SolutionDetailClient({ solution }: Props) {
                 AI Copilot Tailored for {solution.title}
               </h2>
               <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground">
-                Dexter AI integrates into your daily workflow to eliminate account research overhead, summarize complex deal threads, and write high-converting personalized copy.
+                Dexter AI integrates into your daily workflow to eliminate account research
+                overhead, summarize complex deal threads, and write high-converting personalized
+                copy.
               </p>
 
               <ul className="pt-2 space-y-2">
                 {solution.highlights.map((h, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground">
+                  <li
+                    key={i}
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground"
+                  >
                     <div className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent">
                       <Check className="h-3 w-3" />
                     </div>
@@ -315,7 +365,9 @@ export default function SolutionDetailClient({ solution }: Props) {
                   </div>
                   <div>
                     <div className="text-xs font-bold text-foreground">Dexter Solution Copilot</div>
-                    <div className="text-[10px] text-muted-foreground">Connected to {solution.title}</div>
+                    <div className="text-[10px] text-muted-foreground">
+                      Connected to {solution.title}
+                    </div>
                   </div>
                 </div>
                 <div className="mt-3 space-y-2.5 text-xs">
@@ -323,7 +375,8 @@ export default function SolutionDetailClient({ solution }: Props) {
                     &quot;Dexter, optimize our team workflow for {solution.title}.&quot;
                   </div>
                   <div className="rounded-xl bg-accent/15 border border-accent/20 p-2.5 text-foreground font-medium text-[11px] leading-relaxed">
-                    &quot;Analyzed account signals. Multi-threaded buying committee, verified work emails, and queued personalized sequence steps.&quot;
+                    &quot;Analyzed account signals. Multi-threaded buying committee, verified work
+                    emails, and queued personalized sequence steps.&quot;
                   </div>
                 </div>
               </div>
@@ -344,13 +397,18 @@ export default function SolutionDetailClient({ solution }: Props) {
 
           <div className="mt-6 space-y-3">
             {solution.faqs.map((faq, i) => (
-              <div key={i} className="rounded-2xl border border-border bg-card overflow-hidden transition-colors">
+              <div
+                key={i}
+                className="rounded-2xl border border-border bg-card overflow-hidden transition-colors"
+              >
                 <button
                   className="flex w-full items-center justify-between p-4 text-left font-semibold text-sm text-foreground"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 >
                   <span>{faq.question}</span>
-                  <ChevronDown className={`h-4 w-4 shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    className={`h-4 w-4 shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`}
+                  />
                 </button>
                 {openFaq === i && (
                   <div className="border-t border-border/60 p-4 pt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
@@ -433,7 +491,9 @@ function SolutionHeroInteractiveCard({ slug }: { slug: string }) {
       <div className="space-y-3 text-xs">
         <div className="rounded-xl border border-border bg-background/90 p-3">
           <div className="font-bold text-foreground">Target Account: CloudScale Technologies</div>
-          <div className="text-[10px] text-muted-foreground mt-0.5">Multi-Threaded Buying Committee (4 Stakeholders)</div>
+          <div className="text-[10px] text-muted-foreground mt-0.5">
+            Multi-Threaded Buying Committee (4 Stakeholders)
+          </div>
         </div>
         <div className="space-y-1.5">
           <div className="flex items-center justify-between rounded-lg border border-border bg-card p-2">
@@ -453,8 +513,12 @@ function SolutionHeroInteractiveCard({ slug }: { slug: string }) {
     <div className="space-y-3 text-xs">
       <div className="rounded-xl border border-border bg-background/90 p-3 space-y-1">
         <div className="font-bold text-foreground text-sm">Skout Solution Engine</div>
-        <div className="text-[11px] text-accent font-semibold">Unified Prospecting + Outreach + CRM</div>
-        <div className="text-[10px] text-muted-foreground">Zero tool fragmentation • Realtime Data Sync</div>
+        <div className="text-[11px] text-accent font-semibold">
+          Unified Prospecting + Outreach + CRM
+        </div>
+        <div className="text-[10px] text-muted-foreground">
+          Zero tool fragmentation • Realtime Data Sync
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-2 text-[11px]">
         <div className="rounded-lg border border-border bg-background p-2">

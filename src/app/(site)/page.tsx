@@ -64,8 +64,7 @@ export default async function HomePage() {
               </div>
 
               <h1 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-foreground">
-                Find the right prospects.{" "}
-                <br />
+                Find the right prospects. <br />
                 <GradientText>Know why they matter.</GradientText>
                 <br />
                 Sell with context.
@@ -74,7 +73,7 @@ export default async function HomePage() {
               <p className="max-w-xl text-xs sm:text-sm leading-relaxed text-muted-foreground">
                 {String(
                   hero.subheadline ??
-                    "Skout AI brings prospecting, enrichment, outreach, CRM, and GTM intelligence into one workspace — so your team can spend less time moving data between tools and more time creating pipeline."
+                    "Skout AI brings prospecting, enrichment, outreach, CRM, and GTM intelligence into one workspace — so your team can spend less time moving data between tools and more time creating pipeline.",
                 )}
               </p>
 
@@ -97,7 +96,7 @@ export default async function HomePage() {
               <p className="text-[11px] font-medium text-muted-foreground">
                 {String(
                   hero.supportingLine ??
-                    "From first prospect to active opportunity — Skout keeps the context connected."
+                    "From first prospect to active opportunity — Skout keeps the context connected.",
                 )}
               </p>
 
@@ -109,14 +108,16 @@ export default async function HomePage() {
                   </span>
                   <div>
                     <div className="text-xs font-bold text-foreground">Meet Dexter</div>
-                    <div className="text-[10px] text-accent font-medium">Your GTM intelligence layer.</div>
+                    <div className="text-[10px] text-accent font-medium">
+                      Your GTM intelligence layer.
+                    </div>
                   </div>
                 </div>
 
                 <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
                   {String(
                     hero.dexterDescription ??
-                      "Dexter helps your team turn prospect and account information into decisions — from who to target and what to know about them, to how to approach them and what to do next."
+                      "Dexter helps your team turn prospect and account information into decisions — from who to target and what to know about them, to how to approach them and what to do next.",
                   )}
                 </p>
 
@@ -125,7 +126,12 @@ export default async function HomePage() {
                   <div className="flex items-start gap-1.5">
                     <span className="shrink-0 font-bold text-foreground">You:</span>
                     <span className="italic text-muted-foreground">
-                      "{String(hero.dexterPrompt ?? "Find accounts that look like our best customers and identify the right people to contact.")}"
+                      "
+                      {String(
+                        hero.dexterPrompt ??
+                          "Find accounts that look like our best customers and identify the right people to contact.",
+                      )}
+                      "
                     </span>
                   </div>
                   <div className="flex items-start gap-1.5 border-t border-border/40 pt-2 text-foreground">
@@ -133,7 +139,12 @@ export default async function HomePage() {
                       <Bot className="h-3.5 w-3.5" /> Dexter:
                     </span>
                     <span className="leading-snug">
-                      "{String(hero.dexterReply ?? "Here are the accounts that match your ICP. I've prioritized them based on the signals available in Skout and identified the contacts most relevant to your target roles.")}"
+                      "
+                      {String(
+                        hero.dexterReply ??
+                          "Here are the accounts that match your ICP. I've prioritized them based on the signals available in Skout and identified the contacts most relevant to your target roles.",
+                      )}
+                      "
                     </span>
                   </div>
                 </div>
@@ -159,7 +170,7 @@ export default async function HomePage() {
             <span className="text-xs text-muted-foreground">
               {String(
                 trust.subheadline ??
-                  "One workspace for prospecting, intelligence, outreach, and pipeline execution."
+                  "One workspace for prospecting, intelligence, outreach, and pipeline execution.",
               )}
             </span>
           </div>
@@ -177,7 +188,7 @@ export default async function HomePage() {
             <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-muted-foreground">
               {String(
                 valueProp.body ??
-                  "Sales teams shouldn't have to discover an account in one platform, find contacts in another, enrich them somewhere else, write messaging with an AI tool, send from another system, and finally update the CRM by hand. Skout connects those workflows."
+                  "Sales teams shouldn't have to discover an account in one platform, find contacts in another, enrich them somewhere else, write messaging with an AI tool, send from another system, and finally update the CRM by hand. Skout connects those workflows.",
               )}
             </p>
           </div>
@@ -187,9 +198,12 @@ export default async function HomePage() {
               <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-accent/10 text-accent mb-2.5">
                 <Workflow className="h-4 w-4" />
               </div>
-              <h3 className="font-display text-base font-bold text-foreground">Less context switching</h3>
+              <h3 className="font-display text-base font-bold text-foreground">
+                Less context switching
+              </h3>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                Keep prospect intelligence, outreach, conversations, and pipeline activity connected.
+                Keep prospect intelligence, outreach, conversations, and pipeline activity
+                connected.
               </p>
             </div>
 
@@ -207,9 +221,12 @@ export default async function HomePage() {
               <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-accent/10 text-accent mb-2.5">
                 <Zap className="h-4 w-4" />
               </div>
-              <h3 className="font-display text-base font-bold text-foreground">One connected workflow</h3>
+              <h3 className="font-display text-base font-bold text-foreground">
+                One connected workflow
+              </h3>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                Move from discovery to outreach to opportunity without constantly moving data between systems.
+                Move from discovery to outreach to opportunity without constantly moving data
+                between systems.
               </p>
             </div>
           </div>
@@ -242,14 +259,18 @@ export default async function HomePage() {
             <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">
               {String(
                 dexterDeepDive.description ??
-                  "Most AI sales tools start with a blank chat box. Dexter starts with your GTM workflow. Because Dexter operates inside Skout, it can help your team work with the prospect, account, targeting, outreach, and pipeline context already available in the platform."
+                  "Most AI sales tools start with a blank chat box. Dexter starts with your GTM workflow. Because Dexter operates inside Skout, it can help your team work with the prospect, account, targeting, outreach, and pipeline context already available in the platform.",
               )}
             </p>
           </div>
 
           <DexterInteractiveGrid
             prompts={
-              (dexterDeepDive.prompts as Array<{ category: string; prompt: string; answer: string }>) ?? []
+              (dexterDeepDive.prompts as Array<{
+                category: string;
+                prompt: string;
+                answer: string;
+              }>) ?? []
             }
           />
 
@@ -257,7 +278,7 @@ export default async function HomePage() {
             <p className="font-display text-base sm:text-lg text-foreground font-bold">
               {String(
                 dexterDeepDive.coreStatement ??
-                  "Dexter doesn't replace your sales team. It gives your sales team better context to act on."
+                  "Dexter doesn't replace your sales team. It gives your sales team better context to act on.",
               )}
             </p>
           </div>
@@ -273,12 +294,13 @@ export default async function HomePage() {
               <div>
                 <Eyebrow>{String(icp.eyebrow ?? "Your ICP. Built into the workflow.")}</Eyebrow>
                 <h3 className="font-display mt-2 text-2xl font-bold text-foreground">
-                  Stop treating your ideal customer profile like a <GradientText>slide deck.</GradientText>
+                  Stop treating your ideal customer profile like a{" "}
+                  <GradientText>slide deck.</GradientText>
                 </h3>
                 <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                   {String(
                     icp.description ??
-                      "Skout brings ICP configuration into the product so your targeting strategy can become part of the actual prospecting workflow."
+                      "Skout brings ICP configuration into the product so your targeting strategy can become part of the actual prospecting workflow.",
                   )}
                 </p>
               </div>
@@ -311,7 +333,7 @@ export default async function HomePage() {
                 <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                   {String(
                     outboundIntel.description ??
-                      "Automation can make a bad process faster. Skout is built to connect intelligence with execution — helping your team start with better targeting and context."
+                      "Automation can make a bad process faster. Skout is built to connect intelligence with execution — helping your team start with better targeting and context.",
                   )}
                 </p>
               </div>
@@ -319,7 +341,9 @@ export default async function HomePage() {
               <div className="grid grid-cols-3 gap-2 text-center text-xs">
                 <div className="rounded-xl bg-muted/60 p-3 border border-border/60">
                   <div className="font-mono text-[9px] font-bold text-accent">01 KNOW</div>
-                  <div className="mt-1 font-semibold text-foreground text-[11px]">Account Context</div>
+                  <div className="mt-1 font-semibold text-foreground text-[11px]">
+                    Account Context
+                  </div>
                 </div>
                 <div className="rounded-xl bg-muted/60 p-3 border border-border/60">
                   <div className="font-mono text-[9px] font-bold text-accent">02 DECIDE</div>
@@ -349,17 +373,19 @@ export default async function HomePage() {
                 <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                   {String(
                     crmSection.description ??
-                      "Skout connects the earlier stages of the journey — discovery, enrichment, outreach, conversations — with companies, contacts, deals, tasks, and meetings."
+                      "Skout connects the earlier stages of the journey — discovery, enrichment, outreach, conversations — with companies, contacts, deals, tasks, and meetings.",
                   )}
                 </p>
               </div>
 
               <div className="rounded-xl border border-border bg-muted/40 p-3.5">
                 <p className="font-display text-sm text-foreground italic">
-                  "{String(
+                  "
+                  {String(
                     crmSection.keyStatement ??
-                      "Your CRM shouldn't be where context goes to disappear. It should be where context comes together."
-                  )}"
+                      "Your CRM shouldn't be where context goes to disappear. It should be where context comes together.",
+                  )}
+                  "
                 </p>
               </div>
             </div>
@@ -374,7 +400,7 @@ export default async function HomePage() {
                 <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                   {String(
                     integrations.description ??
-                      "Skout is designed to complement your existing GTM stack rather than force your team to rebuild everything from scratch."
+                      "Skout is designed to complement your existing GTM stack rather than force your team to rebuild everything from scratch.",
                   )}
                 </p>
               </div>
@@ -409,7 +435,8 @@ export default async function HomePage() {
               The problem isn't that sales teams <GradientText>need another tool.</GradientText>
             </h2>
             <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
-              They need fewer disconnected workflows. Skout connects the journey between prospecting, enrichment, outreach, and CRM pipeline.
+              They need fewer disconnected workflows. Skout connects the journey between
+              prospecting, enrichment, outreach, and CRM pipeline.
             </p>
 
             <div className="mt-6 rounded-2xl border border-border bg-card p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md">
@@ -445,7 +472,8 @@ export default async function HomePage() {
               href={String(pricingTeaser.ctaHref ?? "/pricing")}
               className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-xs font-bold text-background transition-transform hover:scale-[1.02] shrink-0"
             >
-              {String(pricingTeaser.ctaText ?? "See Skout AI")} <ArrowRight className="h-3.5 w-3.5" />
+              {String(pricingTeaser.ctaText ?? "See Skout AI")}{" "}
+              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </Section>
@@ -460,7 +488,8 @@ export default async function HomePage() {
               Everything you need to <GradientText>know about Skout AI.</GradientText>
             </h2>
             <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-xl mx-auto">
-              Got questions about how Skout AI fits into your sales workflow or CRM stack? We have answers.
+              Got questions about how Skout AI fits into your sales workflow or CRM stack? We have
+              answers.
             </p>
           </div>
 
@@ -500,18 +529,19 @@ export default async function HomePage() {
             <Eyebrow>
               {String(
                 finalCta.eyebrow ??
-                  "Your next pipeline opportunity is probably buried in your workflow."
+                  "Your next pipeline opportunity is probably buried in your workflow.",
               )}
             </Eyebrow>
 
             <h2 className="font-display mt-3 text-2xl sm:text-3xl md:text-4xl max-w-2xl leading-tight text-foreground">
-              Give your GTM team one place to <GradientText>find it, understand it, and act on it.</GradientText>
+              Give your GTM team one place to{" "}
+              <GradientText>find it, understand it, and act on it.</GradientText>
             </h2>
 
             <p className="mt-3 max-w-lg text-xs sm:text-sm text-muted-foreground">
               {String(
                 finalCta.body ??
-                  "Bring prospecting, intelligence, outreach, and pipeline together with Skout AI."
+                  "Bring prospecting, intelligence, outreach, and pipeline together with Skout AI.",
               )}
             </p>
 
@@ -532,7 +562,7 @@ export default async function HomePage() {
 
             <p className="mt-4 text-[11px] text-muted-foreground font-medium">
               {String(
-                finalCta.supportingLine ?? "Discover better. Engage smarter. Sell with context."
+                finalCta.supportingLine ?? "Discover better. Engage smarter. Sell with context.",
               )}
             </p>
           </div>

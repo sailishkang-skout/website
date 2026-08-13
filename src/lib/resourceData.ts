@@ -34,16 +34,19 @@ export const RESOURCES_DATA: Record<string, ResourceData> = {
     eyebrow: "Interactive Tool",
     headline: "GTM Outbound Cost Calculator",
     headlineGradient: "estimate contact sourcing, enrichment & inbox tooling costs.",
-    subheadline: "Calculate contact sourcing, email finding, verification, and inbox infrastructure costs for your outbound strategy. See how much you save with Skout AI's unified GTM platform.",
+    subheadline:
+      "Calculate contact sourcing, email finding, verification, and inbox infrastructure costs for your outbound strategy. See how much you save with Skout AI's unified GTM platform.",
     categories: [],
     faqs: [
       {
         question: "How does the GTM Outbound Cost Calculator work?",
-        answer: "The calculator estimates target contact sourcing, email finding, verification, and inbox platform costs based on your target booked meetings and industry benchmark conversion rates.",
+        answer:
+          "The calculator estimates target contact sourcing, email finding, verification, and inbox platform costs based on your target booked meetings and industry benchmark conversion rates.",
       },
       {
         question: "Why does Skout AI save money compared to a fragmented stack?",
-        answer: "Fragmented stacks require paying separate per-contact and per-seat subscriptions to Apollo, Hunter, ZeroBounce, and Smartlead. Skout AI unifies all 4 engines into a flat-rate workspace.",
+        answer:
+          "Fragmented stacks require paying separate per-contact and per-seat subscriptions to Apollo, Hunter, ZeroBounce, and Smartlead. Skout AI unifies all 4 engines into a flat-rate workspace.",
       },
     ],
   },
@@ -54,14 +57,16 @@ export const RESOURCES_DATA: Record<string, ResourceData> = {
     eyebrow: "Quick Start Guide",
     headline: "Get started with Skout AI",
     headlineGradient: "in 4 simple steps.",
-    subheadline: "Everything you need to set up your sending domain, define your ICP, install the Chrome extension, and launch your first outbound campaign.",
+    subheadline:
+      "Everything you need to set up your sending domain, define your ICP, install the Chrome extension, and launch your first outbound campaign.",
     categories: [
       {
         id: "mailbox",
         iconName: "ShieldCheck",
         title: "1. Domain & Mailbox Setup",
         badge: "Essential",
-        summary: "Authenticate your sending domain and connect Google/Outlook mailboxes for maximum inbox deliverability.",
+        summary:
+          "Authenticate your sending domain and connect Google/Outlook mailboxes for maximum inbox deliverability.",
         time: "5 mins",
         steps: [
           {
@@ -89,7 +94,8 @@ export const RESOURCES_DATA: Record<string, ResourceData> = {
         iconName: "Target",
         title: "2. ICP Prospecting & Smart Lists",
         badge: "Sourcing",
-        summary: "Build targeted prospect lists based on job titles, company size, and technographic stack.",
+        summary:
+          "Build targeted prospect lists based on job titles, company size, and technographic stack.",
         time: "3 mins",
         steps: [
           {
@@ -129,7 +135,8 @@ export const RESOURCES_DATA: Record<string, ResourceData> = {
         iconName: "Bot",
         title: "4. CRM Sync & Dexter AI",
         badge: "Automation",
-        summary: "Connect your HubSpot CRM and configure Dexter AI for automated prospect research.",
+        summary:
+          "Connect your HubSpot CRM and configure Dexter AI for automated prospect research.",
         time: "4 mins",
         steps: [
           {
@@ -148,11 +155,13 @@ export const RESOURCES_DATA: Record<string, ResourceData> = {
     faqs: [
       {
         question: "How long does complete setup take?",
-        answer: "Initial setup takes under 15 minutes. Connecting mailboxes and DNS records takes ~5 minutes.",
+        answer:
+          "Initial setup takes under 15 minutes. Connecting mailboxes and DNS records takes ~5 minutes.",
       },
       {
         question: "Need help with onboarding?",
-        answer: "You can book a 1-on-1 setup session with our team anytime from the bottom of this page.",
+        answer:
+          "You can book a 1-on-1 setup session with our team anytime from the bottom of this page.",
       },
     ],
   },

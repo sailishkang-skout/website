@@ -88,7 +88,8 @@ export default function GTMOutboundCalculator() {
   const skoutMonthlyCost = 159 + (includeHeadcount ? headcountCost : 0);
   const skoutCostPerMeeting = skoutMonthlyCost / targetMeetings;
   const monthlySavings = totalToolingCost - 159;
-  const savingsPercent = totalToolingCost > 0 ? Math.max(0, Math.round((monthlySavings / totalToolingCost) * 100)) : 0;
+  const savingsPercent =
+    totalToolingCost > 0 ? Math.max(0, Math.round((monthlySavings / totalToolingCost) * 100)) : 0;
 
   return (
     <div className="flex flex-col gap-0 text-foreground overflow-hidden">
@@ -102,13 +103,14 @@ export default function GTMOutboundCalculator() {
             </div>
 
             <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
-              GTM Outbound Cost Calculator{" "}
-              <br />
+              GTM Outbound Cost Calculator <br />
               <GradientText>Estimate tooling & pipeline acquisition costs.</GradientText>
             </h1>
 
             <p className="mx-auto max-w-xl text-xs sm:text-sm leading-relaxed text-muted-foreground">
-              Calculate contact sourcing, email finding, verification, and inbox infrastructure costs for your outbound strategy. See how much you save with Skout AI&apos;s unified GTM platform.
+              Calculate contact sourcing, email finding, verification, and inbox infrastructure
+              costs for your outbound strategy. See how much you save with Skout AI&apos;s unified
+              GTM platform.
             </p>
           </div>
         </Section>
@@ -123,12 +125,16 @@ export default function GTMOutboundCalculator() {
             <div className="rounded-3xl border border-border bg-card p-5 md:p-6 space-y-4 shadow-sm">
               <div className="flex items-center gap-2 border-b border-border/60 pb-3">
                 <Users className="h-4 w-4 text-accent" />
-                <h2 className="text-base font-semibold text-foreground">1. Team Size & Headcount</h2>
+                <h2 className="text-base font-semibold text-foreground">
+                  1. Team Size & Headcount
+                </h2>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">Number of SDRs</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">
+                    Number of SDRs
+                  </label>
                   <input
                     type="number"
                     min={0}
@@ -140,7 +146,9 @@ export default function GTMOutboundCalculator() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">Cost per SDR / Month ($)</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">
+                    Cost per SDR / Month ($)
+                  </label>
                   <input
                     type="number"
                     min={0}
@@ -149,7 +157,9 @@ export default function GTMOutboundCalculator() {
                     onChange={(e) => setCostPerSdr(Math.max(0, parseInt(e.target.value) || 0))}
                     className="w-full rounded-xl border border-border bg-background px-3.5 py-2 text-xs sm:text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                   />
-                  <p className="mt-1 text-[10px] text-muted-foreground">Benchmark: $7,500–$13,000/mo per SDR</p>
+                  <p className="mt-1 text-[10px] text-muted-foreground">
+                    Benchmark: $7,500–$13,000/mo per SDR
+                  </p>
                 </div>
               </div>
 
@@ -161,7 +171,10 @@ export default function GTMOutboundCalculator() {
                   onChange={(e) => setIncludeHeadcount(e.target.checked)}
                   className="h-4 w-4 rounded border-border accent-accent cursor-pointer"
                 />
-                <label htmlFor="inc-hc" className="text-xs font-medium text-foreground cursor-pointer">
+                <label
+                  htmlFor="inc-hc"
+                  className="text-xs font-medium text-foreground cursor-pointer"
+                >
                   Include SDR headcount in total monthly cost calculation
                 </label>
               </div>
@@ -171,12 +184,16 @@ export default function GTMOutboundCalculator() {
             <div className="rounded-3xl border border-border bg-card p-5 md:p-6 space-y-4 shadow-sm">
               <div className="flex items-center gap-2 border-b border-border/60 pb-3">
                 <Target className="h-4 w-4 text-accent" />
-                <h2 className="text-base font-semibold text-foreground">2. Campaign Pipeline Goal</h2>
+                <h2 className="text-base font-semibold text-foreground">
+                  2. Campaign Pipeline Goal
+                </h2>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">Target Meetings / Month</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">
+                    Target Meetings / Month
+                  </label>
                   <input
                     type="number"
                     min={1}
@@ -188,16 +205,22 @@ export default function GTMOutboundCalculator() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">Emails Sent Per Booked Meeting</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">
+                    Emails Sent Per Booked Meeting
+                  </label>
                   <input
                     type="number"
                     min={50}
                     max={2000}
                     value={emailsPerMeeting}
-                    onChange={(e) => setEmailsPerMeeting(Math.max(50, parseInt(e.target.value) || 350))}
+                    onChange={(e) =>
+                      setEmailsPerMeeting(Math.max(50, parseInt(e.target.value) || 350))
+                    }
                     className="w-full rounded-xl border border-border bg-background px-3.5 py-2 text-xs sm:text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                   />
-                  <p className="mt-1 text-[10px] text-muted-foreground">Industry avg: 300–400 emails per meeting</p>
+                  <p className="mt-1 text-[10px] text-muted-foreground">
+                    Industry avg: 300–400 emails per meeting
+                  </p>
                 </div>
               </div>
             </div>
@@ -206,15 +229,21 @@ export default function GTMOutboundCalculator() {
             <div className="rounded-3xl border border-border bg-card p-5 md:p-6 space-y-4 shadow-sm">
               <div className="flex items-center gap-2 border-b border-border/60 pb-3">
                 <Layers className="h-4 w-4 text-accent" />
-                <h2 className="text-base font-semibold text-foreground">3. Outbound Stack Providers</h2>
+                <h2 className="text-base font-semibold text-foreground">
+                  3. Outbound Stack Providers
+                </h2>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">Contact Sourcing Provider</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">
+                    Contact Sourcing Provider
+                  </label>
                   <select
                     value={selectedSourcing.id}
-                    onChange={(e) => setSelectedSourcing(sourcingProviders.find((p) => p.id === e.target.value)!)}
+                    onChange={(e) =>
+                      setSelectedSourcing(sourcingProviders.find((p) => p.id === e.target.value)!)
+                    }
                     className="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     {sourcingProviders.map((p) => (
@@ -226,10 +255,16 @@ export default function GTMOutboundCalculator() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">Email Finding Provider</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">
+                    Email Finding Provider
+                  </label>
                   <select
                     value={selectedEmailFind.id}
-                    onChange={(e) => setSelectedEmailFind(emailFindingProviders.find((p) => p.id === e.target.value)!)}
+                    onChange={(e) =>
+                      setSelectedEmailFind(
+                        emailFindingProviders.find((p) => p.id === e.target.value)!,
+                      )
+                    }
                     className="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     {emailFindingProviders.map((p) => (
@@ -241,10 +276,16 @@ export default function GTMOutboundCalculator() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">Email Verification Provider</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">
+                    Email Verification Provider
+                  </label>
                   <select
                     value={selectedVerify.id}
-                    onChange={(e) => setSelectedVerify(emailVerificationProviders.find((p) => p.id === e.target.value)!)}
+                    onChange={(e) =>
+                      setSelectedVerify(
+                        emailVerificationProviders.find((p) => p.id === e.target.value)!,
+                      )
+                    }
                     className="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     {emailVerificationProviders.map((p) => (
@@ -256,10 +297,14 @@ export default function GTMOutboundCalculator() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">Outreach Sending Platform</label>
+                  <label className="block text-xs font-medium text-muted-foreground mb-1.5">
+                    Outreach Sending Platform
+                  </label>
                   <select
                     value={selectedSending.id}
-                    onChange={(e) => setSelectedSending(sendingProviders.find((p) => p.id === e.target.value)!)}
+                    onChange={(e) =>
+                      setSelectedSending(sendingProviders.find((p) => p.id === e.target.value)!)
+                    }
                     className="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     {sendingProviders.map((p) => (
@@ -281,7 +326,9 @@ export default function GTMOutboundCalculator() {
               style={{ background: "var(--gradient-card)" }}
             >
               <div className="flex items-center justify-between border-b border-border/60 pb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Estimated Monthly Cost</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Estimated Monthly Cost
+                </span>
                 <span className="rounded-full bg-accent/10 border border-accent/20 px-2.5 py-0.5 text-[10px] font-bold text-accent">
                   Fragmented Stack
                 </span>
@@ -290,10 +337,14 @@ export default function GTMOutboundCalculator() {
               <div>
                 <div className="font-display text-4xl font-bold text-foreground">
                   ${Math.round(totalMonthlyCost).toLocaleString()}
-                  <span className="text-xs font-sans font-normal text-muted-foreground"> / month</span>
+                  <span className="text-xs font-sans font-normal text-muted-foreground">
+                    {" "}
+                    / month
+                  </span>
                 </div>
                 <div className="mt-1 text-xs font-semibold text-accent flex items-center gap-1">
-                  <DollarSign className="h-3.5 w-3.5" /> ${Math.round(costPerMeeting)} per Booked Meeting
+                  <DollarSign className="h-3.5 w-3.5" /> ${Math.round(costPerMeeting)} per Booked
+                  Meeting
                 </div>
               </div>
 
@@ -301,7 +352,9 @@ export default function GTMOutboundCalculator() {
               <div className="space-y-2 border-t border-border/60 pt-4 text-xs">
                 <div className="flex justify-between text-muted-foreground">
                   <span>Contacts Needed:</span>
-                  <span className="font-bold text-foreground">{rawContactsNeeded.toLocaleString()}</span>
+                  <span className="font-bold text-foreground">
+                    {rawContactsNeeded.toLocaleString()}
+                  </span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>Sourcing ({selectedSourcing.name}):</span>
@@ -309,7 +362,9 @@ export default function GTMOutboundCalculator() {
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>Email Finding ({selectedEmailFind.name}):</span>
-                  <span className="font-semibold text-foreground">${Math.round(emailFindCost)}</span>
+                  <span className="font-semibold text-foreground">
+                    ${Math.round(emailFindCost)}
+                  </span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>Email Verification ({selectedVerify.name}):</span>
@@ -322,7 +377,9 @@ export default function GTMOutboundCalculator() {
                 {includeHeadcount && (
                   <div className="flex justify-between text-muted-foreground border-t border-border/40 pt-1">
                     <span>SDR Headcount ({sdrsCount} SDRs):</span>
-                    <span className="font-semibold text-foreground">${headcountCost.toLocaleString()}</span>
+                    <span className="font-semibold text-foreground">
+                      ${headcountCost.toLocaleString()}
+                    </span>
                   </div>
                 )}
               </div>
@@ -342,20 +399,27 @@ export default function GTMOutboundCalculator() {
               <div>
                 <div className="font-display text-3xl font-bold text-foreground">
                   ${Math.round(skoutMonthlyCost).toLocaleString()}
-                  <span className="text-xs font-sans font-normal text-muted-foreground"> / month</span>
+                  <span className="text-xs font-sans font-normal text-muted-foreground">
+                    {" "}
+                    / month
+                  </span>
                 </div>
                 <div className="mt-1 text-xs text-accent font-semibold flex items-center gap-1">
-                  <TrendingDown className="h-3.5 w-3.5" /> ${Math.round(skoutCostPerMeeting)} per Booked Meeting (Flat Rate)
+                  <TrendingDown className="h-3.5 w-3.5" /> ${Math.round(skoutCostPerMeeting)} per
+                  Booked Meeting (Flat Rate)
                 </div>
               </div>
 
               <div className="rounded-2xl bg-background/80 border border-border p-3 text-xs space-y-1.5">
                 <div className="flex items-center justify-between font-bold text-foreground">
                   <span>Monthly Tooling Savings:</span>
-                  <span className="text-accent text-sm font-mono">+${Math.round(monthlySavings).toLocaleString()} / mo</span>
+                  <span className="text-accent text-sm font-mono">
+                    +${Math.round(monthlySavings).toLocaleString()} / mo
+                  </span>
                 </div>
                 <p className="text-[11px] text-muted-foreground leading-relaxed">
-                  Skout AI replaces Apollo + Hunter + ZeroBounce + Smartlead with one flat-rate workspace. Zero per-seat penalties.
+                  Skout AI replaces Apollo + Hunter + ZeroBounce + Smartlead with one flat-rate
+                  workspace. Zero per-seat penalties.
                 </p>
               </div>
 

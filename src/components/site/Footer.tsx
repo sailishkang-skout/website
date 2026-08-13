@@ -35,9 +35,18 @@ const resourceDropdownItems = [
   { to: "/integrations", label: "Integrations Hub" },
   { to: "/resources/gtm-outbound-calculator", label: "GTM Outbound Calculator" },
   { to: "/resources/setup-guides", label: "Setup Guides" },
-  { to: "/trust", label: "Trust & Security" },
-  { to: "/privacy-policy", label: "Privacy Policy" },
-  { to: "/terms", label: "Terms of Service" },
+  { to: "/trust/trust-security-privacy", label: "Trust, Security & Privacy" },
+  { to: "/trust/subprocessors", label: "Subprocessors" },
+  { to: "/trust/security-vulnerability-reporting", label: "Security / Vulnerability Reporting" },
+];
+
+const legalDropdownItems = [
+  { to: "/legal/privacy-policy", label: "Privacy Policy" },
+  { to: "/legal/terms-of-service", label: "Terms of Service" },
+  { to: "/legal/acceptable-use-policy", label: "Acceptable Use Policy" },
+  { to: "/legal/ai-terms", label: "AI Terms" },
+  { to: "/legal/data-processing-agreement", label: "Data Processing Agreement" },
+  { to: "/legal/cookie-policy", label: "Cookie Policy" },
 ];
 
 const platformNavItems = [
@@ -53,12 +62,13 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-12">
           {/* BRAND COLUMN */}
-          <div className="md:col-span-4 space-y-4">
+          <div className="md:col-span-3 space-y-4">
             <Link href="/" className="inline-block">
               <Image src={logo} alt="Skout AI" className="h-8 w-auto" priority />
             </Link>
             <p className="max-w-xs text-xs leading-relaxed text-muted-foreground">
-              Find the right prospects. Know why they matter. Reach them with context. One connected workspace for prospecting, enrichment, outreach, CRM, and GTM intelligence.
+              Find the right prospects. Know why they matter. Reach them with context. One connected
+              workspace for prospecting, enrichment, outreach, CRM, and GTM intelligence.
             </p>
             <div className="flex items-center gap-3 text-xs text-muted-foreground pt-1">
               <div className="flex items-center gap-2">
@@ -78,12 +88,15 @@ export function Footer() {
           </div>
 
           {/* PRODUCTS DROPDOWN LINKS */}
-          <div className="md:col-span-3">
+          <div className="md:col-span-2">
             <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Products</h4>
             <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
               {productDropdownItems.map((l) => (
                 <li key={l.label}>
-                  <Link href={l.to} className={`transition-colors ${l.label.includes("Dexter") ? "font-semibold text-accent" : "hover:text-foreground"}`}>
+                  <Link
+                    href={l.to}
+                    className={`transition-colors ${l.label.includes("Dexter") ? "font-semibold text-accent" : "hover:text-foreground"}`}
+                  >
                     {l.label}
                   </Link>
                 </li>
@@ -92,8 +105,10 @@ export function Footer() {
           </div>
 
           {/* SOLUTIONS DROPDOWN LINKS */}
-          <div className="md:col-span-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Solutions</h4>
+          <div className="md:col-span-2">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+              Solutions
+            </h4>
             <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
               {solutionDropdownItems.map((l) => (
                 <li key={l.label}>
@@ -105,46 +120,67 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* RESOURCES DROPDOWN & PLATFORM LINKS */}
-          <div className="md:col-span-2 space-y-6">
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Resources</h4>
-              <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
-                {resourceDropdownItems.map((l) => (
-                  <li key={l.label}>
-                    <Link href={l.to} className="transition-colors hover:text-foreground">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* RESOURCES DROPDOWN */}
+          <div className="md:col-span-2">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+              Resources
+            </h4>
+            <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
+              {resourceDropdownItems.map((l) => (
+                <li key={l.label}>
+                  <Link href={l.to} className="transition-colors hover:text-foreground">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Platform</h4>
-              <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
-                <li>
-                  <Link href="/pricing" className="transition-colors hover:text-foreground font-medium">
-                    Pricing
+          {/* LEGAL DROPDOWN LINKS */}
+          <div className="md:col-span-2">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Legal</h4>
+            <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
+              {legalDropdownItems.map((l) => (
+                <li key={l.label}>
+                  <Link href={l.to} className="transition-colors hover:text-foreground">
+                    {l.label}
                   </Link>
                 </li>
-                <li>
-                  <a
-                    href={WORKSPACE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors hover:text-foreground font-medium"
-                  >
-                    Log In to Workspace
-                  </a>
-                </li>
-                <li>
-                  <Link href="/contact" className="transition-colors hover:text-foreground font-medium">
-                    Book a Demo
-                  </Link>
-                </li>
-              </ul>
-            </div>
+              ))}
+            </ul>
+          </div>
+
+          {/* PLATFORM LINKS */}
+          <div className="md:col-span-1">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Platform</h4>
+            <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
+              <li>
+                <Link
+                  href="/pricing"
+                  className="transition-colors hover:text-foreground font-medium"
+                >
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <a
+                  href={WORKSPACE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-foreground font-medium"
+                >
+                  Log In
+                </a>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="transition-colors hover:text-foreground font-medium"
+                >
+                  Book a Demo
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
 

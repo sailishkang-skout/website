@@ -13,27 +13,42 @@ interface Props {
 export default function AboutClient({ content }: Props) {
   const hero = (content.hero as Record<string, unknown>) ?? {};
   const heroStats = (hero.stats as Array<{ key: string; value: string }>) ?? [];
-  const heroPrimary = (hero.primaryCta as { text: string; href: string }) ?? { text: "Work with us", href: "/contact" };
-  const heroSecondary = (hero.secondaryCta as { text: string; href: string }) ?? { text: "Explore the product", href: "/features" };
+  const heroPrimary = (hero.primaryCta as { text: string; href: string }) ?? {
+    text: "Work with us",
+    href: "/contact",
+  };
+  const heroSecondary = (hero.secondaryCta as { text: string; href: string }) ?? {
+    text: "Explore the product",
+    href: "/features",
+  };
 
   const manifesto = (content.manifesto as Record<string, unknown>) ?? {};
   const manifestoParagraphs = (manifesto.paragraphs as string[]) ?? [];
 
   const values = (content.values as Record<string, unknown>) ?? {};
-  const valueItems = (values.items as Array<{ number: string; title: string; description: string }>) ?? [];
+  const valueItems =
+    (values.items as Array<{ number: string; title: string; description: string }>) ?? [];
 
   const timeline = (content.timeline as Record<string, unknown>) ?? {};
-  const timelineItems = (timeline.items as Array<{ year: string; time: string; description: string }>) ?? [];
+  const timelineItems =
+    (timeline.items as Array<{ year: string; time: string; description: string }>) ?? [];
 
   const team = (content.team as Record<string, unknown>) ?? {};
-  const teamMembers = (team.members as Array<{ name: string; role: string; location: string }>) ?? [];
+  const teamMembers =
+    (team.members as Array<{ name: string; role: string; location: string }>) ?? [];
 
   const press = (content.press as Record<string, unknown>) ?? {};
   const pressPublications = (press.publications as string[]) ?? [];
 
   const cta = (content.cta as Record<string, unknown>) ?? {};
-  const ctaPrimary = (cta.primaryCta as { text: string; href: string }) ?? { text: "Get in touch", href: "/contact" };
-  const ctaSecondary = (cta.secondaryCta as { text: string; href: string }) ?? { text: "See pricing", href: "/pricing" };
+  const ctaPrimary = (cta.primaryCta as { text: string; href: string }) ?? {
+    text: "Get in touch",
+    href: "/contact",
+  };
+  const ctaSecondary = (cta.secondaryCta as { text: string; href: string }) ?? {
+    text: "See pricing",
+    href: "/pricing",
+  };
 
   return (
     <div>
@@ -97,7 +112,9 @@ export default function AboutClient({ content }: Props) {
           </div>
           <div className="space-y-5 text-sm leading-relaxed lg:col-span-8 lg:border-l lg:border-border lg:pl-10">
             {manifestoParagraphs.map((para, i) => (
-              <p key={i} className="text-muted-foreground">{para}</p>
+              <p key={i} className="text-muted-foreground">
+                {para}
+              </p>
             ))}
           </div>
         </div>

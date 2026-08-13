@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 import {
   Menu,
   X,
@@ -31,16 +32,31 @@ import {
   Chrome,
   Calculator,
   LucideIcon,
+  Sun,
+  Moon,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { LOGIN_URL, WORKSPACE_URL } from "@/lib/constants";
 
 export function Header() {
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const headerRef = useRef<HTMLElement>(null);
+
+  // Wait for component to mount to avoid hydration issues
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    console.log("Switching theme from", theme, "to", newTheme);
+    setTheme(newTheme);
+  };
 
   const closeMenus = () => {
     setActiveMenu(null);
@@ -78,11 +94,24 @@ export function Header() {
   }, []);
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all">
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all"
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         {/* LOGO */}
-        <Link href="/" className="flex items-center py-0.5 transition-opacity hover:opacity-90 shrink-0">
-          <Image src={logo} alt="Skout AI Logo" width={140} height={36} className="h-7 sm:h-9 w-auto max-w-[110px] sm:max-w-none object-contain" priority />
+        <Link
+          href="/"
+          className="flex items-center py-0.5 transition-opacity hover:opacity-90 shrink-0"
+        >
+          <Image
+            src={logo}
+            alt="Skout AI Logo"
+            width={140}
+            height={36}
+            className="h-7 sm:h-9 w-auto max-w-27.5 sm:max-w-none object-contain"
+            priority
+          />
         </Link>
 
         {/* DESKTOP NAVIGATION */}
@@ -110,8 +139,8 @@ export function Header() {
             </button>
 
             {activeMenu === "products" && (
-              <div className="absolute left-1/2 top-full w-[880px] -translate-x-1/2 pt-2">
-                <div className="max-h-[calc(100vh-100px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
+              <div className="absolute left-1/2 top-full w-220 -translate-x-1/2 pt-2">
+                <div className="max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
                   <div className="grid grid-cols-3 gap-6">
                     {/* DISCOVER COLUMN */}
                     <div>
@@ -238,10 +267,14 @@ export function Header() {
                         </div>
                         <div>
                           <div className="flex items-center gap-2 text-sm font-semibold text-foreground group-hover:text-accent transition-colors">
-                            Dexter AI <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-medium text-accent">GTM Intelligence Layer</span>
+                            Dexter AI{" "}
+                            <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-medium text-accent">
+                              GTM Intelligence Layer
+                            </span>
                           </div>
                           <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                            Your AI-powered sales copilot. Ask Dexter to research target prospects, summarize account threads, and write high-converting copy.
+                            Your AI-powered sales copilot. Ask Dexter to research target prospects,
+                            summarize account threads, and write high-converting copy.
                           </p>
                         </div>
                       </div>
@@ -259,7 +292,10 @@ export function Header() {
                   >
                     <div className="flex items-center gap-2">
                       <Zap className="h-3.5 w-3.5 text-accent" />
-                      <span><strong>Integrations:</strong> Connect HubSpot, Google Calendar, and BYOK AI models</span>
+                      <span>
+                        <strong>Integrations:</strong> Connect HubSpot, Google Calendar, and BYOK AI
+                        models
+                      </span>
                     </div>
                     <span className="font-semibold text-foreground group-hover:underline flex items-center gap-1">
                       View Integrations →
@@ -293,8 +329,8 @@ export function Header() {
             </button>
 
             {activeMenu === "solutions" && (
-              <div className="absolute left-1/2 top-full w-[600px] -translate-x-1/2 pt-2">
-                <div className="max-h-[calc(100vh-100px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
+              <div className="absolute left-1/2 top-full w-150 -translate-x-1/2 pt-2">
+                <div className="max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
                   <div className="grid grid-cols-2 gap-4">
                     <MegaItem
                       title="Outbound Prospecting"
@@ -386,8 +422,8 @@ export function Header() {
             </button>
 
             {activeMenu === "resources" && (
-              <div className="absolute left-0 top-full w-[420px] pt-2">
-                <div className="max-h-[calc(100vh-100px)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-5 shadow-2xl backdrop-blur-2xl">
+              <div className="absolute left-0 top-full w-105 pt-2">
+                <div className="max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-5 shadow-2xl backdrop-blur-2xl">
                   <div className="space-y-4">
                     <Link
                       href="/resources/gtm-outbound-calculator"
@@ -396,9 +432,12 @@ export function Header() {
                     >
                       <Calculator className="mt-0.5 h-5 w-5 text-accent shrink-0" />
                       <div>
-                        <div className="text-sm font-semibold text-foreground group-hover:underline">GTM Outbound Calculator</div>
+                        <div className="text-sm font-semibold text-foreground group-hover:underline">
+                          GTM Outbound Calculator
+                        </div>
                         <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                          Estimate contact sourcing, email finding, verification, and inbox tooling costs. Benchmark Apollo + Smartlead vs Skout AI.
+                          Estimate contact sourcing, email finding, verification, and inbox tooling
+                          costs. Benchmark Apollo + Smartlead vs Skout AI.
                         </p>
                       </div>
                     </Link>
@@ -410,9 +449,12 @@ export function Header() {
                     >
                       <BookOpen className="mt-0.5 h-5 w-5 text-foreground shrink-0" />
                       <div>
-                        <div className="text-sm font-semibold text-foreground group-hover:underline">Setup Guides</div>
+                        <div className="text-sm font-semibold text-foreground group-hover:underline">
+                          Setup Guides
+                        </div>
                         <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                          Step-by-step guides for getting your Skout workspace, ICP, prospecting, enrichment, CRM, and outreach workflows running.
+                          Step-by-step guides for getting your Skout workspace, ICP, prospecting,
+                          enrichment, CRM, and outreach workflows running.
                         </p>
                       </div>
                     </Link>
@@ -425,6 +467,21 @@ export function Header() {
 
         {/* RIGHT CTAS */}
         <div className="hidden md:flex items-center gap-3">
+          <button
+            onClick={toggleTheme}
+            className="rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
+            aria-label="Toggle theme"
+          >
+            {mounted ? (
+              theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </button>
           <a
             href={LOGIN_URL}
             target="_blank"
@@ -441,69 +498,242 @@ export function Header() {
           </Link>
         </div>
 
-        {/* MOBILE MENU TOGGLE */}
-        <button
-          className="rounded-lg p-2 md:hidden text-foreground hover:bg-muted"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle Navigation Menu"
-        >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        {/* MOBILE MENU TOGGLE WITH THEME TOGGLE */}
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            onClick={toggleTheme}
+            className="rounded-lg p-2 text-foreground hover:bg-muted"
+            aria-label="Toggle theme"
+          >
+            {mounted ? (
+              theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </button>
+          <button
+            className="rounded-lg p-2 text-foreground hover:bg-muted"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle Navigation Menu"
+          >
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {/* MOBILE DRAWER (MATCHING DESKTOP NAVBAR 100%) */}
       {mobileOpen && (
-        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-t border-border bg-background p-6 md:hidden">
+        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-t border-border bg-background p-6 md:hidden">
           <div className="flex flex-col gap-6">
             {/* PRODUCTS */}
             <div>
-              <div className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Products</div>
+              <div className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                Products
+              </div>
               <div className="grid grid-cols-1 gap-1.5 pl-2 text-sm">
                 <div className="pt-1 text-[11px] font-bold text-accent uppercase">Discover</div>
-                <Link href="/products/prospect-search" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Prospect Search</Link>
-                <Link href="/products/smart-lists" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Smart Lists</Link>
-                <Link href="/products/import" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Import & Mapping</Link>
+                <Link
+                  href="/products/prospect-search"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Prospect Search
+                </Link>
+                <Link
+                  href="/products/smart-lists"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Smart Lists
+                </Link>
+                <Link
+                  href="/products/import"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Import & Mapping
+                </Link>
 
-                <div className="pt-2 text-[11px] font-bold text-accent uppercase">Enrich & Intelligence</div>
-                <Link href="/products/enrichment" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Waterfall Enrichment</Link>
-                <Link href="/products/chrome-extension" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Chrome Extension</Link>
-                <Link href="/products/dexter-ai" onClick={() => setMobileOpen(false)} className="font-bold text-accent py-0.5">Dexter AI Copilot</Link>
+                <div className="pt-2 text-[11px] font-bold text-accent uppercase">
+                  Enrich & Intelligence
+                </div>
+                <Link
+                  href="/products/enrichment"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Waterfall Enrichment
+                </Link>
+                <Link
+                  href="/products/chrome-extension"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Chrome Extension
+                </Link>
+                <Link
+                  href="/products/dexter-ai"
+                  onClick={() => setMobileOpen(false)}
+                  className="font-bold text-accent py-0.5"
+                >
+                  Dexter AI Copilot
+                </Link>
 
-                <div className="pt-2 text-[11px] font-bold text-accent uppercase">Engage & Deliver</div>
-                <Link href="/products/sequences" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Multichannel Sequences</Link>
-                <Link href="/products/inbox" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Unified Inbox</Link>
-                <Link href="/products/ai-review" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">AI Outbound Review</Link>
-                <Link href="/products/deliverability" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Deliverability & Warmup</Link>
+                <div className="pt-2 text-[11px] font-bold text-accent uppercase">
+                  Engage & Deliver
+                </div>
+                <Link
+                  href="/products/sequences"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Multichannel Sequences
+                </Link>
+                <Link
+                  href="/products/inbox"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Unified Inbox
+                </Link>
+                <Link
+                  href="/products/ai-review"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  AI Outbound Review
+                </Link>
+                <Link
+                  href="/products/deliverability"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Deliverability & Warmup
+                </Link>
 
-                <div className="pt-2 text-[11px] font-bold text-accent uppercase">CRM & Pipeline</div>
-                <Link href="/products/crm" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Native GTM CRM</Link>
-                <Link href="/products/pipeline" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Visual Deal Pipeline</Link>
-                <Link href="/products/tasks-meetings" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Tasks & Meetings</Link>
-                <Link href="/products/analytics" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Sales Analytics</Link>
+                <div className="pt-2 text-[11px] font-bold text-accent uppercase">
+                  CRM & Pipeline
+                </div>
+                <Link
+                  href="/products/crm"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Native GTM CRM
+                </Link>
+                <Link
+                  href="/products/pipeline"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Visual Deal Pipeline
+                </Link>
+                <Link
+                  href="/products/tasks-meetings"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Tasks & Meetings
+                </Link>
+                <Link
+                  href="/products/analytics"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Sales Analytics
+                </Link>
               </div>
             </div>
 
             {/* SOLUTIONS */}
             <div>
-              <div className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Solutions</div>
+              <div className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                Solutions
+              </div>
               <div className="grid grid-cols-1 gap-1.5 pl-2 text-sm">
-                <Link href="/solutions/outbound-prospecting" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Outbound Prospecting</Link>
-                <Link href="/solutions/account-based-sales" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Account-Based Sales</Link>
-                <Link href="/solutions/pipeline-management" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Pipeline Management</Link>
-                <Link href="/solutions/sales-intelligence" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Sales Intelligence</Link>
-                <Link href="/solutions/smarter-outbound" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">Smarter Outbound</Link>
-                <Link href="/solutions/ai-assisted-selling" onClick={() => setMobileOpen(false)} className="text-foreground py-0.5">AI-Assisted Selling</Link>
+                <Link
+                  href="/solutions/outbound-prospecting"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Outbound Prospecting
+                </Link>
+                <Link
+                  href="/solutions/account-based-sales"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Account-Based Sales
+                </Link>
+                <Link
+                  href="/solutions/pipeline-management"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Pipeline Management
+                </Link>
+                <Link
+                  href="/solutions/sales-intelligence"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Sales Intelligence
+                </Link>
+                <Link
+                  href="/solutions/smarter-outbound"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  Smarter Outbound
+                </Link>
+                <Link
+                  href="/solutions/ai-assisted-selling"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground py-0.5"
+                >
+                  AI-Assisted Selling
+                </Link>
               </div>
             </div>
 
             {/* MAIN NAVIGATION & RESOURCES */}
             <div className="flex flex-col gap-2 pt-2 border-t border-border">
-              <Link href="/pricing" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-foreground py-1">Pricing</Link>
-              <Link href="/integrations" onClick={() => setMobileOpen(false)} className="text-sm font-semibold text-foreground py-1">Integrations</Link>
+              <Link
+                href="/pricing"
+                onClick={() => setMobileOpen(false)}
+                className="text-sm font-semibold text-foreground py-1"
+              >
+                Pricing
+              </Link>
+              <Link
+                href="/integrations"
+                onClick={() => setMobileOpen(false)}
+                className="text-sm font-semibold text-foreground py-1"
+              >
+                Integrations
+              </Link>
 
-              <div className="pt-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Resources</div>
-              <Link href="/resources/gtm-outbound-calculator" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-accent py-0.5">GTM Outbound Calculator</Link>
-              <Link href="/resources/setup-guides" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-foreground py-0.5">Setup Guides</Link>
+              <div className="pt-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                Resources
+              </div>
+              <Link
+                href="/resources/gtm-outbound-calculator"
+                onClick={() => setMobileOpen(false)}
+                className="text-sm font-medium text-accent py-0.5"
+              >
+                GTM Outbound Calculator
+              </Link>
+              <Link
+                href="/resources/setup-guides"
+                onClick={() => setMobileOpen(false)}
+                className="text-sm font-medium text-foreground py-0.5"
+              >
+                Setup Guides
+              </Link>
 
               <div className="pt-3 flex flex-col gap-2">
                 <a
