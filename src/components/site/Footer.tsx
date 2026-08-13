@@ -35,6 +35,7 @@ const resourceDropdownItems = [
   { to: "/integrations", label: "Integrations Hub" },
   { to: "/resources/gtm-outbound-calculator", label: "GTM Outbound Calculator" },
   { to: "/resources/setup-guides", label: "Setup Guides" },
+  { to: "/trust", label: "Trust & Security" },
 ];
 
 const platformNavItems = [
