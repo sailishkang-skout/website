@@ -1,7 +1,7 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
-import { useState } from "react";
 import {
   Check,
   ArrowRight,
@@ -23,11 +23,8 @@ import {
   Sliders,
   Bot,
   Mail,
-  BarChart3,
-  Cpu,
-  HelpCircle,
-  ArrowUpRight,
   CheckCircle2,
+  ArrowUpRight,
 } from "lucide-react";
 import { Section, Eyebrow } from "@/components/site/Section";
 import { WORKSPACE_URL } from "@/lib/constants";
@@ -38,7 +35,6 @@ interface Props {
 
 export default function PricingClient({ content }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [selectedTab, setSelectedTab] = useState<"all" | "core" | "ai" | "deliverability">("all");
 
   const plans = [
     {
@@ -53,8 +49,8 @@ export default function PricingClient({ content }: Props) {
       subtext: "No credit card required.",
       ctaText: "Start Free →",
       ctaHref: WORKSPACE_URL,
-      accentColor: "border-border/80 bg-card/60 hover:border-accent/40",
-      badgeColor: "bg-muted text-muted-foreground",
+      accentBorder: "border-border/80 bg-card/70 hover:border-accent/40",
+      badgeStyle: "bg-muted text-muted-foreground",
       includes: [
         "Prospect search",
         "Basic company information",
@@ -101,8 +97,8 @@ export default function PricingClient({ content }: Props) {
       subtext: "Everything in Free, plus:",
       ctaText: "Start Starter →",
       ctaHref: WORKSPACE_URL,
-      accentColor: "border-indigo-500/40 bg-card/80 hover:border-indigo-500/80 hover:shadow-indigo-500/10",
-      badgeColor: "bg-indigo-500/15 text-indigo-400 border border-indigo-500/30",
+      accentBorder: "border-indigo-500/40 bg-card/85 hover:border-indigo-500/80 shadow-md",
+      badgeStyle: "bg-indigo-500/15 text-indigo-400 border border-indigo-500/30",
       includes: [
         "5,000 enrichment credits/month",
         "Multiple connected mailboxes",
@@ -141,8 +137,8 @@ export default function PricingClient({ content }: Props) {
       subtext: "Everything in Starter, plus:",
       ctaText: "Start Scale →",
       ctaHref: WORKSPACE_URL,
-      accentColor: "border-accent bg-gradient-to-b from-indigo-950/40 via-card to-card shadow-2xl shadow-indigo-500/20 scale-[1.02] lg:scale-[1.04] z-10",
-      badgeColor: "bg-gradient-to-r from-accent via-indigo-500 to-purple-500 text-white shadow-lg",
+      accentBorder: "border-accent bg-gradient-to-b from-indigo-950/40 via-card to-card shadow-2xl shadow-indigo-500/20 scale-[1.02] lg:scale-[1.04] z-10",
+      badgeStyle: "bg-gradient-to-r from-accent via-indigo-500 to-purple-500 text-white font-bold shadow-lg",
       includes: [
         "15,000 enrichment credits/month",
         "Increased sending capacity",
@@ -185,8 +181,8 @@ export default function PricingClient({ content }: Props) {
         "Pricing is based on your team size, usage, data requirements, integrations, and operational requirements. Everything in Scale, plus:",
       ctaText: "Talk to Sales →",
       ctaHref: "/contact",
-      accentColor: "border-purple-500/40 bg-gradient-to-b from-purple-950/20 via-card to-card hover:border-purple-500/80",
-      badgeColor: "bg-purple-500/15 text-purple-300 border border-purple-500/30",
+      accentBorder: "border-purple-500/40 bg-gradient-to-b from-purple-950/20 via-card to-card hover:border-purple-500/80 shadow-md",
+      badgeStyle: "bg-purple-500/15 text-purple-300 border border-purple-500/30",
       includes: [
         "Custom enrichment volumes",
         "Custom sending requirements",
@@ -223,7 +219,7 @@ export default function PricingClient({ content }: Props) {
       title: "Free",
       price: "$0",
       icon: Zap,
-      accent: "from-blue-500/10 to-indigo-500/5 border-blue-500/20",
+      accent: "border-blue-500/30 bg-card/60",
       subtitle: "Find prospects. Enrich contacts. Manage your CRM. Send your first 1,000 emails.",
       bestFor: "Best for: Getting started",
       cta: "Start Free",
@@ -233,7 +229,7 @@ export default function PricingClient({ content }: Props) {
       title: "Starter",
       price: "$54/mo",
       icon: Mail,
-      accent: "from-indigo-500/10 to-purple-500/5 border-indigo-500/30",
+      accent: "border-indigo-500/30 bg-card/60",
       subtitle: "Automate your email outbound. Build sequences. Personalize outreach. Manage your pipeline.",
       bestFor: "Best for: Founders & small teams",
       cta: "Start Starter",
@@ -244,7 +240,7 @@ export default function PricingClient({ content }: Props) {
       price: "$79/mo",
       icon: Sparkles,
       highlight: true,
-      accent: "from-indigo-500/20 via-purple-500/15 to-accent/10 border-accent shadow-lg shadow-indigo-500/15",
+      accent: "border-accent bg-accent/10 shadow-lg shadow-indigo-500/15",
       subtitle: "Automate serious outbound. Add multi-channel workflows. Use AI prospect intelligence. Scale your sales operation.",
       bestFor: "Best for: Growing sales teams",
       cta: "Start Scale",
@@ -254,7 +250,7 @@ export default function PricingClient({ content }: Props) {
       title: "Enterprise",
       price: "Custom",
       icon: Building2,
-      accent: "from-purple-500/10 to-pink-500/5 border-purple-500/30",
+      accent: "border-purple-500/30 bg-card/60",
       subtitle: "Custom infrastructure. Advanced permissions. Custom integrations. Dedicated support.",
       bestFor: "Best for: Larger organizations",
       cta: "Talk to Sales",
@@ -356,7 +352,6 @@ export default function PricingClient({ content }: Props) {
         "Build sequences that automatically follow up with prospects instead of manually managing every interaction.",
       icon: RefreshCw,
       badge: "Automation",
-      color: "from-blue-500/20 to-indigo-500/10 text-blue-400 border-blue-500/30",
     },
     {
       title: "From data → intelligence",
@@ -364,7 +359,6 @@ export default function PricingClient({ content }: Props) {
         "Go beyond basic contact information with enrichment, prospect research, personalization, and AI-assisted workflows.",
       icon: Sparkles,
       badge: "AI & Data",
-      color: "from-purple-500/20 to-pink-500/10 text-purple-400 border-purple-500/30",
     },
     {
       title: "From one channel → multiple channels",
@@ -372,7 +366,6 @@ export default function PricingClient({ content }: Props) {
         "Bring email, LinkedIn, tasks, and other outbound activities into a single workflow.",
       icon: Layers,
       badge: "Multi-Channel",
-      color: "from-emerald-500/20 to-teal-500/10 text-emerald-400 border-emerald-500/30",
     },
     {
       title: "From individual → team",
@@ -380,7 +373,6 @@ export default function PricingClient({ content }: Props) {
         "Give your sales team the CRM, automation, analytics, permissions, and collaboration tools needed to operate at scale.",
       icon: Users,
       badge: "Scale & Team",
-      color: "from-amber-500/20 to-orange-500/10 text-amber-400 border-amber-500/30",
     },
   ];
 
@@ -463,7 +455,7 @@ export default function PricingClient({ content }: Props) {
   const renderTableCell = (val: string, isScale = false) => {
     if (val === "✓") {
       return (
-        <span className={`inline-flex items-center justify-center h-6 w-6 rounded-full ${isScale ? "bg-emerald-500/20 text-emerald-400" : "bg-emerald-500/10 text-emerald-400"}`}>
+        <span className={`inline-flex items-center justify-center h-5 w-5 rounded-full ${isScale ? "bg-emerald-500/20 text-emerald-400" : "bg-emerald-500/10 text-emerald-400"}`}>
           <Check className="h-3.5 w-3.5" />
         </span>
       );
@@ -480,27 +472,20 @@ export default function PricingClient({ content }: Props) {
 
   return (
     <div className="flex flex-col gap-0 text-foreground overflow-x-hidden">
-      {/* 1. HERO SECTION WITH RICH GLOOMING RADIAL GRADIENTS */}
-      <div className="relative border-b border-border/60 overflow-hidden bg-background">
-        {/* Subtle Background Glow Orbs */}
-        <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[800px] rounded-full bg-gradient-to-tr from-indigo-600/20 via-purple-600/15 to-accent/10 blur-[120px] opacity-70" />
-        <div className="pointer-events-none absolute top-1/2 -right-40 h-[350px] w-[350px] rounded-full bg-accent/10 blur-[100px]" />
-
-        <Section className="py-14! md:py-24! text-center relative z-10">
+      {/* 1. HERO SECTION WITH CLEAN STRUCTURAL LAYOUT */}
+      <div className="relative border-b border-border/60 bg-background">
+        <Section className="py-12! md:py-20! text-center relative z-10">
           <div className="mx-auto max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold text-accent shadow-sm backdrop-blur-md">
-              <Sparkles className="h-3.5 w-3.5 animate-pulse text-accent" />
-              <span>TRANSPARENT INFRASTRUCTURE PRICING</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-semibold text-accent">
+              <Sparkles className="h-3.5 w-3.5 text-accent" />
+              <span>SKOUT AI PRICING</span>
             </div>
 
-            <h1 className="mx-auto max-w-3xl font-display text-3xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight">
-              Start free. Scale when your outbound{" "}
-              <span className="bg-gradient-to-r from-accent via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                grows.
-              </span>
+            <h1 className="mx-auto max-w-3xl font-display text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight text-foreground">
+              Start free. Scale when your outbound <span className="text-accent">grows.</span>
             </h1>
 
-            <p className="mx-auto max-w-2xl text-xs sm:text-base leading-relaxed text-muted-foreground font-normal">
+            <p className="mx-auto max-w-2xl text-xs sm:text-base leading-relaxed text-muted-foreground">
               Everything you need to find prospects, enrich contacts, organize your pipeline, and start outbound — with more automation, intelligence, and scale as your team grows. No long-term commitment. Upgrade when you need more.
             </p>
 
@@ -510,14 +495,14 @@ export default function PricingClient({ content }: Props) {
                 href={WORKSPACE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-accent px-8 py-3.5 text-sm font-bold text-accent-foreground shadow-xl shadow-accent/25 transition-all hover:scale-[1.03] hover:bg-accent/90"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-accent px-8 py-3.5 text-sm font-bold text-accent-foreground shadow-lg shadow-accent/20 transition-all hover:scale-[1.02] hover:bg-accent/90"
               >
                 <span>Start Free — $0</span>
                 <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href="#feature-comparison"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-border/80 bg-card/80 px-7 py-3.5 text-sm font-semibold text-foreground backdrop-blur-md transition-all hover:bg-card hover:border-accent/40"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-7 py-3.5 text-sm font-semibold text-foreground transition-all hover:bg-muted hover:border-accent/40"
               >
                 <span>Compare Plans ↓</span>
               </a>
@@ -538,11 +523,11 @@ export default function PricingClient({ content }: Props) {
               </span>
             </div>
 
-            {/* MONTHLY BILLING NOTICE BADGE */}
-            <div className="pt-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/90 px-4 py-1.5 text-xs font-semibold text-foreground/90 shadow-sm backdrop-blur-md">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Monthly billing — Pay only for the infrastructure you use</span>
+            {/* MONTHLY BILLING NOTICE */}
+            <div className="pt-2">
+              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-semibold text-foreground/90">
+                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                <span>Monthly billing — Transparent infrastructure pricing</span>
               </div>
             </div>
           </div>
@@ -550,15 +535,15 @@ export default function PricingClient({ content }: Props) {
       </div>
 
       {/* 2. PRICING CARDS SECTION */}
-      <Section className="py-14! md:py-20! relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 items-stretch">
+      <Section className="py-12! md:py-16! relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`relative flex flex-col justify-between rounded-3xl border p-6 sm:p-7 transition-all duration-300 backdrop-blur-xl ${plan.accentColor}`}
+              className={`relative flex flex-col justify-between rounded-2xl border p-6 sm:p-7 transition-all duration-300 ${plan.accentBorder}`}
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-accent via-indigo-500 to-purple-500 px-4 py-1 text-[11px] font-extrabold uppercase tracking-widest text-white shadow-xl shadow-accent/30 flex items-center gap-1.5">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-accent px-4 py-1 text-[11px] font-extrabold uppercase tracking-wider text-accent-foreground shadow-lg flex items-center gap-1.5">
                   <Star className="h-3 w-3 fill-current text-amber-300" /> {plan.badge}
                 </div>
               )}
@@ -570,7 +555,7 @@ export default function PricingClient({ content }: Props) {
                       {plan.name}
                     </h3>
                     {!plan.popular && plan.badge && (
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${plan.badgeColor}`}>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${plan.badgeStyle}`}>
                         {plan.badge}
                       </span>
                     )}
@@ -579,7 +564,7 @@ export default function PricingClient({ content }: Props) {
                 </div>
 
                 <div className="flex items-baseline gap-1 border-b border-border/60 pb-4">
-                  <span className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
+                  <span className="font-display text-4xl font-extrabold tracking-tight text-foreground">
                     {plan.price}
                   </span>
                   {plan.period && (
@@ -611,7 +596,7 @@ export default function PricingClient({ content }: Props) {
                 {/* LIMITS LIST FOR FREE PLAN */}
                 {plan.limits.length > 0 && (
                   <div className="pt-3 border-t border-border/50 space-y-2">
-                    <p className="text-[11px] font-bold text-rose-400 uppercase tracking-wider">Free Plan Limits</p>
+                    <p className="text-[11px] font-bold text-rose-400 uppercase tracking-wider">Limits</p>
                     <ul className="space-y-1.5 text-xs text-muted-foreground/80">
                       {plan.limits.map((lim, idx) => (
                         <li key={idx} className="flex items-start gap-2 leading-snug">
@@ -629,10 +614,10 @@ export default function PricingClient({ content }: Props) {
                   href={plan.ctaHref}
                   target={plan.ctaHref.startsWith("http") ? "_blank" : undefined}
                   rel={plan.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className={`w-full flex items-center justify-center gap-2 rounded-xl py-3.5 text-xs font-extrabold transition-all shadow-md ${
+                  className={`w-full flex items-center justify-center gap-2 rounded-xl py-3 text-xs font-extrabold transition-all shadow-sm ${
                     plan.popular
-                      ? "bg-accent text-accent-foreground shadow-accent/25 hover:scale-[1.02] hover:bg-accent/90"
-                      : "bg-muted/90 text-foreground hover:bg-accent hover:text-accent-foreground"
+                      ? "bg-accent text-accent-foreground shadow-accent/20 hover:scale-[1.02] hover:bg-accent/90"
+                      : "bg-muted text-foreground hover:bg-accent hover:text-accent-foreground"
                   }`}
                 >
                   <span>{plan.ctaText}</span>
@@ -648,7 +633,7 @@ export default function PricingClient({ content }: Props) {
         <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
           <Eyebrow>Quick Summary</Eyebrow>
           <h2 className="font-display text-xl sm:text-2xl font-bold text-foreground">
-            Simple comparison for fast decision-making
+            Simple plan comparison at a glance
           </h2>
         </div>
 
@@ -658,7 +643,7 @@ export default function PricingClient({ content }: Props) {
             return (
               <div
                 key={i}
-                className={`rounded-2xl border p-5 space-y-4 flex flex-col justify-between transition-all duration-300 bg-gradient-to-br ${qc.accent} hover:-translate-y-1`}
+                className={`rounded-2xl border p-5 space-y-4 flex flex-col justify-between transition-all ${qc.accent}`}
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
@@ -680,7 +665,7 @@ export default function PricingClient({ content }: Props) {
                     href={qc.href}
                     target={qc.href.startsWith("http") ? "_blank" : undefined}
                     rel={qc.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="flex items-center justify-center gap-1.5 w-full text-center rounded-xl border border-border/80 bg-background/80 py-2.5 text-xs font-bold text-foreground hover:border-accent hover:text-accent transition-colors shadow-sm"
+                    className="flex items-center justify-center gap-1.5 w-full text-center rounded-xl border border-border bg-background py-2 text-xs font-bold text-foreground hover:border-accent hover:text-accent transition-colors shadow-sm"
                   >
                     <span>{qc.cta}</span>
                     <ArrowUpRight className="h-3.5 w-3.5" />
@@ -694,20 +679,20 @@ export default function PricingClient({ content }: Props) {
 
       {/* 4. DETAILED FEATURE COMPARISON MATRIX */}
       <section id="feature-comparison" className="scroll-mt-24 border-t border-border/60">
-        <Section className="py-14! md:py-20!">
+        <Section className="py-12! md:py-16!">
           <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
             <Eyebrow>Feature Matrix</Eyebrow>
-            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-foreground">
+            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-foreground">
               Everything you need to build and scale outbound.
             </h2>
             <p className="text-xs sm:text-sm text-muted-foreground">
-              Detailed feature breakdown across Free, Starter, Scale, and Enterprise plans.
+              Compare features across Free, Starter, Scale, and Enterprise plans.
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-3xl border border-border/80 bg-card/80 shadow-2xl backdrop-blur-2xl">
+          <div className="overflow-x-auto rounded-2xl border border-border bg-card shadow-xl">
             <table className="w-full text-left text-xs">
-              <thead className="sticky top-16 z-20 bg-card/95 backdrop-blur-md border-b border-border shadow-sm">
+              <thead className="sticky top-16 z-20 bg-card border-b border-border">
                 <tr className="font-display font-bold text-foreground">
                   <th className="p-4 sm:p-5 min-w-[220px]">Feature</th>
                   <th className="p-4 sm:p-5 text-center min-w-[100px]">Free ($0)</th>
@@ -720,9 +705,9 @@ export default function PricingClient({ content }: Props) {
               </thead>
               <tbody className="divide-y divide-border/50">
                 {comparisonCategories.map((cat, catIdx) => (
-                  <tr key={catIdx} className="contents">
+                  <React.Fragment key={catIdx}>
                     {/* CATEGORY HEADER ROW */}
-                    <tr className="bg-muted/60 border-y border-border/80">
+                    <tr className="bg-muted/70 border-y border-border">
                       <td
                         colSpan={5}
                         className="py-3 px-4 sm:px-5 font-display font-extrabold text-xs text-accent uppercase tracking-wider flex items-center gap-2"
@@ -744,7 +729,7 @@ export default function PricingClient({ content }: Props) {
                         <td className="p-3.5 sm:p-4 text-center">{renderTableCell(row.enterprise)}</td>
                       </tr>
                     ))}
-                  </tr>
+                  </React.Fragment>
                 ))}
               </tbody>
             </table>
@@ -753,10 +738,10 @@ export default function PricingClient({ content }: Props) {
       </section>
 
       {/* 5. WHY UPGRADE? SECTION */}
-      <Section className="py-14! md:py-20! border-t border-border/60">
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+      <Section className="py-12! md:py-16! border-t border-border/60">
+        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
           <Eyebrow>Why Upgrade?</Eyebrow>
-          <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-foreground">
+          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-foreground">
             Start free. Upgrade when your workflow demands more.
           </h2>
         </div>
@@ -767,24 +752,22 @@ export default function PricingClient({ content }: Props) {
             return (
               <div
                 key={idx}
-                className="relative rounded-3xl border border-border/80 bg-card/70 p-7 space-y-4 shadow-xl hover:border-accent/50 transition-all duration-300 backdrop-blur-xl group"
+                className="rounded-2xl border border-border bg-card p-6 space-y-3 shadow-md hover:border-accent/40 transition-colors"
               >
                 <div className="flex items-center justify-between">
-                  <div className={`p-3 rounded-2xl border bg-gradient-to-br ${item.color}`}>
-                    <IconComp className="h-6 w-6" />
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-accent/10 text-accent border border-accent/20">
+                      <IconComp className="h-5 w-5" />
+                    </div>
+                    <h3 className="font-display text-base font-bold text-foreground">{item.title}</h3>
                   </div>
-                  <span className={`text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border ${item.color}`}>
+                  <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider border border-accent/20">
                     {item.badge}
                   </span>
                 </div>
-                <div className="space-y-2">
-                  <h3 className="font-display text-lg font-bold text-foreground group-hover:text-accent transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed pl-12">
+                  {item.description}
+                </p>
               </div>
             );
           })}
@@ -792,13 +775,12 @@ export default function PricingClient({ content }: Props) {
       </Section>
 
       {/* 6. NO SEAT-BASED COMPLEXITY SECTION */}
-      <Section className="py-12! md:py-16! border-t border-border/60">
-        <div className="relative overflow-hidden rounded-3xl border border-indigo-500/30 bg-gradient-to-r from-indigo-950/50 via-card to-card p-7 sm:p-12 shadow-2xl text-center max-w-4xl mx-auto space-y-5">
-          <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
-          <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/15 px-4 py-1.5 text-xs font-bold text-accent">
-            <Building2 className="h-4 w-4" /> No Seat-Based Tax
+      <Section className="py-10! md:py-14! border-t border-border/60">
+        <div className="rounded-3xl border border-border bg-card p-7 sm:p-10 shadow-xl text-center max-w-4xl mx-auto space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3.5 py-1 text-xs font-bold text-accent">
+            <Building2 className="h-3.5 w-3.5" /> No Seat-Based Complexity
           </div>
-          <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-foreground">
+          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-foreground">
             Pay for the outbound infrastructure you need — not unnecessary complexity.
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-2xl mx-auto font-normal">
@@ -808,10 +790,10 @@ export default function PricingClient({ content }: Props) {
       </Section>
 
       {/* 7. TRUST & SECURITY SECTION (directly above FAQ) */}
-      <Section className="py-14! md:py-20! border-t border-border/60">
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+      <Section className="py-12! md:py-16! border-t border-border/60">
+        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
           <Eyebrow>Security & Compliance</Eyebrow>
-          <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-foreground">
+          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-foreground">
             Built with privacy and security in mind.
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground">
@@ -825,10 +807,10 @@ export default function PricingClient({ content }: Props) {
             return (
               <div
                 key={i}
-                className="rounded-2xl border border-border/80 bg-card/60 p-6 space-y-3 shadow-md hover:border-accent/40 transition-colors backdrop-blur-xl"
+                className="rounded-2xl border border-border bg-card p-5 space-y-2 shadow-sm hover:border-accent/40 transition-colors"
               >
-                <div className="flex items-center gap-3 text-accent font-bold text-sm">
-                  <div className="p-2 rounded-xl bg-accent/10 text-accent">
+                <div className="flex items-center gap-2.5 text-accent font-bold text-sm">
+                  <div className="p-1.5 rounded-lg bg-accent/10 text-accent">
                     <Icon className="h-4 w-4 shrink-0" />
                   </div>
                   <h4>{tb.title}</h4>
@@ -841,40 +823,38 @@ export default function PricingClient({ content }: Props) {
       </Section>
 
       {/* 8. FAQ SECTION */}
-      <Section className="py-14! md:py-20! border-t border-border/60">
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+      <Section className="py-12! md:py-16! border-t border-border/60">
+        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
           <Eyebrow>Frequently Asked Questions</Eyebrow>
-          <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-foreground">
+          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-foreground">
             Everything you need to know
           </h2>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-3.5">
+        <div className="max-w-3xl mx-auto space-y-3">
           {faqs.map((faq, idx) => {
             const isOpen = openFaq === idx;
             return (
               <div
                 key={idx}
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden shadow-sm ${
-                  isOpen
-                    ? "border-accent/60 bg-card shadow-md"
-                    : "border-border/80 bg-card/70 hover:border-border"
+                className={`rounded-2xl border transition-colors overflow-hidden ${
+                  isOpen ? "border-accent/50 bg-card" : "border-border bg-card/70"
                 }`}
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full flex items-center justify-between p-5 text-left font-display font-semibold text-sm sm:text-base text-foreground hover:text-accent transition-colors"
+                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left font-display font-semibold text-sm sm:text-base text-foreground hover:text-accent transition-colors"
                 >
                   <span className="pr-4">{faq.q}</span>
                   <ChevronDown
-                    className={`h-4 w-4 text-accent shrink-0 transition-transform duration-300 ${
+                    className={`h-4 w-4 text-accent shrink-0 transition-transform duration-200 ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-0 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-border/40">
-                    <p className="pt-3.5">{faq.a}</p>
+                  <div className="px-4 pb-5 pt-0 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-border/40">
+                    <p className="pt-3">{faq.a}</p>
                   </div>
                 )}
               </div>
@@ -884,12 +864,12 @@ export default function PricingClient({ content }: Props) {
       </Section>
 
       {/* 9. PRICING-PAGE LEGAL FOOTER */}
-      <Section className="py-10! border-t border-border/60 bg-card/30">
-        <div className="max-w-4xl mx-auto space-y-5 text-center">
+      <Section className="py-8! border-t border-border/60 bg-card/30">
+        <div className="max-w-4xl mx-auto space-y-4 text-center">
           <p className="text-[11px] text-muted-foreground/80 leading-relaxed text-left sm:text-center font-normal">
             Pricing and feature availability may vary by plan, usage, region, integrations, and applicable service terms. Certain features may be subject to usage limits, fair-use requirements, third-party provider restrictions, or additional terms. Skout AI does not guarantee specific business outcomes, including email delivery, inbox placement, open rates, reply rates, meetings, leads, pipeline, revenue, or return on investment. Use of Skout AI is subject to our Terms of Service, Privacy Policy, and Acceptable Use Policy.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-bold text-accent">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-accent">
             <Link href="/terms" className="hover:underline flex items-center gap-1">
               <span>Terms of Service</span>
               <ArrowUpRight className="h-3 w-3" />
