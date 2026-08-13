@@ -40,7 +40,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ page
   await Content.findOneAndUpdate(
     { pageId: page },
     { data: body.data, updatedAt: new Date() },
-    { upsert: true, new: true }
+    { upsert: true, new: true },
   );
 
   return NextResponse.json({ success: true });

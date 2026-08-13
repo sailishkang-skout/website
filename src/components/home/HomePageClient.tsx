@@ -52,7 +52,9 @@ export function HeroWorkspaceVisual() {
                     98% Fit
                   </span>
                 </div>
-                <div className="text-[9px] sm:text-[10px] text-slate-400 truncate">DevTools · Series B · Hiring</div>
+                <div className="text-[9px] sm:text-[10px] text-slate-400 truncate">
+                  DevTools · Series B · Hiring
+                </div>
               </div>
             </div>
             <button className="rounded-lg bg-indigo-600 px-2 py-1 text-[9px] sm:text-[10px] font-semibold text-white hover:bg-indigo-500 transition-colors shrink-0">
@@ -72,7 +74,9 @@ export function HeroWorkspaceVisual() {
                     94% Fit
                   </span>
                 </div>
-                <div className="text-[9px] sm:text-[10px] text-slate-400 truncate">Productivity · Series C</div>
+                <div className="text-[9px] sm:text-[10px] text-slate-400 truncate">
+                  Productivity · Series C
+                </div>
               </div>
             </div>
             <span className="rounded-lg border border-white/10 px-2 py-1 text-[9px] sm:text-[10px] font-medium text-slate-400 shrink-0">
@@ -98,7 +102,9 @@ export function HeroWorkspaceVisual() {
               </div>
               <div className="min-w-0">
                 <div className="font-semibold text-xs text-white truncate">Sofia Alvarez</div>
-                <div className="text-[9px] sm:text-[10px] text-slate-400 truncate">CMO at Linear · Budget Holder</div>
+                <div className="text-[9px] sm:text-[10px] text-slate-400 truncate">
+                  CMO at Linear · Budget Holder
+                </div>
               </div>
             </div>
             <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-[9px] font-semibold text-emerald-400 border border-emerald-500/30 shrink-0">
@@ -107,7 +113,10 @@ export function HeroWorkspaceVisual() {
           </div>
           <div className="rounded-lg bg-slate-950/80 p-2.5 text-[10px] text-slate-300 border border-white/5 space-y-1">
             <div className="font-bold text-indigo-400">Dexter AI Signal Callout:</div>
-            <div>&quot;Sofia expanded RevOps team + added HubSpot Sales Hub last month. Optimal timing for outbound demo call.&quot;</div>
+            <div>
+              &quot;Sofia expanded RevOps team + added HubSpot Sales Hub last month. Optimal timing
+              for outbound demo call.&quot;
+            </div>
           </div>
         </div>
       ),
@@ -124,16 +133,24 @@ export function HeroWorkspaceVisual() {
           <div className="flex items-center justify-between rounded-lg bg-slate-950 p-2 border border-white/5">
             <div className="flex items-center gap-2 min-w-0">
               <Send className="h-3.5 w-3.5 text-indigo-400 shrink-0" />
-              <span className="font-semibold text-white truncate text-[11px]">Email Step 1: Cold Intro</span>
+              <span className="font-semibold text-white truncate text-[11px]">
+                Email Step 1: Cold Intro
+              </span>
             </div>
-            <span className="rounded bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 text-[8px] font-bold shrink-0">Sent</span>
+            <span className="rounded bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 text-[8px] font-bold shrink-0">
+              Sent
+            </span>
           </div>
           <div className="flex items-center justify-between rounded-lg bg-slate-950 p-2 border border-white/5">
             <div className="flex items-center gap-2 min-w-0">
               <Bot className="h-3.5 w-3.5 text-indigo-400 shrink-0" />
-              <span className="font-semibold text-white truncate text-[11px]">AI Review: 0 Spam Words</span>
+              <span className="font-semibold text-white truncate text-[11px]">
+                AI Review: 0 Spam Words
+              </span>
             </div>
-            <span className="rounded bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 text-[8px] font-bold shrink-0">Passed</span>
+            <span className="rounded bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 text-[8px] font-bold shrink-0">
+              Passed
+            </span>
           </div>
         </div>
       ),
@@ -169,7 +186,9 @@ export function HeroWorkspaceVisual() {
           <span className="h-2.5 w-2.5 rounded-full bg-red-500/80 shrink-0" />
           <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80 shrink-0" />
           <span className="h-2.5 w-2.5 rounded-full bg-green-500/80 shrink-0" />
-          <span className="ml-1 text-[9px] sm:text-[10px] font-mono text-slate-400 font-medium truncate">skout.ai/workspace/connected</span>
+          <span className="ml-1 text-[9px] sm:text-[10px] font-mono text-slate-400 font-medium truncate">
+            skout.ai/workspace/connected
+          </span>
         </div>
         <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[8px] sm:text-[9px] font-mono font-medium text-emerald-400 border border-emerald-500/20 shrink-0">
           Live Engine
@@ -188,8 +207,12 @@ export function HeroWorkspaceVisual() {
                 : "text-slate-400 hover:bg-slate-900/50 hover:text-slate-200"
             }`}
           >
-            <span className="text-[9px] sm:text-[10px] hidden sm:block font-mono uppercase tracking-wider">{t.label}</span>
-            <span className="text-[9px] sm:text-[10px] block sm:hidden font-mono uppercase tracking-wider">{t.mobileLabel}</span>
+            <span className="text-[9px] sm:text-[10px] hidden sm:block font-mono uppercase tracking-wider">
+              {t.label}
+            </span>
+            <span className="text-[9px] sm:text-[10px] block sm:hidden font-mono uppercase tracking-wider">
+              {t.mobileLabel}
+            </span>
           </button>
         ))}
       </div>
@@ -234,7 +257,9 @@ export function PlatformTabbedShowcase({
   engage: Record<string, unknown>;
   convert: Record<string, unknown>;
 }) {
-  const [activeTab, setActiveTab] = useState<"discover" | "understand" | "engage" | "convert">("discover");
+  const [activeTab, setActiveTab] = useState<"discover" | "understand" | "engage" | "convert">(
+    "discover",
+  );
 
   const steps = [
     {
@@ -245,13 +270,29 @@ export function PlatformTabbedShowcase({
       title: "Start with the right accounts — not a giant list.",
       desc: String(
         discover.description ??
-          "Define who you want to reach and use Skout to discover companies and contacts that fit your targeting criteria."
+          "Define who you want to reach and use Skout to discover companies and contacts that fit your targeting criteria.",
       ),
       cards: [
-        { title: "Prospect Search", desc: "Find companies and contacts based on strategy criteria.", icon: Search },
-        { title: "Smart Lists", desc: "Organize prospect lists around your target priorities.", icon: ListFilter },
-        { title: "Import", desc: "Bring existing leads into Skout for enrichment.", icon: FileSpreadsheet },
-        { title: "ICP Setup", desc: "Define your ideal customer profile as a live foundation.", icon: Target },
+        {
+          title: "Prospect Search",
+          desc: "Find companies and contacts based on strategy criteria.",
+          icon: Search,
+        },
+        {
+          title: "Smart Lists",
+          desc: "Organize prospect lists around your target priorities.",
+          icon: ListFilter,
+        },
+        {
+          title: "Import",
+          desc: "Bring existing leads into Skout for enrichment.",
+          icon: FileSpreadsheet,
+        },
+        {
+          title: "ICP Setup",
+          desc: "Define your ideal customer profile as a live foundation.",
+          icon: Target,
+        },
       ],
     },
     {
@@ -262,13 +303,29 @@ export function PlatformTabbedShowcase({
       title: "Don't just know who they are. Understand the account.",
       desc: String(
         understand.description ??
-          "A name and email are not enough. Skout enriches contact and company info so your team works with deep context."
+          "A name and email are not enough. Skout enriches contact and company info so your team works with deep context.",
       ),
       cards: [
-        { title: "Enrichment", desc: "Fill data gaps for contacts and company signals.", icon: Sparkles },
-        { title: "Dexter Context Callout", desc: "Dexter summarizes what matters about an account.", icon: Bot },
-        { title: "Intent Signals", desc: "Track headcount changes, job posts, and tech stack.", icon: Zap },
-        { title: "Decision-Maker Identification", desc: "Map budget holders and buyers automatically.", icon: Users },
+        {
+          title: "Enrichment",
+          desc: "Fill data gaps for contacts and company signals.",
+          icon: Sparkles,
+        },
+        {
+          title: "Dexter Context Callout",
+          desc: "Dexter summarizes what matters about an account.",
+          icon: Bot,
+        },
+        {
+          title: "Intent Signals",
+          desc: "Track headcount changes, job posts, and tech stack.",
+          icon: Zap,
+        },
+        {
+          title: "Decision-Maker Identification",
+          desc: "Map budget holders and buyers automatically.",
+          icon: Users,
+        },
       ],
     },
     {
@@ -279,13 +336,25 @@ export function PlatformTabbedShowcase({
       title: "Turn intelligence into outreach.",
       desc: String(
         engage.description ??
-          "Move seamlessly into outreach without rebuilding your campaign workflow somewhere else."
+          "Move seamlessly into outreach without rebuilding your campaign workflow somewhere else.",
       ),
       cards: [
         { title: "Sequences", desc: "Automated multi-channel outbound sequences.", icon: Workflow },
-        { title: "Unified Inbox", desc: "Keep prospect replies connected to account context.", icon: InboxIcon },
-        { title: "AI Review", desc: "Optimize email messaging before dispatch.", icon: CheckCircle2 },
-        { title: "Deliverability Guard", desc: "Monitor domain health and inbox placement.", icon: ShieldCheck },
+        {
+          title: "Unified Inbox",
+          desc: "Keep prospect replies connected to account context.",
+          icon: InboxIcon,
+        },
+        {
+          title: "AI Review",
+          desc: "Optimize email messaging before dispatch.",
+          icon: CheckCircle2,
+        },
+        {
+          title: "Deliverability Guard",
+          desc: "Monitor domain health and inbox placement.",
+          icon: ShieldCheck,
+        },
       ],
     },
     {
@@ -296,13 +365,29 @@ export function PlatformTabbedShowcase({
       title: "When interest turns into opportunity, keep the context.",
       desc: String(
         convert.description ??
-          "Connect contacts and deals with tasks, meetings, and pipeline activity in one connected workspace."
+          "Connect contacts and deals with tasks, meetings, and pipeline activity in one connected workspace.",
       ),
       cards: [
-        { title: "Companies & Contacts", desc: "Organized account repository in one place.", icon: Database },
-        { title: "Deals & Pipeline", desc: "Visual pipeline management connected to outreach.", icon: Kanban },
-        { title: "Task Management", desc: "Turn replies into clear follow-up actions.", icon: Check },
-        { title: "Meetings & Calendar", desc: "Connect booked meetings directly to opportunities.", icon: CalendarCheck },
+        {
+          title: "Companies & Contacts",
+          desc: "Organized account repository in one place.",
+          icon: Database,
+        },
+        {
+          title: "Deals & Pipeline",
+          desc: "Visual pipeline management connected to outreach.",
+          icon: Kanban,
+        },
+        {
+          title: "Task Management",
+          desc: "Turn replies into clear follow-up actions.",
+          icon: Check,
+        },
+        {
+          title: "Meetings & Calendar",
+          desc: "Connect booked meetings directly to opportunities.",
+          icon: CalendarCheck,
+        },
       ],
     },
   ];
@@ -331,7 +416,9 @@ export function PlatformTabbedShowcase({
                 </span>
                 <span className="text-xs font-semibold">{step.name}</span>
               </div>
-              <ArrowRight className={`h-3.5 w-3.5 transition-transform ${isActive ? "translate-x-0.5 text-accent" : "opacity-0"}`} />
+              <ArrowRight
+                className={`h-3.5 w-3.5 transition-transform ${isActive ? "translate-x-0.5 text-accent" : "opacity-0"}`}
+              />
             </button>
           );
         })}
@@ -397,10 +484,14 @@ export function DexterInteractiveGrid({
             }`}
           >
             <div className="truncate">
-              <span className="text-[9px] font-bold uppercase tracking-wider text-accent block">{p.category}</span>
+              <span className="text-[9px] font-bold uppercase tracking-wider text-accent block">
+                {p.category}
+              </span>
               <span className="truncate block font-medium">"{p.prompt}"</span>
             </div>
-            <ArrowRight className={`h-3.5 w-3.5 shrink-0 transition-transform ${selectedIdx === idx ? "translate-x-1 text-accent" : "opacity-40"}`} />
+            <ArrowRight
+              className={`h-3.5 w-3.5 shrink-0 transition-transform ${selectedIdx === idx ? "translate-x-1 text-accent" : "opacity-40"}`}
+            />
           </button>
         ))}
       </div>
@@ -435,7 +526,10 @@ export function DexterInteractiveGrid({
 
         <div className="mt-4 border-t border-white/10 pt-3 flex items-center justify-between text-[11px] text-slate-400">
           <span>Grounded in Skout's live workspace data</span>
-          <Link href="/contact" className="font-semibold text-white underline underline-offset-4 hover:text-indigo-400 transition-colors">
+          <Link
+            href="/contact"
+            className="font-semibold text-white underline underline-offset-4 hover:text-indigo-400 transition-colors"
+          >
             Ask Dexter with your data →
           </Link>
         </div>
@@ -467,7 +561,9 @@ export function FaqAccordion({ items }: { items: Array<{ question: string; answe
             <div
               key={actualIdx}
               className={`overflow-hidden rounded-2xl border transition-all ${
-                isOpen ? "border-foreground/30 bg-card shadow-md" : "border-border bg-card/80 hover:bg-card"
+                isOpen
+                  ? "border-foreground/30 bg-card shadow-md"
+                  : "border-border bg-card/80 hover:bg-card"
               }`}
             >
               <button
@@ -503,7 +599,9 @@ export function FaqAccordion({ items }: { items: Array<{ question: string; answe
             <div
               key={actualIdx}
               className={`overflow-hidden rounded-2xl border transition-all ${
-                isOpen ? "border-foreground/30 bg-card shadow-md" : "border-border bg-card/80 hover:bg-card"
+                isOpen
+                  ? "border-foreground/30 bg-card shadow-md"
+                  : "border-border bg-card/80 hover:bg-card"
               }`}
             >
               <button

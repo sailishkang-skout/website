@@ -139,7 +139,9 @@ export default function FeaturesClient({ content }: Props) {
           <h1 className="mx-auto mt-4 max-w-3xl font-display text-3xl leading-tight sm:text-4xl md:text-5xl">
             {String(hero.title ?? "One platform.")}
             <br />
-            <GradientText>{String(hero.titleHighlight ?? "Five tools you can cancel.")}</GradientText>
+            <GradientText>
+              {String(hero.titleHighlight ?? "Five tools you can cancel.")}
+            </GradientText>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground md:text-base">
             {String(hero.description ?? "")}
@@ -150,10 +152,7 @@ export default function FeaturesClient({ content }: Props) {
       {groups.map((group, index) => {
         const GroupIcon = GROUP_ICONS[group.title] ?? Database;
         return (
-          <Section
-            key={group.title}
-            className={`py-5! md:py-8! ${index % 2 ? "bg-card/20!" : ""}`}
-          >
+          <Section key={group.title} className={`py-5! md:py-8! ${index % 2 ? "bg-card/20!" : ""}`}>
             <div className="flex items-center gap-3">
               <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
                 <GroupIcon className="h-5 w-5" />

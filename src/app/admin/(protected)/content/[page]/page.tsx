@@ -13,11 +13,7 @@ const PAGE_LABELS: Record<string, string> = {
   integrations: "Integrations",
 };
 
-export default async function ContentPageEditor({
-  params,
-}: {
-  params: Promise<{ page: string }>;
-}) {
+export default async function ContentPageEditor({ params }: { params: Promise<{ page: string }> }) {
   const { page } = await params;
   if (!VALID_PAGES.includes(page)) notFound();
 

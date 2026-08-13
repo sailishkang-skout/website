@@ -34,7 +34,9 @@ interface IntegrationTool {
   capabilities: string[];
 }
 
-export default function IntegrationsClient({ content }: { content?: Record<string, unknown> } = {}) {
+export default function IntegrationsClient({
+  content,
+}: { content?: Record<string, unknown> } = {}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
@@ -45,9 +47,14 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
       category: "crm",
       categoryLabel: "CRM Sync",
       badge: "Native 2-Way",
-      description: "Bi-directional 2-way sync for contacts, companies, deals, call logs, and sequence activities.",
+      description:
+        "Bi-directional 2-way sync for contacts, companies, deals, call logs, and sequence activities.",
       iconLetter: "HS",
-      capabilities: ["Real-time property mapping", "Deal pipeline stage sync", "Automated activity logging"],
+      capabilities: [
+        "Real-time property mapping",
+        "Deal pipeline stage sync",
+        "Automated activity logging",
+      ],
     },
     {
       id: "google-workspace",
@@ -55,9 +62,14 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
       category: "outbound",
       categoryLabel: "Email & Outreach",
       badge: "OAuth 2.0",
-      description: "Connect unlimited Google Workspace sending accounts via secure 1-click OAuth 2.0 authorization.",
+      description:
+        "Connect unlimited Google Workspace sending accounts via secure 1-click OAuth 2.0 authorization.",
       iconLetter: "GW",
-      capabilities: ["Automatic SPF/DKIM verification", "Inbox reply tracking", "Peer-to-peer warmup"],
+      capabilities: [
+        "Automatic SPF/DKIM verification",
+        "Inbox reply tracking",
+        "Peer-to-peer warmup",
+      ],
     },
     {
       id: "microsoft-365",
@@ -65,9 +77,14 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
       category: "outbound",
       categoryLabel: "Email & Outreach",
       badge: "OAuth 2.0",
-      description: "Native Exchange/Outlook OAuth sending connection with automated deliverability health monitoring.",
+      description:
+        "Native Exchange/Outlook OAuth sending connection with automated deliverability health monitoring.",
       iconLetter: "M365",
-      capabilities: ["Exchange API integration", "Auto mailbox rotation pool", "Bounce rate protection"],
+      capabilities: [
+        "Exchange API integration",
+        "Auto mailbox rotation pool",
+        "Bounce rate protection",
+      ],
     },
     {
       id: "chrome-extension",
@@ -75,9 +92,14 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
       category: "outbound",
       categoryLabel: "Browser Automation",
       badge: "Native 2-Way",
-      description: "Extract, enrich, and score LinkedIn prospects directly inside your Chrome browser sidepanel.",
+      description:
+        "Extract, enrich, and score LinkedIn prospects directly inside your Chrome browser sidepanel.",
       iconLetter: "CR",
-      capabilities: ["1-click LinkedIn profile capture", "Clerk session authorization", "Bulk search export"],
+      capabilities: [
+        "1-click LinkedIn profile capture",
+        "Clerk session authorization",
+        "Bulk search export",
+      ],
     },
     {
       id: "openai-byok",
@@ -85,9 +107,14 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
       category: "ai",
       categoryLabel: "AI Models",
       badge: "BYOK AI",
-      description: "Bring your own secret OpenAI API key to power Dexter AI for account research and copywriting.",
+      description:
+        "Bring your own secret OpenAI API key to power Dexter AI for account research and copywriting.",
       iconLetter: "OA",
-      capabilities: ["Zero data retention policy", "GPT-4o & GPT-4o-mini support", "Custom prompt templates"],
+      capabilities: [
+        "Zero data retention policy",
+        "GPT-4o & GPT-4o-mini support",
+        "Custom prompt templates",
+      ],
     },
     {
       id: "anthropic-byok",
@@ -95,9 +122,14 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
       category: "ai",
       categoryLabel: "AI Models",
       badge: "BYOK AI",
-      description: "Connect Anthropic API keys for high-precision prospect context summarization and thread analysis.",
+      description:
+        "Connect Anthropic API keys for high-precision prospect context summarization and thread analysis.",
       iconLetter: "ANT",
-      capabilities: ["Claude 3.5 Sonnet model", "200k token context window", "Private LLM processing"],
+      capabilities: [
+        "Claude 3.5 Sonnet model",
+        "200k token context window",
+        "Private LLM processing",
+      ],
     },
     {
       id: "google-calendar",
@@ -105,9 +137,14 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
       category: "calendar",
       categoryLabel: "Meetings & Booking",
       badge: "Bi-Directional",
-      description: "Sync booked sales demo calls, detect meeting attendance, and attribute revenue to sequence steps.",
+      description:
+        "Sync booked sales demo calls, detect meeting attendance, and attribute revenue to sequence steps.",
       iconLetter: "GC",
-      capabilities: ["Cal.com / Calendly support", "No-show tracking", "Automated CRM deal creation"],
+      capabilities: [
+        "Cal.com / Calendly support",
+        "No-show tracking",
+        "Automated CRM deal creation",
+      ],
     },
     {
       id: "snowflake",
@@ -115,7 +152,8 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
       category: "data",
       categoryLabel: "Data Warehouse",
       badge: "Bi-Directional",
-      description: "Stream enriched lead data and campaign engagement events directly into your Snowflake warehouse.",
+      description:
+        "Stream enriched lead data and campaign engagement events directly into your Snowflake warehouse.",
       iconLetter: "SNOW",
       capabilities: ["Automated SQL sync", "Lead score exports", "Custom schema tables"],
     },
@@ -125,9 +163,14 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
       category: "webhooks",
       categoryLabel: "Developer Tools",
       badge: "Webhook",
-      description: "HMAC SHA-256 signed webhooks and REST API endpoints for custom GTM engineering workflows.",
+      description:
+        "HMAC SHA-256 signed webhooks and REST API endpoints for custom GTM engineering workflows.",
       iconLetter: "API",
-      capabilities: ["Real-time event payloads", "HMAC security signatures", "Custom payload schemas"],
+      capabilities: [
+        "Real-time event payloads",
+        "HMAC security signatures",
+        "Custom payload schemas",
+      ],
     },
   ];
 
@@ -152,13 +195,13 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
             </div>
 
             <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
-              Plays nicely with{" "}
-              <br />
+              Plays nicely with <br />
               <GradientText>everything in your revenue stack.</GradientText>
             </h1>
 
             <p className="mx-auto max-w-xl text-xs sm:text-sm leading-relaxed text-muted-foreground">
-              Connect your CRM, sending mailboxes, LinkedIn extension, calendars, and BYOK AI models to turn Skout AI into your central GTM control center.
+              Connect your CRM, sending mailboxes, LinkedIn extension, calendars, and BYOK AI models
+              to turn Skout AI into your central GTM control center.
             </p>
 
             {/* SEARCH BAR */}
@@ -248,7 +291,10 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
                 <span className="font-semibold text-accent flex items-center gap-1">
                   <Zap className="h-3.5 w-3.5" /> Workspace Ready
                 </span>
-                <Link href="/contact" className="font-semibold text-foreground hover:underline inline-flex items-center gap-1">
+                <Link
+                  href="/contact"
+                  className="font-semibold text-foreground hover:underline inline-flex items-center gap-1"
+                >
                   Configure <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
@@ -270,7 +316,8 @@ export default function IntegrationsClient({ content }: { content?: Record<strin
                 Don&apos;t see your stack in our catalog?
               </h2>
               <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground">
-                Skout AI provides custom REST API endpoints, OAuth connectors, and webhook relays for proprietary enterprise sales architectures.
+                Skout AI provides custom REST API endpoints, OAuth connectors, and webhook relays
+                for proprietary enterprise sales architectures.
               </p>
             </div>
 

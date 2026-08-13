@@ -57,8 +57,7 @@ export default function ResourceDetailClient({ resource }: Props) {
             </div>
 
             <h1 className="mx-auto max-w-2xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
-              {resource.headline}{" "}
-              <br />
+              {resource.headline} <br />
               <GradientText>{resource.headlineGradient}</GradientText>
             </h1>
 
@@ -120,7 +119,10 @@ export default function ResourceDetailClient({ resource }: Props) {
             {/* STEPS LIST */}
             <div className="space-y-4">
               {selectedCategory.steps.map((st) => (
-                <div key={st.number} className="rounded-2xl border border-border bg-background/80 p-4 space-y-2.5">
+                <div
+                  key={st.number}
+                  className="rounded-2xl border border-border bg-background/80 p-4 space-y-2.5"
+                >
                   <div className="flex items-center gap-2.5">
                     <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/15 text-accent font-mono text-xs font-bold shrink-0">
                       {st.number}
@@ -128,7 +130,9 @@ export default function ResourceDetailClient({ resource }: Props) {
                     <h3 className="text-sm font-semibold text-foreground">{st.title}</h3>
                   </div>
 
-                  <p className="pl-0 sm:pl-8 text-xs text-muted-foreground leading-relaxed">{st.desc}</p>
+                  <p className="pl-0 sm:pl-8 text-xs text-muted-foreground leading-relaxed">
+                    {st.desc}
+                  </p>
 
                   {/* COPYABLE CODE BLOCK (IF ANY) */}
                   {st.code && (
@@ -155,7 +159,10 @@ export default function ResourceDetailClient({ resource }: Props) {
                   {st.tips && st.tips.length > 0 && (
                     <div className="ml-8 flex flex-wrap gap-2 pt-1">
                       {st.tips.map((tip, i) => (
-                        <span key={i} className="inline-flex items-center gap-1 text-[11px] text-muted-foreground bg-muted/60 px-2.5 py-0.5 rounded-md">
+                        <span
+                          key={i}
+                          className="inline-flex items-center gap-1 text-[11px] text-muted-foreground bg-muted/60 px-2.5 py-0.5 rounded-md"
+                        >
                           <Check className="h-3 w-3 text-accent" /> {tip}
                         </span>
                       ))}
@@ -180,13 +187,18 @@ export default function ResourceDetailClient({ resource }: Props) {
 
           <div className="mt-6 space-y-3">
             {resource.faqs.map((faq, i) => (
-              <div key={i} className="rounded-2xl border border-border bg-card overflow-hidden transition-colors">
+              <div
+                key={i}
+                className="rounded-2xl border border-border bg-card overflow-hidden transition-colors"
+              >
                 <button
                   className="flex w-full items-center justify-between p-4 text-left font-semibold text-sm text-foreground"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 >
                   <span>{faq.question}</span>
-                  <ChevronDown className={`h-4 w-4 shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    className={`h-4 w-4 shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`}
+                  />
                 </button>
                 {openFaq === i && (
                   <div className="border-t border-border/60 p-4 pt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
@@ -209,7 +221,8 @@ export default function ResourceDetailClient({ resource }: Props) {
             Want us to help you set up?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-xs sm:text-sm text-muted-foreground">
-            Book a 1-on-1 setup session with our GTM team. We will configure your mailboxes and DNS records together.
+            Book a 1-on-1 setup session with our GTM team. We will configure your mailboxes and DNS
+            records together.
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link

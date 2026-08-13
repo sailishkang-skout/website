@@ -9,12 +9,14 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
         "Skout AI brings prospecting, enrichment, outreach, CRM, and GTM intelligence into one workspace — so your team can spend less time moving data between tools and more time creating pipeline.",
       primaryCta: { text: "Book a demo", href: "/contact" },
       secondaryCta: { text: "Explore platform", href: "#scavenger-hunt" },
-      supportingLine: "From first prospect to active opportunity — Skout keeps the context connected.",
+      supportingLine:
+        "From first prospect to active opportunity — Skout keeps the context connected.",
       dexterEyebrow: "Meet Dexter",
       dexterTagline: "Your GTM intelligence layer.",
       dexterDescription:
         "Dexter helps your team turn prospect and account information into decisions — from who to target and what to know about them, to how to approach them and what to do next.",
-      dexterPrompt: "Find accounts that look like our best customers and identify the right people to contact.",
+      dexterPrompt:
+        "Find accounts that look like our best customers and identify the right people to contact.",
       dexterReply:
         "Here are the accounts that match your ICP. I've prioritized them based on the signals available in Skout and identified the contacts most relevant to your target roles.",
     },
@@ -29,7 +31,8 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
       points: [
         {
           title: "Less context switching",
-          description: "Keep prospect intelligence, outreach, conversations, and pipeline activity connected.",
+          description:
+            "Keep prospect intelligence, outreach, conversations, and pipeline activity connected.",
         },
         {
           title: "Better decisions",
@@ -37,7 +40,8 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
         },
         {
           title: "One connected workflow",
-          description: "Move from discovery to outreach to opportunity without constantly moving data between systems.",
+          description:
+            "Move from discovery to outreach to opportunity without constantly moving data between systems.",
         },
       ],
     },
@@ -49,11 +53,13 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
       cards: [
         {
           title: "Prospect Search",
-          description: "Find companies and contacts based on the criteria that matter to your sales strategy.",
+          description:
+            "Find companies and contacts based on the criteria that matter to your sales strategy.",
         },
         {
           title: "Smart Lists",
-          description: "Create organized prospect lists around your targeting requirements and sales priorities.",
+          description:
+            "Create organized prospect lists around your targeting requirements and sales priorities.",
         },
         {
           title: "Import",
@@ -61,7 +67,8 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
         },
         {
           title: "ICP Setup",
-          description: "Define your ideal customer profile and use it as the foundation for prospecting.",
+          description:
+            "Define your ideal customer profile and use it as the foundation for prospecting.",
         },
       ],
     },
@@ -89,7 +96,8 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
         },
         {
           title: "Inbox",
-          description: "Keep prospect replies and conversations connected to the people and accounts behind them.",
+          description:
+            "Keep prospect replies and conversations connected to the people and accounts behind them.",
         },
         {
           title: "AI Review",
@@ -97,7 +105,8 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
         },
         {
           title: "Deliverability",
-          description: "Monitor email health and the signals that influence your ability to reach the inbox.",
+          description:
+            "Monitor email health and the signals that influence your ability to reach the inbox.",
         },
       ],
     },
@@ -121,7 +130,8 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
         },
         {
           title: "Meetings & Calendar",
-          description: "Keep meetings connected to the accounts and opportunities your team is working.",
+          description:
+            "Keep meetings connected to the accounts and opportunities your team is working.",
         },
       ],
     },
@@ -175,7 +185,8 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
             "Schedule follow-up demo meeting with David Chen and update deal stage to 'Proposal Sent' in your Skout pipeline.",
         },
       ],
-      coreStatement: "Dexter doesn't replace your sales team. It gives your sales team better context to act on.",
+      coreStatement:
+        "Dexter doesn't replace your sales team. It gives your sales team better context to act on.",
     },
     outboundIntel: {
       headline: "More automation isn't the goal. Better outbound is.",
@@ -190,12 +201,14 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
         {
           number: "02 — Decide",
           title: "Focus on fit",
-          description: "Use context and targeting intelligence to determine who deserves attention.",
+          description:
+            "Use context and targeting intelligence to determine who deserves attention.",
         },
         {
           number: "03 — Engage",
           title: "Personalized outreach",
-          description: "Move into personalized, structured outreach with the relevant context attached.",
+          description:
+            "Move into personalized, structured outreach with the relevant context attached.",
         },
       ],
     },
@@ -214,7 +227,8 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
       cards: [
         {
           name: "HubSpot",
-          description: "Sync relevant CRM data and connect Skout prospecting workflows with HubSpot.",
+          description:
+            "Sync relevant CRM data and connect Skout prospecting workflows with HubSpot.",
         },
         {
           name: "Google Calendar",
@@ -222,7 +236,8 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
         },
         {
           name: "Bring Your Own Key",
-          description: "Connect supported AI/provider services using your own credentials where available.",
+          description:
+            "Connect supported AI/provider services using your own credentials where available.",
         },
       ],
     },

@@ -116,9 +116,27 @@ export default function PricingClient({ content }: Props) {
     {
       category: "Pricing & Core Volume",
       rows: [
-        { feature: "Pricing", free: "$0", starter: "$54/mo", scale: "$79/mo", enterprise: "Custom" },
-        { feature: "Emails / Month", free: "1,000", starter: "Higher limits", scale: "Higher limits", enterprise: "Custom" },
-        { feature: "Contact Enrichment", free: "Limited", starter: "5K/mo", scale: "15K/mo", enterprise: "Custom" },
+        {
+          feature: "Pricing",
+          free: "$0",
+          starter: "$54/mo",
+          scale: "$79/mo",
+          enterprise: "Custom",
+        },
+        {
+          feature: "Emails / Month",
+          free: "1,000",
+          starter: "Higher limits",
+          scale: "Higher limits",
+          enterprise: "Custom",
+        },
+        {
+          feature: "Contact Enrichment",
+          free: "Limited",
+          starter: "5K/mo",
+          scale: "15K/mo",
+          enterprise: "Custom",
+        },
         { feature: "Email Verification", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
         { feature: "Email Sending", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
       ],
@@ -132,7 +150,13 @@ export default function PricingClient({ content }: Props) {
         { feature: "CSV Import", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
         { feature: "CSV Export", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
         { feature: "Smart Lists", free: "Limited", starter: "✓", scale: "✓", enterprise: "✓" },
-        { feature: "Automated Prospect Ingestion", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
+        {
+          feature: "Automated Prospect Ingestion",
+          free: "—",
+          starter: "—",
+          scale: "✓",
+          enterprise: "✓",
+        },
       ],
     },
     {
@@ -140,7 +164,13 @@ export default function PricingClient({ content }: Props) {
       rows: [
         { feature: "Manual Sequences", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
         { feature: "Automated Sequences", free: "—", starter: "✓", scale: "✓", enterprise: "✓" },
-        { feature: "Multi-Step Sequences", free: "Limited", starter: "✓", scale: "✓", enterprise: "✓" },
+        {
+          feature: "Multi-Step Sequences",
+          free: "Limited",
+          starter: "✓",
+          scale: "✓",
+          enterprise: "✓",
+        },
         { feature: "Automated Follow-ups", free: "—", starter: "✓", scale: "✓", enterprise: "✓" },
         { feature: "Multi-Channel Outreach", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
         { feature: "LinkedIn Workflows", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
@@ -151,23 +181,59 @@ export default function PricingClient({ content }: Props) {
       category: "CRM & Inbox",
       rows: [
         { feature: "CRM", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
-        { feature: "Pipeline Management", free: "Basic", starter: "✓", scale: "Advanced", enterprise: "Custom" },
+        {
+          feature: "Pipeline Management",
+          free: "Basic",
+          starter: "✓",
+          scale: "Advanced",
+          enterprise: "Custom",
+        },
         { feature: "Email Tracking", free: "✓", starter: "✓", scale: "✓", enterprise: "✓" },
         { feature: "Reply Detection", free: "—", starter: "✓", scale: "✓", enterprise: "✓" },
         { feature: "Unified Inbox", free: "Basic", starter: "✓", scale: "✓", enterprise: "✓" },
-        { feature: "HubSpot", free: "—", starter: "Standard", scale: "Two-way", enterprise: "Custom" },
+        {
+          feature: "HubSpot",
+          free: "—",
+          starter: "Standard",
+          scale: "Two-way",
+          enterprise: "Custom",
+        },
         { feature: "Chrome Extension", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
       ],
     },
     {
       category: "AI & Deliverability",
       rows: [
-        { feature: "AI Personalization", free: "Limited", starter: "✓", scale: "Advanced", enterprise: "Advanced" },
+        {
+          feature: "AI Personalization",
+          free: "Limited",
+          starter: "✓",
+          scale: "Advanced",
+          enterprise: "Advanced",
+        },
         { feature: "AI Prospect Research", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-        { feature: "Connected Mailboxes", free: "Limited", starter: "Multiple", scale: "More", enterprise: "Custom" },
+        {
+          feature: "Connected Mailboxes",
+          free: "Limited",
+          starter: "Multiple",
+          scale: "More",
+          enterprise: "Custom",
+        },
         { feature: "Mailbox Rotation", free: "—", starter: "—", scale: "✓", enterprise: "✓" },
-        { feature: "Deliverability Monitoring", free: "Basic", starter: "✓", scale: "Advanced", enterprise: "Advanced" },
-        { feature: "Automated DNS Auditing", free: "—", starter: "✓", scale: "Automated", enterprise: "Advanced" },
+        {
+          feature: "Deliverability Monitoring",
+          free: "Basic",
+          starter: "✓",
+          scale: "Advanced",
+          enterprise: "Advanced",
+        },
+        {
+          feature: "Automated DNS Auditing",
+          free: "—",
+          starter: "✓",
+          scale: "Automated",
+          enterprise: "Advanced",
+        },
       ],
     },
     {
@@ -178,14 +244,28 @@ export default function PricingClient({ content }: Props) {
         { feature: "Multiple Workspaces", free: "—", starter: "—", scale: "—", enterprise: "✓" },
         { feature: "Custom Integrations", free: "—", starter: "—", scale: "—", enterprise: "✓" },
         { feature: "DPA & Security", free: "✓", starter: "✓", scale: "✓", enterprise: "Advanced" },
-        { feature: "Support & SLA", free: "Standard", starter: "Priority", scale: "Priority", enterprise: "Dedicated / Custom" },
+        {
+          feature: "Support & SLA",
+          free: "Standard",
+          starter: "Priority",
+          scale: "Priority",
+          enterprise: "Dedicated / Custom",
+        },
       ],
     },
   ];
 
   const whyUpgrade = [
-    { title: "From manual → automated", text: "Auto-follow ups & smart sequences.", icon: RefreshCw },
-    { title: "From data → intelligence", text: "Contact enrichment & AI research.", icon: Sparkles },
+    {
+      title: "From manual → automated",
+      text: "Auto-follow ups & smart sequences.",
+      icon: RefreshCw,
+    },
+    {
+      title: "From data → intelligence",
+      text: "Contact enrichment & AI research.",
+      icon: Sparkles,
+    },
     { title: "From one → multi-channel", text: "Email, LinkedIn & call workflows.", icon: Layers },
     { title: "From individual → team", text: "CRM, analytics & team permissions.", icon: Users },
   ];
@@ -245,7 +325,9 @@ export default function PricingClient({ content }: Props) {
   const renderTableCell = (val: string, isScale = false) => {
     if (val === "✓") {
       return (
-        <span className={`inline-flex items-center justify-center h-5 w-5 rounded-full ${isScale ? "bg-emerald-500/20 text-emerald-400" : "bg-emerald-500/10 text-emerald-400"}`}>
+        <span
+          className={`inline-flex items-center justify-center h-5 w-5 rounded-full ${isScale ? "bg-emerald-500/20 text-emerald-400" : "bg-emerald-500/10 text-emerald-400"}`}
+        >
           <Check className="h-3.5 w-3.5" />
         </span>
       );
@@ -271,20 +353,27 @@ export default function PricingClient({ content }: Props) {
               <span>TRANSPARENT OUTBOUND PRICING</span>
             </div>
 
-            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
+            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] wrap-break-word text-foreground font-semibold">
               Start free. Scale when your outbound <GradientText>grows.</GradientText>
             </h1>
 
-            <p className="mx-auto max-w-xl text-xs sm:text-sm leading-relaxed text-muted-foreground">
-              Everything you need to find prospects, enrich contacts, organize your pipeline, and start outbound. No long-term commitment.
+            <p className="text-xs sm:text-sm text-muted-foreground max-w-xl mx-auto">
+              Everything you need to find prospects, enrich contacts, organize your pipeline, and
+              start outbound. No long-term commitment.
             </p>
 
             <div className="pt-1 text-xs text-muted-foreground flex flex-wrap items-center justify-center gap-3 sm:gap-5 font-medium">
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> No credit card required</span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> No credit card required
+              </span>
               <span className="text-border">•</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Monthly billing</span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Monthly billing
+              </span>
               <span className="text-border">•</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Cancel anytime</span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Cancel anytime
+              </span>
             </div>
           </div>
         </Section>
@@ -310,7 +399,9 @@ export default function PricingClient({ content }: Props) {
                     {plan.name}
                   </h3>
                   {!plan.popular && plan.badge && (
-                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${plan.badgeStyle}`}>
+                    <span
+                      className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${plan.badgeStyle}`}
+                    >
                       {plan.badge}
                     </span>
                   )}
@@ -321,13 +412,13 @@ export default function PricingClient({ content }: Props) {
                     {plan.price}
                   </span>
                   {plan.period && (
-                    <span className="text-xs font-semibold text-muted-foreground">{plan.period}</span>
+                    <span className="text-xs font-semibold text-muted-foreground">
+                      {plan.period}
+                    </span>
                   )}
                 </div>
 
-                <p className="text-xs text-muted-foreground leading-snug">
-                  {plan.description}
-                </p>
+                <p className="text-xs text-muted-foreground leading-snug">{plan.description}</p>
 
                 {/* BULLETS */}
                 <ul className="space-y-1.5 pt-1 text-xs text-muted-foreground">
@@ -361,7 +452,10 @@ export default function PricingClient({ content }: Props) {
       </Section>
 
       {/* 3. INTERACTIVE TABBED FEATURE COMPARISON MATRIX */}
-      <section id="feature-comparison" className="scroll-mt-20 border-t border-border/60 bg-card/20">
+      <section
+        id="feature-comparison"
+        className="scroll-mt-20 border-t border-border/60 bg-card/20"
+      >
         <Section className="py-8! md:py-12!">
           <div className="text-center max-w-2xl mx-auto mb-6 space-y-2">
             <Eyebrow>Feature Comparison</Eyebrow>
@@ -395,13 +489,15 @@ export default function PricingClient({ content }: Props) {
             <table className="w-full text-left text-xs">
               <thead className="bg-muted/80 border-b border-border font-display font-bold text-foreground">
                 <tr>
-                  <th className="p-3.5 min-w-[180px]">{comparisonCategories[activeCategory].category}</th>
-                  <th className="p-3.5 text-center min-w-[80px]">Free</th>
-                  <th className="p-3.5 text-center min-w-[90px]">Starter ($54)</th>
-                  <th className="p-3.5 text-center min-w-[100px] text-accent bg-accent/10 border-x border-accent/20">
+                  <th className="p-3.5 min-w-45">
+                    {comparisonCategories[activeCategory].category}
+                  </th>
+                  <th className="p-3.5 text-center min-w-20">Free</th>
+                  <th className="p-3.5 text-center min-w-22.5">Starter ($54)</th>
+                  <th className="p-3.5 text-center min-w-25 text-accent bg-accent/10 border-x border-accent/20">
                     Scale ⭐ ($79)
                   </th>
-                  <th className="p-3.5 text-center min-w-[100px]">Enterprise</th>
+                  <th className="p-3.5 text-center min-w-25">Enterprise</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border/50">
@@ -435,7 +531,10 @@ export default function PricingClient({ content }: Props) {
           {whyUpgrade.map((item, idx) => {
             const IconComp = item.icon;
             return (
-              <div key={idx} className="rounded-xl border border-border bg-card p-4 space-y-1.5 shadow-sm">
+              <div
+                key={idx}
+                className="rounded-xl border border-border bg-card p-4 space-y-1.5 shadow-sm"
+              >
                 <div className="flex items-center gap-2 text-accent font-bold text-xs">
                   <IconComp className="h-4 w-4 shrink-0" />
                   <h4>{item.title}</h4>
@@ -457,7 +556,8 @@ export default function PricingClient({ content }: Props) {
             Pay for the outbound infrastructure you need — not unnecessary complexity.
           </h2>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Skout AI is designed to let individuals start free and let growing teams upgrade based on prospecting, enrichment, automation, and infrastructure requirements.
+            Skout AI is designed to let individuals start free and let growing teams upgrade based
+            on prospecting, enrichment, automation, and infrastructure requirements.
           </p>
         </div>
       </Section>
@@ -475,7 +575,10 @@ export default function PricingClient({ content }: Props) {
           {trustBlocks.map((tb, i) => {
             const Icon = tb.icon;
             return (
-              <div key={i} className="rounded-xl border border-border bg-card p-3.5 space-y-1 shadow-sm">
+              <div
+                key={i}
+                className="rounded-xl border border-border bg-card p-3.5 space-y-1 shadow-sm"
+              >
                 <div className="flex items-center gap-2 text-accent font-bold text-xs">
                   <Icon className="h-3.5 w-3.5 shrink-0" />
                   <h4>{tb.title}</h4>
@@ -532,7 +635,9 @@ export default function PricingClient({ content }: Props) {
       <Section className="py-6! border-t border-border/60 bg-card/30">
         <div className="max-w-3xl mx-auto space-y-3 text-center">
           <p className="text-[11px] text-muted-foreground/80 leading-relaxed font-normal">
-            Pricing and feature availability may vary by plan, usage, region, integrations, and applicable service terms. Skout AI does not guarantee specific business outcomes. Use of Skout AI is subject to our Terms of Service, Privacy Policy, and Acceptable Use Policy.
+            Pricing and feature availability may vary by plan, usage, region, integrations, and
+            applicable service terms. Skout AI does not guarantee specific business outcomes. Use of
+            Skout AI is subject to our Terms of Service, Privacy Policy, and Acceptable Use Policy.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-semibold text-accent">
             <Link href="/terms" className="hover:underline flex items-center gap-1">

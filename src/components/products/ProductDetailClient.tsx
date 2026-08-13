@@ -78,8 +78,7 @@ export default function ProductDetailClient({ product }: Props) {
             </div>
 
             <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
-              {product.headline}{" "}
-              <br />
+              {product.headline} <br />
               <GradientText>{product.headlineGradient}</GradientText>
             </h1>
 
@@ -107,9 +106,16 @@ export default function ProductDetailClient({ product }: Props) {
             {/* METRICS STRIP - HOMEPAGE MATCHING & MOBILE RESPONSIVE */}
             <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-2.5 rounded-2xl border border-border/80 bg-card/40 p-3.5 sm:p-5 backdrop-blur-xl">
               {product.metrics.map((m, idx) => (
-                <div key={idx} className="flex items-center justify-between sm:flex-col sm:justify-center p-2 rounded-xl bg-background/50 sm:bg-transparent border sm:border-0 border-border/40 text-left sm:text-center">
-                  <span className="text-[11px] sm:text-xs text-muted-foreground font-medium sm:order-2">{m.label}</span>
-                  <span className="font-display text-base sm:text-2xl font-bold text-foreground sm:order-1">{m.value}</span>
+                <div
+                  key={idx}
+                  className="flex items-center justify-between sm:flex-col sm:justify-center p-2 rounded-xl bg-background/50 sm:bg-transparent border sm:border-0 border-border/40 text-left sm:text-center"
+                >
+                  <span className="text-[11px] sm:text-xs text-muted-foreground font-medium sm:order-2">
+                    {m.label}
+                  </span>
+                  <span className="font-display text-base sm:text-2xl font-bold text-foreground sm:order-1">
+                    {m.value}
+                  </span>
                 </div>
               ))}
             </div>
@@ -124,7 +130,9 @@ export default function ProductDetailClient({ product }: Props) {
                 <div className="h-2.5 w-2.5 rounded-full bg-red-500/80 shrink-0" />
                 <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/80 shrink-0" />
                 <div className="h-2.5 w-2.5 rounded-full bg-green-500/80 shrink-0" />
-                <span className="ml-1 text-[10px] sm:text-xs font-mono text-muted-foreground truncate">app.skoutai.io/{product.slug}</span>
+                <span className="ml-1 text-[10px] sm:text-xs font-mono text-muted-foreground truncate">
+                  app.skoutai.io/{product.slug}
+                </span>
               </div>
               <div className="flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-accent bg-accent/10 px-2.5 py-0.5 rounded-full shrink-0">
                 <ProductIcon className="h-3 w-3" />
@@ -167,8 +175,12 @@ export default function ProductDetailClient({ product }: Props) {
                   </span>
                 )}
               </div>
-              <h3 className="mt-4 text-sm font-semibold md:text-base text-foreground">{feat.title}</h3>
-              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">{feat.description}</p>
+              <h3 className="mt-4 text-sm font-semibold md:text-base text-foreground">
+                {feat.title}
+              </h3>
+              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">
+                {feat.description}
+              </p>
             </div>
           ))}
         </div>
@@ -185,10 +197,17 @@ export default function ProductDetailClient({ product }: Props) {
 
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {product.workflow.map((st) => (
-            <div key={st.stepNumber} className="relative rounded-2xl border border-border/80 bg-card p-5 shadow-sm">
+            <div
+              key={st.stepNumber}
+              className="relative rounded-2xl border border-border/80 bg-card p-5 shadow-sm"
+            >
               <div className="font-display text-3xl font-bold text-accent/50">{st.stepNumber}</div>
-              <h3 className="mt-2 text-sm font-semibold md:text-base text-foreground">{st.title}</h3>
-              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">{st.description}</p>
+              <h3 className="mt-2 text-sm font-semibold md:text-base text-foreground">
+                {st.title}
+              </h3>
+              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">
+                {st.description}
+              </p>
             </div>
           ))}
         </div>
@@ -209,12 +228,17 @@ export default function ProductDetailClient({ product }: Props) {
                 Power your {product.title} workflow with Dexter AI
               </h2>
               <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground">
-                Dexter AI connects natively to your Skout database and {product.title} modules. Ask Dexter to recommend targeting criteria, draft tailored outreach steps, synthesize prospect research, or automate next sales actions.
+                Dexter AI connects natively to your Skout database and {product.title} modules. Ask
+                Dexter to recommend targeting criteria, draft tailored outreach steps, synthesize
+                prospect research, or automate next sales actions.
               </p>
 
               <ul className="pt-2 space-y-2">
                 {product.highlights.map((h, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground">
+                  <li
+                    key={i}
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground"
+                  >
                     <div className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent">
                       <Check className="h-3 w-3" />
                     </div>
@@ -232,15 +256,19 @@ export default function ProductDetailClient({ product }: Props) {
                   </div>
                   <div>
                     <div className="text-xs font-bold text-foreground">Dexter Assistant</div>
-                    <div className="text-[10px] text-muted-foreground">Connected to {product.title}</div>
+                    <div className="text-[10px] text-muted-foreground">
+                      Connected to {product.title}
+                    </div>
                   </div>
                 </div>
                 <div className="mt-3 space-y-2.5 text-xs">
                   <div className="rounded-xl bg-muted/60 p-2.5 text-muted-foreground">
-                    &quot;Dexter, analyze this {product.title} context and recommend next best actions.&quot;
+                    &quot;Dexter, analyze this {product.title} context and recommend next best
+                    actions.&quot;
                   </div>
                   <div className="rounded-xl bg-accent/15 border border-accent/20 p-2.5 text-foreground font-medium leading-relaxed text-[11px]">
-                    &quot;Analyzed 48 records. Identified 12 high-priority decision makers matching your ICP. Drafted custom campaign steps and updated deal priorities.&quot;
+                    &quot;Analyzed 48 records. Identified 12 high-priority decision makers matching
+                    your ICP. Drafted custom campaign steps and updated deal priorities.&quot;
                   </div>
                 </div>
               </div>
@@ -261,13 +289,18 @@ export default function ProductDetailClient({ product }: Props) {
 
           <div className="mt-6 space-y-3">
             {product.faqs.map((faq, i) => (
-              <div key={i} className="rounded-2xl border border-border bg-card overflow-hidden transition-colors">
+              <div
+                key={i}
+                className="rounded-2xl border border-border bg-card overflow-hidden transition-colors"
+              >
                 <button
                   className="flex w-full items-center justify-between p-4 text-left font-semibold text-sm text-foreground"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 >
                   <span>{faq.question}</span>
-                  <ChevronDown className={`h-4 w-4 shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    className={`h-4 w-4 shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`}
+                  />
                 </button>
                 {openFaq === i && (
                   <div className="border-t border-border/60 p-4 pt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
@@ -290,7 +323,8 @@ export default function ProductDetailClient({ product }: Props) {
             Ready to supercharge your GTM motion with <GradientText>{product.title}</GradientText>?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-xs sm:text-sm text-muted-foreground">
-            Get started in minutes with Skout AI. Discover, enrich, engage, and convert in one unified workspace.
+            Get started in minutes with Skout AI. Discover, enrich, engage, and convert in one
+            unified workspace.
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
@@ -317,10 +351,18 @@ function MockupPreview({ slug }: { slug: string }) {
     return (
       <div className="space-y-3 text-xs">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="rounded-full bg-accent/15 border border-accent/30 text-accent px-2.5 py-0.5 font-medium text-[10px]">VP Sales</span>
-          <span className="rounded-full bg-muted border border-border text-foreground px-2.5 py-0.5 text-[10px]">B2B SaaS</span>
-          <span className="rounded-full bg-muted border border-border text-foreground px-2.5 py-0.5 text-[10px]">50-250 EE</span>
-          <span className="rounded-full bg-muted border border-border text-foreground px-2.5 py-0.5 text-[10px]">Salesforce + React</span>
+          <span className="rounded-full bg-accent/15 border border-accent/30 text-accent px-2.5 py-0.5 font-medium text-[10px]">
+            VP Sales
+          </span>
+          <span className="rounded-full bg-muted border border-border text-foreground px-2.5 py-0.5 text-[10px]">
+            B2B SaaS
+          </span>
+          <span className="rounded-full bg-muted border border-border text-foreground px-2.5 py-0.5 text-[10px]">
+            50-250 EE
+          </span>
+          <span className="rounded-full bg-muted border border-border text-foreground px-2.5 py-0.5 text-[10px]">
+            Salesforce + React
+          </span>
         </div>
 
         {/* MOBILE CARD VIEW FOR < 640px */}
@@ -332,7 +374,9 @@ function MockupPreview({ slug }: { slug: string }) {
                 <CheckCircle2 className="h-3 w-3" /> Verified Email
               </span>
             </div>
-            <div className="text-[10px] text-muted-foreground">VP of Global Sales • CloudScale Tech</div>
+            <div className="text-[10px] text-muted-foreground">
+              VP of Global Sales • CloudScale Tech
+            </div>
           </div>
 
           <div className="rounded-xl border border-border/80 bg-background/90 p-3 space-y-1.5 shadow-sm">
@@ -342,7 +386,9 @@ function MockupPreview({ slug }: { slug: string }) {
                 <CheckCircle2 className="h-3 w-3" /> Verified Direct Dial
               </span>
             </div>
-            <div className="text-[10px] text-muted-foreground">Head of Revenue Ops • Nexus AI Solutions</div>
+            <div className="text-[10px] text-muted-foreground">
+              Head of Revenue Ops • Nexus AI Solutions
+            </div>
           </div>
         </div>
 
@@ -360,13 +406,17 @@ function MockupPreview({ slug }: { slug: string }) {
                 <span className="text-foreground">Sarah Jenkins</span>
                 <span className="text-muted-foreground">VP of Global Sales</span>
                 <span className="text-foreground">CloudScale Technologies</span>
-                <span className="text-emerald-400 flex items-center gap-1 font-semibold"><CheckCircle2 className="h-3.5 w-3.5" /> Verified SMTP Email</span>
+                <span className="text-emerald-400 flex items-center gap-1 font-semibold">
+                  <CheckCircle2 className="h-3.5 w-3.5" /> Verified SMTP Email
+                </span>
               </div>
               <div className="grid grid-cols-4 gap-4 items-center font-medium border-t border-border/40 pt-2">
                 <span className="text-foreground">David Miller</span>
                 <span className="text-muted-foreground">Head of Revenue Ops</span>
                 <span className="text-foreground">Nexus AI Solutions</span>
-                <span className="text-emerald-400 flex items-center gap-1 font-semibold"><CheckCircle2 className="h-3.5 w-3.5" /> Verified Direct Dial</span>
+                <span className="text-emerald-400 flex items-center gap-1 font-semibold">
+                  <CheckCircle2 className="h-3.5 w-3.5" /> Verified Direct Dial
+                </span>
               </div>
             </div>
           </div>
@@ -382,11 +432,17 @@ function MockupPreview({ slug }: { slug: string }) {
           <div className="flex items-center gap-3">
             <ListFilter className="h-5 w-5 text-accent" />
             <div>
-              <div className="font-bold text-foreground">Smart List / ICP: Tier 1 SaaS VP Sales (Series A+)</div>
-              <div className="text-[11px] text-muted-foreground">Auto Ingest Rule: Title contains &quot;VP Sales&quot; AND Tech = Salesforce</div>
+              <div className="font-bold text-foreground">
+                Smart List / ICP: Tier 1 SaaS VP Sales (Series A+)
+              </div>
+              <div className="text-[11px] text-muted-foreground">
+                Auto Ingest Rule: Title contains &quot;VP Sales&quot; AND Tech = Salesforce
+              </div>
             </div>
           </div>
-          <span className="rounded-full bg-accent/20 px-3 py-1 font-mono font-bold text-accent">142 Lead Contacts</span>
+          <span className="rounded-full bg-accent/20 px-3 py-1 font-mono font-bold text-accent">
+            142 Lead Contacts
+          </span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
           <div className="rounded-xl border border-border bg-background p-3">
@@ -414,8 +470,12 @@ function MockupPreview({ slug }: { slug: string }) {
       <div className="space-y-3 text-xs">
         <div className="rounded-xl border border-dashed border-accent/50 bg-accent/5 p-3.5 text-center">
           <FileSpreadsheet className="mx-auto h-6 w-6 text-accent" />
-          <div className="mt-1.5 font-bold text-foreground">leads_q3_outbound_list.csv (4,250 Rows)</div>
-          <div className="mt-0.5 text-[11px] text-muted-foreground">Auto Column Mapping Executed: 8 Columns Mapped, 0 Errors</div>
+          <div className="mt-1.5 font-bold text-foreground">
+            leads_q3_outbound_list.csv (4,250 Rows)
+          </div>
+          <div className="mt-0.5 text-[11px] text-muted-foreground">
+            Auto Column Mapping Executed: 8 Columns Mapped, 0 Errors
+          </div>
         </div>
         <div className="rounded-xl border border-border bg-background p-3 font-mono text-[11px]">
           <div className="flex justify-between border-b border-border pb-1 font-bold text-muted-foreground">
@@ -424,9 +484,21 @@ function MockupPreview({ slug }: { slug: string }) {
             <span>STATUS</span>
           </div>
           <div className="mt-2 space-y-1">
-            <div className="flex justify-between text-foreground"><span>email_address</span><span className="text-accent">Contact.Email</span><span className="text-emerald-400">Mapped</span></div>
-            <div className="flex justify-between text-foreground"><span>linkedin_url</span><span className="text-accent">Contact.LinkedIn</span><span className="text-emerald-400">Mapped</span></div>
-            <div className="flex justify-between text-foreground"><span>company_name</span><span className="text-accent">Account.Name</span><span className="text-emerald-400">Mapped</span></div>
+            <div className="flex justify-between text-foreground">
+              <span>email_address</span>
+              <span className="text-accent">Contact.Email</span>
+              <span className="text-emerald-400">Mapped</span>
+            </div>
+            <div className="flex justify-between text-foreground">
+              <span>linkedin_url</span>
+              <span className="text-accent">Contact.LinkedIn</span>
+              <span className="text-emerald-400">Mapped</span>
+            </div>
+            <div className="flex justify-between text-foreground">
+              <span>company_name</span>
+              <span className="text-accent">Account.Name</span>
+              <span className="text-emerald-400">Mapped</span>
+            </div>
           </div>
         </div>
       </div>
@@ -438,28 +510,48 @@ function MockupPreview({ slug }: { slug: string }) {
       <div className="space-y-3 text-xs">
         <div className="flex items-center justify-between rounded-xl border border-border bg-background p-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-accent/20 text-accent font-bold">WF</div>
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-accent/20 text-accent font-bold">
+              WF
+            </div>
             <div>
               <div className="font-bold text-foreground">Waterfall Enrichment Pipeline</div>
-              <div className="text-[10px] text-muted-foreground">Provider 1 (Apollo) → Provider 2 (Hunter) → Live SMTP Handshake</div>
+              <div className="text-[10px] text-muted-foreground">
+                Provider 1 (Apollo) → Provider 2 (Hunter) → Live SMTP Handshake
+              </div>
             </div>
           </div>
-          <span className="rounded-md bg-emerald-500/20 text-emerald-400 px-2.5 py-1 font-bold">Verified Match</span>
+          <span className="rounded-md bg-emerald-500/20 text-emerald-400 px-2.5 py-1 font-bold">
+            Verified Match
+          </span>
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-xl border border-border bg-background/80 p-3 space-y-1">
             <div className="font-bold text-foreground">Alex Mercer</div>
-            <div className="text-[11px] text-muted-foreground">Chief Technology Officer @ DataPulse</div>
-            <div className="text-emerald-400 font-semibold flex items-center gap-1 pt-1"><CheckCircle2 className="h-3.5 w-3.5" /> alex.m@datapulse.io</div>
-            <div className="text-foreground font-mono text-[10px]">+1 (415) 892-XXXX (Direct Mobile)</div>
+            <div className="text-[11px] text-muted-foreground">
+              Chief Technology Officer @ DataPulse
+            </div>
+            <div className="text-emerald-400 font-semibold flex items-center gap-1 pt-1">
+              <CheckCircle2 className="h-3.5 w-3.5" /> alex.m@datapulse.io
+            </div>
+            <div className="text-foreground font-mono text-[10px]">
+              +1 (415) 892-XXXX (Direct Mobile)
+            </div>
           </div>
           <div className="rounded-xl border border-border bg-background/80 p-3 space-y-1">
             <div className="font-bold text-foreground">Company Technographics</div>
             <div className="flex flex-wrap gap-1 pt-1">
-              <span className="rounded bg-muted px-2 py-0.5 text-[10px] text-foreground">AWS Cloud</span>
-              <span className="rounded bg-muted px-2 py-0.5 text-[10px] text-foreground">Salesforce CRM</span>
-              <span className="rounded bg-muted px-2 py-0.5 text-[10px] text-foreground">React</span>
-              <span className="rounded bg-muted px-2 py-0.5 text-[10px] text-foreground">HubSpot</span>
+              <span className="rounded bg-muted px-2 py-0.5 text-[10px] text-foreground">
+                AWS Cloud
+              </span>
+              <span className="rounded bg-muted px-2 py-0.5 text-[10px] text-foreground">
+                Salesforce CRM
+              </span>
+              <span className="rounded bg-muted px-2 py-0.5 text-[10px] text-foreground">
+                React
+              </span>
+              <span className="rounded bg-muted px-2 py-0.5 text-[10px] text-foreground">
+                HubSpot
+              </span>
             </div>
           </div>
         </div>
@@ -475,11 +567,15 @@ function MockupPreview({ slug }: { slug: string }) {
             <div className="flex items-center gap-2 font-bold text-foreground">
               <Chrome className="h-4 w-4 text-accent" /> LinkedIn Profile View (/in/sarah-jenkins)
             </div>
-            <span className="rounded bg-emerald-500/20 text-emerald-400 px-2 py-0.5 text-[10px] font-bold">Extension Active</span>
+            <span className="rounded bg-emerald-500/20 text-emerald-400 px-2 py-0.5 text-[10px] font-bold">
+              Extension Active
+            </span>
           </div>
           <div>
             <div className="font-bold text-sm text-foreground">Sarah Jenkins</div>
-            <div className="text-muted-foreground text-[11px]">Vice President of Global Sales @ CloudScale</div>
+            <div className="text-muted-foreground text-[11px]">
+              Vice President of Global Sales @ CloudScale
+            </div>
             <div className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-accent/15 px-2.5 py-1 text-accent font-semibold text-[11px]">
               <Zap className="h-3.5 w-3.5" /> ICP Match Score: 96 / 100 (Tier 1 Fit)
             </div>
@@ -502,23 +598,39 @@ function MockupPreview({ slug }: { slug: string }) {
     return (
       <div className="space-y-3 text-xs">
         <div className="flex items-center gap-3 rounded-xl border border-border bg-background p-3">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent/20 text-accent font-bold">1</div>
-          <div className="flex-1">
-            <div className="font-semibold text-foreground">Email Step 1: Personalized Cold Intro</div>
-            <div className="text-[10px] text-muted-foreground">Subject: Quick question regarding &#123;&#123;company.name&#125;&#125; tech stack</div>
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent/20 text-accent font-bold">
+            1
           </div>
-          <span className="rounded-md bg-emerald-500/15 text-emerald-400 px-2 py-0.5 text-[10px] font-semibold">68% Open Rate</span>
+          <div className="flex-1">
+            <div className="font-semibold text-foreground">
+              Email Step 1: Personalized Cold Intro
+            </div>
+            <div className="text-[10px] text-muted-foreground">
+              Subject: Quick question regarding &#123;&#123;company.name&#125;&#125; tech stack
+            </div>
+          </div>
+          <span className="rounded-md bg-emerald-500/15 text-emerald-400 px-2 py-0.5 text-[10px] font-semibold">
+            68% Open Rate
+          </span>
         </div>
         <div className="ml-6 border-l-2 border-dashed border-border pl-4 py-1 text-[11px] text-muted-foreground flex items-center gap-2">
           <Clock className="h-3 w-3" /> Wait 3 days if no reply
         </div>
         <div className="flex items-center gap-3 rounded-xl border border-border bg-background p-3">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted text-foreground font-bold">2</div>
-          <div className="flex-1">
-            <div className="font-semibold text-foreground">Email Step 2: Value Proposition & Case Study</div>
-            <div className="text-[10px] text-muted-foreground">Subject: Re: Quick question regarding &#123;&#123;company.name&#125;&#125;</div>
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted text-foreground font-bold">
+            2
           </div>
-          <span className="rounded-md bg-accent/15 text-accent px-2 py-0.5 text-[10px] font-semibold">24% Reply Rate</span>
+          <div className="flex-1">
+            <div className="font-semibold text-foreground">
+              Email Step 2: Value Proposition & Case Study
+            </div>
+            <div className="text-[10px] text-muted-foreground">
+              Subject: Re: Quick question regarding &#123;&#123;company.name&#125;&#125;
+            </div>
+          </div>
+          <span className="rounded-md bg-accent/15 text-accent px-2 py-0.5 text-[10px] font-semibold">
+            24% Reply Rate
+          </span>
         </div>
       </div>
     );
@@ -531,18 +643,29 @@ function MockupPreview({ slug }: { slug: string }) {
           <div className="flex items-center gap-3">
             <Inbox className="h-5 w-5 text-accent" />
             <div>
-              <div className="font-bold text-foreground">Re: Scaling outbound prospecting engine</div>
-              <div className="text-[10px] text-muted-foreground">From: sarah.j@cloudscale.io • Account: CloudScale</div>
+              <div className="font-bold text-foreground">
+                Re: Scaling outbound prospecting engine
+              </div>
+              <div className="text-[10px] text-muted-foreground">
+                From: sarah.j@cloudscale.io • Account: CloudScale
+              </div>
             </div>
           </div>
-          <span className="rounded-full bg-emerald-500/20 text-emerald-400 px-3 py-1 font-bold">AI Tag: Meeting Requested</span>
+          <span className="rounded-full bg-emerald-500/20 text-emerald-400 px-3 py-1 font-bold">
+            AI Tag: Meeting Requested
+          </span>
         </div>
         <div className="rounded-xl border border-border bg-card p-3 text-foreground leading-relaxed">
-          &quot;Hi Alex, thanks for reaching out. This fits right into our Q3 priorities. Do you have 15 mins available this Thursday afternoon for a demo?&quot;
+          &quot;Hi Alex, thanks for reaching out. This fits right into our Q3 priorities. Do you
+          have 15 mins available this Thursday afternoon for a demo?&quot;
         </div>
         <div className="flex items-center justify-between rounded-xl bg-accent/10 border border-accent/20 p-2.5">
-          <span className="font-medium text-accent">Dexter AI Suggestion: Book 15-min Demo via Google Calendar</span>
-          <button className="rounded bg-foreground px-3 py-1 text-background font-bold text-[11px]">Book Call</button>
+          <span className="font-medium text-accent">
+            Dexter AI Suggestion: Book 15-min Demo via Google Calendar
+          </span>
+          <button className="rounded bg-foreground px-3 py-1 text-background font-bold text-[11px]">
+            Book Call
+          </button>
         </div>
       </div>
     );
@@ -576,15 +699,21 @@ function MockupPreview({ slug }: { slug: string }) {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           <div className="rounded-lg border border-border bg-background p-2.5 text-center">
             <div className="text-[10px] text-muted-foreground">SPF RECORD</div>
-            <div className="font-bold text-emerald-400 flex items-center justify-center gap-1 mt-1"><CheckCircle2 className="h-3 w-3" /> Valid</div>
+            <div className="font-bold text-emerald-400 flex items-center justify-center gap-1 mt-1">
+              <CheckCircle2 className="h-3 w-3" /> Valid
+            </div>
           </div>
           <div className="rounded-lg border border-border bg-background p-2.5 text-center">
             <div className="text-[10px] text-muted-foreground">DKIM SIGNATURE</div>
-            <div className="font-bold text-emerald-400 flex items-center justify-center gap-1 mt-1"><CheckCircle2 className="h-3 w-3" /> 2048-bit</div>
+            <div className="font-bold text-emerald-400 flex items-center justify-center gap-1 mt-1">
+              <CheckCircle2 className="h-3 w-3" /> 2048-bit
+            </div>
           </div>
           <div className="rounded-lg border border-border bg-background p-2.5 text-center">
             <div className="text-[10px] text-muted-foreground">DMARC POLICY</div>
-            <div className="font-bold text-emerald-400 flex items-center justify-center gap-1 mt-1"><CheckCircle2 className="h-3 w-3" /> Enforced</div>
+            <div className="font-bold text-emerald-400 flex items-center justify-center gap-1 mt-1">
+              <CheckCircle2 className="h-3 w-3" /> Enforced
+            </div>
           </div>
           <div className="rounded-lg border border-border bg-background p-2.5 text-center">
             <div className="text-[10px] text-muted-foreground">WARMUP POOL</div>
@@ -592,8 +721,12 @@ function MockupPreview({ slug }: { slug: string }) {
           </div>
         </div>
         <div className="rounded-xl border border-border bg-background p-3 flex justify-between items-center">
-          <span className="font-semibold text-foreground">Blacklist Monitor: 52 Databases Scanned</span>
-          <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded-md">Clean (0 Flags)</span>
+          <span className="font-semibold text-foreground">
+            Blacklist Monitor: 52 Databases Scanned
+          </span>
+          <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded-md">
+            Clean (0 Flags)
+          </span>
         </div>
       </div>
     );
@@ -614,7 +747,9 @@ function MockupPreview({ slug }: { slug: string }) {
         </div>
         <div className="rounded-xl border border-border bg-background p-3 space-y-1.5">
           <div className="font-bold text-foreground">HubSpot 2-Way Sync</div>
-          <div className="text-[11px] text-emerald-400 font-semibold flex items-center gap-1"><CheckCircle2 className="h-3.5 w-3.5" /> Synced Realtime</div>
+          <div className="text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
+            <CheckCircle2 className="h-3.5 w-3.5" /> Synced Realtime
+          </div>
           <div className="text-[10px] text-muted-foreground">Last Sync: 1 min ago</div>
         </div>
       </div>
@@ -651,7 +786,9 @@ function MockupPreview({ slug }: { slug: string }) {
           </div>
           <div className="rounded-lg border border-emerald-500/40 bg-emerald-500/10 p-2.5">
             <div className="font-semibold text-foreground">Starlight Inc</div>
-            <div className="mt-1 text-[10px] text-emerald-400 font-medium">Contract Signed • $50,000</div>
+            <div className="mt-1 text-[10px] text-emerald-400 font-medium">
+              Contract Signed • $50,000
+            </div>
           </div>
         </div>
       </div>
@@ -663,20 +800,30 @@ function MockupPreview({ slug }: { slug: string }) {
       <div className="space-y-2 text-xs">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 rounded-xl border border-border bg-background p-3">
           <div className="flex items-center gap-3">
-            <span className="rounded bg-accent/20 text-accent px-2 py-0.5 font-mono font-bold">[CALL]</span>
+            <span className="rounded bg-accent/20 text-accent px-2 py-0.5 font-mono font-bold">
+              [CALL]
+            </span>
             <div>
               <div className="font-semibold text-foreground">Call Sarah Jenkins (CloudScale)</div>
-              <div className="text-[10px] text-muted-foreground">Topic: Pre-demo discovery touchpoint</div>
+              <div className="text-[10px] text-muted-foreground">
+                Topic: Pre-demo discovery touchpoint
+              </div>
             </div>
           </div>
-          <button className="w-full sm:w-auto rounded bg-foreground px-3 py-1 font-bold text-background text-[11px]">Execute Call</button>
+          <button className="w-full sm:w-auto rounded bg-foreground px-3 py-1 font-bold text-background text-[11px]">
+            Execute Call
+          </button>
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 rounded-xl border border-border bg-background p-3">
           <div className="flex items-center gap-3">
-            <span className="rounded bg-emerald-500/20 text-emerald-400 px-2 py-0.5 font-mono font-bold">[MEETING]</span>
+            <span className="rounded bg-emerald-500/20 text-emerald-400 px-2 py-0.5 font-mono font-bold">
+              [MEETING]
+            </span>
             <div>
               <div className="font-semibold text-foreground">Demo Call with Nexus AI Team</div>
-              <div className="text-[10px] text-muted-foreground">Google Calendar Synced • Today @ 3:00 PM</div>
+              <div className="text-[10px] text-muted-foreground">
+                Google Calendar Synced • Today @ 3:00 PM
+              </div>
             </div>
           </div>
           <span className="text-emerald-400 font-semibold text-[11px]">Synced</span>
@@ -717,12 +864,19 @@ function MockupPreview({ slug }: { slug: string }) {
           <div className="flex items-center gap-2 font-bold text-foreground">
             <Bot className="h-4 w-4 text-accent" /> Dexter AI Context Window
           </div>
-          <span className="rounded bg-accent/20 text-accent px-2.5 py-0.5 font-mono text-[10px] font-bold">BYOK Model: Claude 3.5 Sonnet</span>
+          <span className="rounded bg-accent/20 text-accent px-2.5 py-0.5 font-mono text-[10px] font-bold">
+            BYOK Model: Claude 3.5 Sonnet
+          </span>
         </div>
         <div className="rounded-xl border border-accent/30 bg-accent/10 p-3 space-y-2">
-          <div className="font-bold text-accent">Query: &quot;Summarize CloudScale account priorities and draft 1-sentence intro line.&quot;</div>
+          <div className="font-bold text-accent">
+            Query: &quot;Summarize CloudScale account priorities and draft 1-sentence intro
+            line.&quot;
+          </div>
           <div className="text-foreground leading-relaxed pt-1">
-            &quot;CloudScale recently raised $15M Series B to expand EMEA sales operations. Intro line: &apos;Noticed CloudScale&apos;s recent Series B expansion into EMEA — wanted to share how we helped similar SaaS teams scale outreach safely.&apos;&quot;
+            &quot;CloudScale recently raised $15M Series B to expand EMEA sales operations. Intro
+            line: &apos;Noticed CloudScale&apos;s recent Series B expansion into EMEA — wanted to
+            share how we helped similar SaaS teams scale outreach safely.&apos;&quot;
           </div>
         </div>
       </div>
