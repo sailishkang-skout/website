@@ -19,6 +19,7 @@ import {
   DexterInteractiveGrid,
   FaqAccordion,
 } from "@/components/home/HomePageClient";
+import { IntelligenceArchitectureSection } from "@/components/home/IntelligenceArchitectureSection";
 
 export default async function HomePage() {
   const content = await getPageContent("home");
@@ -226,6 +227,9 @@ export default async function HomePage() {
           />
         </Section>
       </div>
+
+      {/* NEW: INTELLIGENCE ARCHITECTURE SECTION (PLACED RIGHT AFTER DISCOVER/UNDERSTAND/ENGAGE/CONVERT SHOWCASE) */}
+      <IntelligenceArchitectureSection />
 
       {/* 5. DEXTER AI COMMAND CENTER SPOTLIGHT */}
       <div id="dexter" className="border-b border-border bg-background">

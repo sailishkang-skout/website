@@ -41,6 +41,7 @@ const resourceDropdownItems = [
 ];
 
 const platformNavItems = [
+  { to: "/intelligence", label: "Platform Intelligence" },
   { to: "/pricing", label: "Pricing" },
   { to: "/coming-soon", label: "Log In to Workspace" },
   { to: "/contact", label: "Book a Demo" },
