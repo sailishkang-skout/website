@@ -34,6 +34,7 @@ interface Props {
 export default function PricingClient({ content }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [activeCategory, setActiveCategory] = useState<number>(0);
+  const [isYearly, setIsYearly] = useState<boolean>(true);
 
   const plans = [
     {
@@ -57,8 +58,9 @@ export default function PricingClient({ content }: Props) {
     {
       id: "starter",
       name: "STARTER",
-      price: "$54",
+      price: isYearly ? "$43" : "$54",
       period: "/ mo",
+      subPeriod: isYearly ? "Billed annually ($43/mo)" : "Billed monthly ($54/mo)",
       popular: false,
       tagline: "Automate your outbound.",
       description: "For founders, SDRs, and small sales teams moving beyond manual outreach.",
@@ -75,8 +77,9 @@ export default function PricingClient({ content }: Props) {
     {
       id: "scale",
       name: "SCALE",
-      price: "$79",
+      price: isYearly ? "$63" : "$79",
       period: "/ mo",
+      subPeriod: isYearly ? "Billed annually ($63/mo)" : "Billed monthly ($79/mo)",
       popular: true,
       badge: "★ MOST POPULAR",
       tagline: "Build a serious outbound engine.",
@@ -119,8 +122,8 @@ export default function PricingClient({ content }: Props) {
         {
           feature: "Pricing",
           free: "$0",
-          starter: "$54/mo",
-          scale: "$79/mo",
+          starter: isYearly ? "$43/mo" : "$54/mo",
+          scale: isYearly ? "$63/mo" : "$79/mo",
           enterprise: "Custom",
         },
         {
@@ -362,13 +365,44 @@ export default function PricingClient({ content }: Props) {
               start outbound. No long-term commitment.
             </p>
 
+            {/* MONTHLY / YEARLY TOGGLE SWITCH (YEARLY PRE-SELECTED BY DEFAULT) */}
+            <div className="pt-2 flex items-center justify-center">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/80 p-1.5 shadow-sm backdrop-blur-xs">
+                <button
+                  type="button"
+                  onClick={() => setIsYearly(false)}
+                  className={`rounded-full px-4 py-1.5 text-xs font-bold transition-all cursor-pointer ${
+                    !isYearly
+                      ? "bg-foreground text-background shadow-xs"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  Monthly billing
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsYearly(true)}
+                  className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold transition-all cursor-pointer ${
+                    isYearly
+                      ? "bg-accent text-accent-foreground shadow-xs"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <span>Yearly billing</span>
+                  <span className="rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 text-[9px] font-extrabold uppercase">
+                    Save 20%
+                  </span>
+                </button>
+              </div>
+            </div>
+
             <div className="pt-1 text-xs text-muted-foreground flex flex-wrap items-center justify-center gap-3 sm:gap-5 font-medium">
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> No credit card required
               </span>
               <span className="text-border">•</span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Monthly billing
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> {isYearly ? "Annual billing (Save 20%)" : "Monthly billing"}
               </span>
               <span className="text-border">•</span>
               <span className="flex items-center gap-1.5">
@@ -493,9 +527,9 @@ export default function PricingClient({ content }: Props) {
                     {comparisonCategories[activeCategory].category}
                   </th>
                   <th className="p-3.5 text-center min-w-20">Free</th>
-                  <th className="p-3.5 text-center min-w-22.5">Starter ($54)</th>
+                  <th className="p-3.5 text-center min-w-22.5">Starter ($43)</th>
                   <th className="p-3.5 text-center min-w-25 text-accent bg-accent/10 border-x border-accent/20">
-                    Scale ⭐ ($79)
+                    Scale ⭐ ($63)
                   </th>
                   <th className="p-3.5 text-center min-w-25">Enterprise</th>
                 </tr>

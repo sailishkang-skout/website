@@ -1,6 +1,11 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 import logo from "@/assets/logo.png";
+import logoDark from "@/assets/logo-dark.png";
 import { WORKSPACE_URL } from "@/lib/constants";
 import "./footer.css";
 
@@ -57,6 +62,16 @@ const platformNavItems = [
 ];
 
 export function Footer() {
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = !mounted || resolvedTheme === "dark" || theme === "dark";
+  const activeLogo = isDark ? logoDark : logo;
+
   return (
     <footer className="border-t border-border bg-card text-card-foreground">
       <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
@@ -64,7 +79,14 @@ export function Footer() {
           {/* BRAND COLUMN */}
           <div className="md:col-span-3 space-y-4">
             <Link href="/" className="inline-block">
-              <Image src={logo} alt="Skout AI" className="h-8 w-auto" priority />
+              <Image
+                src={activeLogo}
+                alt="Skout AI"
+                width={140}
+                height={36}
+                className="h-8 w-auto object-contain"
+                priority
+              />
             </Link>
             <p className="max-w-xs text-xs leading-relaxed text-muted-foreground">
               Find the right prospects. Know why they matter. Reach them with context. One connected

@@ -2,7 +2,7 @@ import { getPageContent } from "@/lib/content/get-content";
 import PricingClient from "./client";
 
 export const metadata = {
-  title: "Pricing | Skout AI",
+  title: "Pricing",
   description:
     "Start free with Skout AI. Find prospects, enrich contacts, manage your CRM, and build outbound sequences. Upgrade to automate and scale your sales outreach.",
 };
