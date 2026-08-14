@@ -24,12 +24,7 @@ const nextConfig = {
     return [
       { source: "/app", destination: "/api/workspace-proxy" },
       { source: "/app/:path*", destination: "/api/workspace-proxy/:path*" },
-    ];
-  },
-  async rewrites() {
-    return [
-      { source: "/app", destination: "/api/workspace-proxy" },
-      { source: "/app/:path*", destination: "/api/workspace-proxy/:path*" },
+      { source: "/brand/:path*", destination: "/api/workspace-proxy/brand/:path*" },
     ];
   },
 };

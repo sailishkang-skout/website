@@ -88,6 +88,9 @@ export function rewriteWorkspaceBody(body: string, request: NextRequest): string
   out = out.replaceAll("/app/__clerk/", "\0APP_CLERK\0");
   out = out.replaceAll("/__clerk/", "/app/__clerk/");
   out = out.replaceAll("\0APP_CLERK\0", "/app/__clerk/");
+  out = out.replaceAll("/app/brand/", "\0APP_BRAND\0");
+  out = out.replaceAll("/brand/", "/app/brand/");
+  out = out.replaceAll("\0APP_BRAND\0", "/app/brand/");
   out = out.replace(/(src|href|action)=(["'])\/sign-in/g, `$1=$2/app/signin`);
   out = out.replace(/(src|href|action)=(["'])\/login/g, `$1=$2/app/signin`);
   return out;
