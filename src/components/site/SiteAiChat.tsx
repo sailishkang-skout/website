@@ -56,6 +56,7 @@ export function SiteAiChat() {
   const listeningRef = useRef(false);
   const silenceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingRef = useRef(false);
+  const lastSentRef = useRef({ text: "", at: 0 });
   const turnsRef = useRef(turns);
   const interimRef = useRef("");
   turnsRef.current = turns;
@@ -97,6 +98,13 @@ export function SiteAiChat() {
       setError(null);
       setInput("");
 
+      if (lastSentRef.current.text === content && Date.now() - lastSentRef.current.at < 2500) {
+        pendingRef.current = false;
+        setPending(false);
+        return;
+      }
+      lastSentRef.current = { text: content, at: Date.now() };
+
       const next: Turn[] = [...turnsRef.current, { role: "user", content }];
       turnsRef.current = next;
       setTurns(next);
@@ -123,7 +131,11 @@ export function SiteAiChat() {
         const withReply: Turn[] = [...next, { role: "assistant", content: reply }];
         turnsRef.current = withReply;
         setTurns(withReply);
-        speakReply(reply);
+        try {
+          speakReply(reply);
+        } catch {
+          /* TTS must never duplicate the chat bubble */
+        }
       } catch {
         setError("Could not get a reply. Check your connection and try again.");
         const withReply: Turn[] = [
@@ -228,8 +240,8 @@ export function SiteAiChat() {
       listeningRef.current = false;
     };
     rec.onend = () => {
+      /* silence timer or mic tap already sends — do not send again */
       setListening(false);
-      listeningRef.current = false;
     };
     rec.start();
   }, [clearSilenceTimer, micSupported, sendClean]);

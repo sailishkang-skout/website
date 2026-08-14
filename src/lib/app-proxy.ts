@@ -75,13 +75,17 @@ function rewriteSetCookie(cookie: string): string {
   return cookie.replace(/;\s*Domain=[^;]*/gi, "");
 }
 
-export async function proxyWorkspaceApp(request: NextRequest): Promise<NextResponse> {
-  const candidates = mapAppPathToUpstream(request.nextUrl.pathname, request.nextUrl.search);
+export async function proxyWorkspaceApp(
+  request: NextRequest,
+  pathnameOverride?: string
+): Promise<NextResponse> {
+  const pathname = pathnameOverride ?? request.nextUrl.pathname;
+  const candidates = mapAppPathToUpstream(pathname, request.nextUrl.search);
   const headers = new Headers(request.headers);
   headers.set("x-forwarded-host", request.nextUrl.host);
-  headers.set("x-forwarded-proto", request.nextUrl.protocol.replace(":", ""));
+  headers.set("x-forwarded-proto", request.nextUrl.protocol.replace(":", "") || "https");
   headers.set("x-skout-public-origin", publicOrigin(request));
-  headers.set("host", new URL(WORKSPACE).host);
+  headers.delete("host");
   headers.delete("accept-encoding");
 
   const hasBody = request.method !== "GET" && request.method !== "HEAD";

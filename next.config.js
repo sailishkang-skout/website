@@ -15,6 +15,12 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      { source: "/app", destination: "/api/workspace-proxy" },
+      { source: "/app/:path*", destination: "/api/workspace-proxy/:path*" },
+    ];
+  },
 };
 
 module.exports = nextConfig;
