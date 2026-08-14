@@ -15,8 +15,12 @@ export function mapAppPathToUpstream(pathname: string, search: string): string[]
   const candidates: string[] = [];
 
   if (rest === "/" || rest === "") {
-    // /app is the login page — try new basePath home, then classic Clerk /sign-in.
-    candidates.push(`/app${q}`, `/sign-in${q}`, `/login${q}`);
+    candidates.push(`/app/signin${q}`, `/signin${q}`, `/sign-in${q}`, `/app${q}`);
+    return candidates;
+  }
+
+  if (rest.startsWith("/signin") || rest.startsWith("/singin")) {
+    candidates.push(`/app/signin${q}`, `/signin${q}`, `/sign-in${q}`);
     return candidates;
   }
 
@@ -26,7 +30,7 @@ export function mapAppPathToUpstream(pathname: string, search: string): string[]
   }
 
   if (rest.startsWith("/sign-in")) {
-    candidates.push(`/app${q}`, `/sign-in${rest.slice("/sign-in".length)}${q}`, `/app${rest}${q}`);
+    candidates.push(`/app/signin${q}`, `/signin${q}`, `/sign-in${rest.slice("/sign-in".length)}${q}`);
     return candidates;
   }
 
@@ -41,14 +45,14 @@ export function rewriteLocation(location: string, request: NextRequest): string 
   value = value.split(WORKSPACE).join(`${pub}/app`);
   value = value.split(encodeURIComponent(WORKSPACE)).join(encodeURIComponent(`${pub}/app`));
   value = value.replace(/\/app\/app/g, "/app");
-  value = value.replace(/\/app\/sign-in/g, "/app");
-  value = value.replace(/\/app\/login/g, "/app");
+  value = value.replace(/\/app\/sign-in/g, "/app/signin");
+  value = value.replace(/\/app\/login/g, "/app/signin");
 
   if (value.startsWith("/")) {
     if (value.startsWith("/sign-in")) {
-      value = `${pub}/app${value.slice("/sign-in".length)}`;
+      value = `${pub}/app/signin${value.slice("/sign-in".length)}`;
     } else if (value.startsWith("/login")) {
-      value = `${pub}/app${value.slice("/login".length)}`;
+      value = `${pub}/app/signin${value.slice("/login".length)}`;
     } else if (!value.startsWith("/app")) {
       value = `${pub}/app${value}`;
     } else {
@@ -66,8 +70,8 @@ function rewriteHtml(html: string, request: NextRequest): string {
   out = out.replace(/\/app\/app/g, "/app");
   out = out.replace(/(src|href|action)=(["'])\/_next/g, `$1=$2/app/_next`);
   out = out.replace(/(src|href|action)=(["'])\/__clerk/g, `$1=$2/app/__clerk`);
-  out = out.replace(/(src|href|action)=(["'])\/sign-in/g, `$1=$2/app`);
-  out = out.replace(/(src|href|action)=(["'])\/login/g, `$1=$2/app`);
+  out = out.replace(/(src|href|action)=(["'])\/sign-in/g, `$1=$2/app/signin`);
+  out = out.replace(/(src|href|action)=(["'])\/login/g, `$1=$2/app/signin`);
   return out;
 }
 

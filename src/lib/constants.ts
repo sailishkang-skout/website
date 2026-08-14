@@ -6,6 +6,6 @@ export const WORKSPACE_ORIGIN = (
 
 export const APP_PATH = "/app";
 
-export const LOGIN_URL = "/app";
+export const LOGIN_URL = "/app/signin";
 
 export const WORKSPACE_URL = "/app";

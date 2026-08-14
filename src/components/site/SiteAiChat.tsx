@@ -378,7 +378,7 @@ export function SiteAiChat() {
                 Book a demo
               </Link>
               {" · "}
-              <Link href="/app" className="font-medium text-foreground underline underline-offset-2">
+              <Link href="/app/signin" className="font-medium text-foreground underline underline-offset-2">
                 Log in
               </Link>
             </p>
