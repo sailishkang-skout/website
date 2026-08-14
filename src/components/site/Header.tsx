@@ -484,8 +484,6 @@ export function Header() {
           </button>
           <a
             href={LOGIN_URL}
-            target="_blank"
-            rel="noopener noreferrer"
             className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             Log in
@@ -738,8 +736,6 @@ export function Header() {
               <div className="pt-3 flex flex-col gap-2">
                 <a
                   href={WORKSPACE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   onClick={() => setMobileOpen(false)}
                   className="text-sm font-medium text-muted-foreground text-center py-1.5"
                 >

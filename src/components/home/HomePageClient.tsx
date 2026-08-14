@@ -526,12 +526,13 @@ export function DexterInteractiveGrid({
 
         <div className="mt-4 border-t border-white/10 pt-3 flex items-center justify-between text-[11px] text-slate-400">
           <span>Grounded in Skout's live workspace data</span>
-          <Link
-            href="/contact"
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("skout-open-dexter"))}
             className="font-semibold text-white underline underline-offset-4 hover:text-indigo-400 transition-colors"
           >
             Ask Dexter with your data →
-          </Link>
+          </button>
         </div>
       </div>
     </div>

@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           model: process.env.OPENAI_CHAT_MODEL || "gpt-4o-mini",
           temperature: 0.4,
-          max_tokens: 280,
+          max_tokens: 500,
           messages: [{ role: "system", content: systemPrompt() }, ...messages.slice(-12)],
         }),
       });
@@ -57,13 +57,14 @@ export async function POST(req: NextRequest) {
         if (reply) {
           return NextResponse.json({
             reply,
-            suggestDemo: /\b(demo|contact|book|calendar)\b/i.test(reply) ||
+            suggestDemo:
+              /\b(demo|contact|book|calendar)\b/i.test(reply) ||
               /\b(demo|book|call|sales|trial|pricing)\b/i.test(lastUser.content),
           });
         }
       }
     } catch {
-      // Fall through to local FAQ replies.
+      // Local FAQ replies still work without OpenAI.
     }
   }
 

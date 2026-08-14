@@ -95,8 +95,6 @@ export default function ProductDetailClient({ product }: Props) {
               </Link>
               <a
                 href={WORKSPACE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-border bg-card/60 px-6 py-2.5 text-xs sm:text-sm font-medium text-foreground backdrop-blur-md transition-colors hover:bg-muted/80"
               >
                 Log in to workspace

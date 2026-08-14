@@ -116,8 +116,6 @@ export default function IntelligenceClient() {
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
               <a
                 href={WORKSPACE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-accent px-7 py-3 text-xs sm:text-sm font-bold text-accent-foreground shadow-md transition-all hover:bg-accent/90"
               >
                 <span>Launch Workspace</span>
@@ -343,8 +341,6 @@ export default function IntelligenceClient() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <a
               href={WORKSPACE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-accent px-8 py-3.5 text-xs sm:text-sm font-bold text-accent-foreground shadow-lg hover:bg-accent/90 transition-all"
             >
               <span>Get Started Free — $0</span>

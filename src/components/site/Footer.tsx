@@ -165,8 +165,6 @@ export function Footer() {
               <li>
                 <a
                   href={WORKSPACE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="transition-colors hover:text-foreground font-medium"
                 >
                   Log In
