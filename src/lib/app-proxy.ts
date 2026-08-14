@@ -72,13 +72,22 @@ export function rewriteLocation(location: string, request: NextRequest): string 
   return value;
 }
 
-function rewriteHtml(html: string, request: NextRequest): string {
+/**
+ * AWS Next is built without a public asset host, so webpack's publicPath is `/_next/`.
+ * On skoutai.io that path is the *marketing* app and 404s. Prefix product assets with /app
+ * in HTML and JS (chunk URLs live inside webpack-*.js, not only script tags).
+ */
+export function rewriteWorkspaceBody(body: string, request: NextRequest): string {
   const pub = publicOrigin(request);
-  let out = html;
+  let out = body;
   out = out.split(WORKSPACE).join(`${pub}/app`);
   out = out.replace(/\/app\/app/g, "/app");
-  out = out.replace(/(src|href|action)=(["'])\/_next/g, `$1=$2/app/_next`);
-  out = out.replace(/(src|href|action)=(["'])\/__clerk/g, `$1=$2/app/__clerk`);
+  out = out.replaceAll("/app/_next/", "\0APP_NEXT\0");
+  out = out.replaceAll("/_next/", "/app/_next/");
+  out = out.replaceAll("\0APP_NEXT\0", "/app/_next/");
+  out = out.replaceAll("/app/__clerk/", "\0APP_CLERK\0");
+  out = out.replaceAll("/__clerk/", "/app/__clerk/");
+  out = out.replaceAll("\0APP_CLERK\0", "/app/__clerk/");
   out = out.replace(/(src|href|action)=(["'])\/sign-in/g, `$1=$2/app/signin`);
   out = out.replace(/(src|href|action)=(["'])\/login/g, `$1=$2/app/signin`);
   return out;
@@ -195,9 +204,7 @@ export async function proxyWorkspaceApp(
     contentType.includes("json")
   ) {
     const text = await upstream.text();
-    const rewritten = contentType.includes("text/html")
-      ? rewriteHtml(text, request)
-      : text.split(WORKSPACE).join(`${publicOrigin(request)}/app`);
+    const rewritten = rewriteWorkspaceBody(text, request);
     return new NextResponse(rewritten, { status: upstream.status, headers: outHeaders });
   }
 
