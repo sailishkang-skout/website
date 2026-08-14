@@ -36,11 +36,12 @@ import {
   Moon,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
+import logoDark from "@/assets/logo-dark.png";
 import { LOGIN_URL, WORKSPACE_URL } from "@/lib/constants";
 
 export function Header() {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
@@ -51,6 +52,9 @@ export function Header() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const isDark = mounted && (resolvedTheme === "dark" || theme === "dark");
+  const currentLogo = isDark ? logoDark : logo;
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
@@ -109,7 +113,15 @@ export function Header() {
             alt="Skout AI Logo"
             width={140}
             height={36}
-            className="h-7 sm:h-9 w-auto max-w-27.5 sm:max-w-none object-contain"
+            className="h-7 sm:h-9 w-auto max-w-27.5 sm:max-w-none object-contain block dark:hidden"
+            priority
+          />
+          <Image
+            src={logoDark}
+            alt="Skout AI Logo"
+            width={140}
+            height={36}
+            className="h-7 sm:h-9 w-auto max-w-27.5 sm:max-w-none object-contain hidden dark:block"
             priority
           />
         </Link>

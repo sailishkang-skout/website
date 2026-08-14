@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/assets/logo.png";
+import logoDark from "@/assets/logo-dark.png";
 import { WORKSPACE_URL } from "@/lib/constants";
 import "./footer.css";
 
@@ -64,7 +65,8 @@ export function Footer() {
           {/* BRAND COLUMN */}
           <div className="md:col-span-3 space-y-4">
             <Link href="/" className="inline-block">
-              <Image src={logo} alt="Skout AI" className="h-8 w-auto" priority />
+              <Image src={logo} alt="Skout AI" className="h-8 w-auto block dark:hidden" priority />
+              <Image src={logoDark} alt="Skout AI" className="h-8 w-auto hidden dark:block" priority />
             </Link>
             <p className="max-w-xs text-xs leading-relaxed text-muted-foreground">
               Find the right prospects. Know why they matter. Reach them with context. One connected
