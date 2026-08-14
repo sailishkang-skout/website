@@ -54,7 +54,7 @@ export default async function HomePage() {
     <div className="flex flex-col gap-0">
       {/* 1. HERO SECTION & DEXTER INTRO */}
       <div style={{ background: "var(--gradient-hero)" }} className="border-b border-border/60">
-        <Section className="py-6! md:py-10!">
+        <Section className="pt-20! pb-6! md:pt-24! md:pb-10!">
           <div className="grid items-center gap-8 lg:grid-cols-12">
             {/* HERO LEFT COLUMN */}
             <div className="lg:col-span-6 space-y-4">

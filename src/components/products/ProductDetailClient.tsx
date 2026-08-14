@@ -1,4 +1,5 @@
 "use client";
+// cSpell:ignore subheadline skoutai Sidepanel DMARC Inboxing Touchpoint touchpoint EMEA
 
 import Link from "next/link";
 import { useState } from "react";
@@ -70,14 +71,14 @@ export default function ProductDetailClient({ product }: Props) {
     <div className="flex flex-col gap-0 text-foreground">
       {/* HERO SECTION & MOCKUP STAGE - SEAMLESS HERO GRADIENT */}
       <div style={{ background: "var(--gradient-hero)" }} className="border-b border-border/60">
-        <Section className="py-8! md:py-14! text-center">
+        <Section className="pt-20! pb-8! md:pt-24! md:pb-14! text-center">
           <div className="mx-auto max-w-4xl space-y-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-accent">
               <ProductIcon className="h-3.5 w-3.5" />
               <span>{product.eyebrow} · SKOUT PLATFORM</span>
             </div>
 
-            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
+            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] wrap-break-word text-foreground font-semibold">
               {product.headline} <br />
               <GradientText>{product.headlineGradient}</GradientText>
             </h1>
@@ -392,7 +393,7 @@ function MockupPreview({ slug }: { slug: string }) {
 
         {/* DESKTOP TABLE VIEW FOR >= 640px */}
         <div className="hidden sm:block overflow-x-auto rounded-xl border border-border/80 bg-background/80 p-3 sm:p-4">
-          <div className="min-w-[480px]">
+          <div className="min-w-120">
             <div className="grid grid-cols-4 gap-4 border-b border-border/60 pb-2 font-bold text-muted-foreground">
               <span>Contact Name</span>
               <span>Title</span>
