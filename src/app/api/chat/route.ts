@@ -44,8 +44,8 @@ export async function POST(req: NextRequest) {
         },
         body: JSON.stringify({
           model: process.env.OPENAI_CHAT_MODEL || "gpt-4o-mini",
-          temperature: 0.4,
-          max_tokens: 500,
+          temperature: 0.85,
+          max_tokens: 400,
           messages: [{ role: "system", content: systemPrompt() }, ...messages.slice(-12)],
         }),
       });

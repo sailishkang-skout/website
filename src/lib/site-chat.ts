@@ -35,33 +35,33 @@ export function collectSiteFaqs(): FaqPair[] {
 export function buildSiteKnowledge(): string {
   const lines: string[] = [
     "Skout AI (skoutai.io) is an AI-powered GTM platform: prospecting, enrichment, email intelligence, sequences, inbox, CRM, deliverability, and Dexter.",
-    "Login / workspace: https://www.skoutai.io/app",
-    "Log in: https://www.skoutai.io/app/login",
+    "Login / workspace: https://www.skoutai.io/app (Clerk login stays on this URL — do not send people to execute-api).",
     "Book a demo: https://www.skoutai.io/contact",
     "Pricing: https://www.skoutai.io/pricing",
-    "Integrations: HubSpot, Google Calendar, BYOK.",
   ];
 
   for (const product of Object.values(PRODUCTS_DATA)) {
-    lines.push(
-      `Product ${product.title} (/products/${product.slug}): ${product.subheadline}`
-    );
+    lines.push(`Product ${product.title}: ${product.subheadline}`);
   }
   for (const solution of Object.values(SOLUTIONS_DATA)) {
-    lines.push(
-      `Solution ${solution.title} (/solutions/${solution.slug}): ${solution.subheadline}`
-    );
+    lines.push(`Solution ${solution.title}: ${solution.subheadline}`);
   }
   for (const faq of collectSiteFaqs()) {
     lines.push(`Q: ${faq.question}\nA: ${faq.answer}`);
   }
 
-  return lines.join("\n\n").slice(0, 14000);
+  return lines.join("\n\n").slice(0, 12000);
 }
 
 export function wantsDemo(text: string): boolean {
-  return /\b(demo|book|call|meeting|talk to|sales|trial|pricing|get started|onboard)\b/i.test(
+  return /\b(demo|book a call|book a meeting|talk to sales|start a trial|get started|onboard)\b/i.test(
     text
+  );
+}
+
+export function isSmallTalk(text: string): boolean {
+  return /^(hi|hey|hello|yo|sup|howdy|good (morning|afternoon|evening)|how are you|how's it going|whats? up|who are you|what('?s| is) your name|thanks|thank you|ok(ay)?|cool|nice|lol)[\s!?.]*$/i.test(
+    text.trim()
   );
 }
 
@@ -73,6 +73,7 @@ function tokenize(text: string): string[] {
 }
 
 export function matchSiteFaq(userMessage: string): FaqPair | null {
+  if (isSmallTalk(userMessage)) return null;
   const words = tokenize(userMessage);
   if (!words.length) return null;
   let best: FaqPair | null = null;
@@ -90,30 +91,47 @@ export function matchSiteFaq(userMessage: string): FaqPair | null {
 }
 
 export function fallbackReply(userMessage: string): { reply: string; suggestDemo: boolean } {
+  const lower = userMessage.toLowerCase().trim();
+
+  if (isSmallTalk(userMessage) || /how are you/.test(lower)) {
+    if (/thank/.test(lower)) {
+      return { suggestDemo: false, reply: "You’re welcome. What else can I help with?" };
+    }
+    if (/who are you|your name/.test(lower)) {
+      return {
+        suggestDemo: false,
+        reply:
+          "I’m Dexter — like a teammate in the corner of this site. Ask me anything: Skout, outbound, or just bounce an idea.",
+      };
+    }
+    return {
+      suggestDemo: false,
+      reply:
+        "I’m doing well — thanks for asking. What’s on your mind? I can talk product, outbound, or just help you think something through.",
+    };
+  }
+
   const demo = wantsDemo(userMessage);
   const faq = matchSiteFaq(userMessage);
   if (faq) {
     return {
       suggestDemo: demo,
-      reply: `${faq.answer}${demo ? " You can book a live demo at /contact, or log in at /app." : ""}`,
+      reply: faq.answer,
     };
   }
-
-  const lower = userMessage.toLowerCase();
 
   if (demo) {
     return {
       suggestDemo: true,
       reply:
-        "Happy to help you get a walkthrough. Book a live demo on the Contact page, or log in to the workspace at /app. I can also answer product questions from this site first.",
+        "Sure — the easiest next step is a live walkthrough. Head to Contact and pick a time, or tell me what you want to see and I’ll point you.",
     };
   }
 
-  if (/\b(login|log in|sign in|workspace|app)\b/.test(lower)) {
+  if (/\b(login|log in|sign in|workspace)\b/.test(lower)) {
     return {
       suggestDemo: false,
-      reply:
-        "Use Log in in the header, or go to https://www.skoutai.io/app/login — that opens the Skout workspace at https://www.skoutai.io/app.",
+      reply: "Tap Log in in the header — it stays on skoutai.io/app with Clerk. No extra hop.",
     };
   }
 
@@ -121,30 +139,28 @@ export function fallbackReply(userMessage: string): { reply: string; suggestDemo
     return {
       suggestDemo: false,
       reply:
-        "Skout verifies emails with Email Intelligence (SMTP, MX, catch-all, send-eligibility) so you don’t burn domains. Verification runs on lists and when adding prospects. Deliverability and warmup live under Engage. Want a demo of that flow?",
-    };
-  }
-
-  if (/\b(sequence|outreach|linkedin|dexter)\b/.test(lower)) {
-    return {
-      suggestDemo: false,
-      reply:
-        "Sequences mix email, LinkedIn, waits, and conditions. Dexter is the GTM intelligence layer — on this site I can explain the product, and inside the workspace Dexter works with your live data. Book a demo if you want to see the builder.",
+        "We check mailboxes live (SMTP, MX, catch-all) so you don’t burn a domain. Want the short version of how that fits a sequence, or how to try it?",
     };
   }
 
   return {
     suggestDemo: false,
     reply:
-      "Skout AI is one workspace for finding, verifying, and reaching B2B prospects — search, enrich, sequences, CRM, and Dexter. Ask about any page on skoutai.io (products, solutions, pricing, integrations), or book a demo / log in at /app.",
+      "Got it. Tell me a bit more about what you’re trying to do — I can talk Skout, outbound, or just think it through with you.",
   };
 }
 
 export function systemPrompt(): string {
-  return `You are Dexter, the Skout AI website assistant. Be concise (2–5 short sentences), friendly, and specific.
-Answer using this website knowledge, and you may also answer general GTM/sales questions, then relate them to Skout when relevant.
-Never invent Skout pricing numbers or SLAs. For demos, point to /contact. For login, point to https://www.skoutai.io/app.
+  return `You are Dexter, a warm, quick conversational assistant on the Skout AI website — think ChatGPT or a friendly voice assistant, not a brochure.
 
-Website knowledge:
+Rules:
+- Answer the message they actually sent. If they say "how are you", greet them back. Do not pitch Skout unless they ask.
+- Sound human: contractions, one thought at a time, ask a short follow-up when it helps.
+- Never repeat the same product paragraph. Vary replies. Use chat history.
+- You can talk about everyday things, then offer Skout only if it's useful.
+- Never invent Skout prices or SLAs. Demo = /contact. Login = https://www.skoutai.io/app (stay on that host).
+- 1–4 short sentences unless they ask for detail.
+
+Product context (use only when relevant):
 ${buildSiteKnowledge()}`;
 }

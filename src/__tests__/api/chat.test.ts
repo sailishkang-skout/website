@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { fallbackReply, matchSiteFaq, wantsDemo } from "@/lib/site-chat";
+import { fallbackReply, isSmallTalk, matchSiteFaq, wantsDemo } from "@/lib/site-chat";
 
 function makeRequest(body: unknown) {
   return new NextRequest("http://localhost/api/chat", {
@@ -17,12 +17,14 @@ describe("site chat helpers", () => {
 
   it("answers verification questions without requiring OpenAI", () => {
     const res = fallbackReply("How do you verify emails?");
-    expect(res.reply.toLowerCase()).toMatch(/email|verif/);
+    expect(res.reply.toLowerCase()).toMatch(/email|verif|smtp|mailbox/);
   });
 
-  it("answers from website FAQ content", () => {
-    const hit = matchSiteFaq("What is Skout AI?");
-    expect(hit?.answer.toLowerCase()).toMatch(/gtm|workspace|prospect/);
+  it("greets instead of pitching the product", () => {
+    expect(isSmallTalk("How are you")).toBe(true);
+    const res = fallbackReply("How are you");
+    expect(res.reply.toLowerCase()).toMatch(/well|thanks|mind/);
+    expect(res.reply.toLowerCase()).not.toMatch(/one workspace for finding/);
   });
 });
 

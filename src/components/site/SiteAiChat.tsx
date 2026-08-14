@@ -28,9 +28,9 @@ interface Turn {
   content: string;
 }
 
-const STARTERS = ["What does Skout do?", "How do you verify emails?", "I want to book a demo"];
+const STARTERS = ["How are you?", "What can you help with?", "I want to book a demo"];
 export const OPEN_DEXTER_EVENT = "skout-open-dexter";
-const SILENCE_SEND_MS = 10_000;
+const SILENCE_SEND_MS = 1_800;
 
 export function SiteAiChat() {
   const [open, setOpen] = useState(false);
@@ -41,7 +41,7 @@ export function SiteAiChat() {
     {
       role: "assistant",
       content:
-        "Hi — I’m Dexter. Ask anything about Skout, this website, outbound, or book a demo. You can type or use the mic.",
+        "Hi — I’m Dexter. How’s your day going? Ask me anything, or tap the mic and just talk.",
     },
   ]);
   const [listening, setListening] = useState(false);
@@ -205,6 +205,7 @@ export function SiteAiChat() {
       if (finalChunk) speechFinalRef.current = `${speechFinalRef.current} ${finalChunk}`.trim();
       setInterim(live);
       interimRef.current = live;
+      setInput(`${speechFinalRef.current} ${live}`.replace(/\s+/g, " ").trim());
       clearSilenceTimer();
       silenceTimerRef.current = setTimeout(() => {
         if (!listeningRef.current) return;
@@ -245,7 +246,7 @@ export function SiteAiChat() {
               <Sparkles className="h-4 w-4" />
               <div>
                 <p className="text-sm font-semibold tracking-tight">Ask Dexter</p>
-                <p className="text-[11px] text-white/80">Voice or type · answers from this site</p>
+                <p className="text-[11px] text-white/80">Talk or type — I’ll meet you there</p>
               </div>
             </div>
             <div className="flex items-center gap-1">
@@ -318,11 +319,8 @@ export function SiteAiChat() {
             </div>
             {listening && (
               <p className="mb-1.5 text-[11px] font-medium text-indigo-600">
-                Listening… tap mic to send, or pause 10s.
+                Listening… you’ll see the words in the box. Pause and I’ll send, or tap send.
               </p>
-            )}
-            {!listening && interim && (
-              <p className="mb-1.5 text-[11px] italic text-muted-foreground">Hearing: {interim}</p>
             )}
             <form
               className="flex items-center gap-2"
@@ -349,7 +347,7 @@ export function SiteAiChat() {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder={micSupported ? "Ask Dexter or tap the mic…" : "Ask about Skout…"}
+                placeholder={listening ? "Listening…" : micSupported ? "Say hi, or ask me anything…" : "Say hi, or ask me anything…"}
                 className="h-10 flex-1 rounded-xl border border-input bg-background px-3 text-sm text-foreground outline-none ring-ring focus:ring-2"
               />
               <button

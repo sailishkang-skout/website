@@ -1,0 +1,132 @@
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { WORKSPACE_ORIGIN } from "@/lib/constants";
+
+const WORKSPACE = WORKSPACE_ORIGIN.replace(/\/$/, "");
+
+function publicOrigin(request: NextRequest): string {
+  return request.nextUrl.origin.replace(/\/$/, "");
+}
+
+/** Map marketing /app URLs onto the current web service (with or without basePath). */
+export function mapAppPathToUpstream(pathname: string, search: string): string[] {
+  const rest = pathname === "/app" || pathname === "/app/" ? "/" : pathname.replace(/^\/app/, "") || "/";
+  const q = search || "";
+  const candidates: string[] = [];
+
+  if (rest === "/" || rest === "") {
+    // /app is the login page — try new basePath home, then classic Clerk /sign-in.
+    candidates.push(`/app${q}`, `/sign-in${q}`, `/login${q}`);
+    return candidates;
+  }
+
+  if (rest.startsWith("/login")) {
+    candidates.push(`/app${rest}${q}`, `/sign-in${rest.slice("/login".length)}${q}`, `/login${rest.slice("/login".length)}${q}`);
+    return candidates;
+  }
+
+  if (rest.startsWith("/sign-in")) {
+    candidates.push(`/app${q}`, `/sign-in${rest.slice("/sign-in".length)}${q}`, `/app${rest}${q}`);
+    return candidates;
+  }
+
+  candidates.push(`/app${rest}${q}`, `${rest}${q}`);
+  return candidates;
+}
+
+export function rewriteLocation(location: string, request: NextRequest): string {
+  const pub = publicOrigin(request);
+  let value = location;
+
+  value = value.split(WORKSPACE).join(`${pub}/app`);
+  value = value.split(encodeURIComponent(WORKSPACE)).join(encodeURIComponent(`${pub}/app`));
+  value = value.replace(/\/app\/app/g, "/app");
+  value = value.replace(/\/app\/sign-in/g, "/app");
+  value = value.replace(/\/app\/login/g, "/app");
+
+  if (value.startsWith("/")) {
+    if (value.startsWith("/sign-in")) {
+      value = `${pub}/app${value.slice("/sign-in".length)}`;
+    } else if (value.startsWith("/login")) {
+      value = `${pub}/app${value.slice("/login".length)}`;
+    } else if (!value.startsWith("/app")) {
+      value = `${pub}/app${value}`;
+    } else {
+      value = `${pub}${value}`;
+    }
+  }
+
+  return value;
+}
+
+function rewriteHtml(html: string, request: NextRequest): string {
+  const pub = publicOrigin(request);
+  let out = html;
+  out = out.split(WORKSPACE).join(`${pub}/app`);
+  out = out.replace(/\/app\/app/g, "/app");
+  out = out.replace(/(src|href|action)=(["'])\/_next/g, `$1=$2/app/_next`);
+  out = out.replace(/(src|href|action)=(["'])\/__clerk/g, `$1=$2/app/__clerk`);
+  out = out.replace(/(src|href|action)=(["'])\/sign-in/g, `$1=$2/app`);
+  out = out.replace(/(src|href|action)=(["'])\/login/g, `$1=$2/app`);
+  return out;
+}
+
+function rewriteSetCookie(cookie: string): string {
+  return cookie.replace(/;\s*Domain=[^;]*/gi, "");
+}
+
+export async function proxyWorkspaceApp(request: NextRequest): Promise<NextResponse> {
+  const candidates = mapAppPathToUpstream(request.nextUrl.pathname, request.nextUrl.search);
+  const headers = new Headers(request.headers);
+  headers.set("x-forwarded-host", request.nextUrl.host);
+  headers.set("x-forwarded-proto", request.nextUrl.protocol.replace(":", ""));
+  headers.set("x-skout-public-origin", publicOrigin(request));
+  headers.set("host", new URL(WORKSPACE).host);
+  headers.delete("accept-encoding");
+
+  const hasBody = request.method !== "GET" && request.method !== "HEAD";
+  const body = hasBody ? await request.arrayBuffer() : undefined;
+
+  let upstream: Response | null = null;
+  for (const path of candidates) {
+    const dest = `${WORKSPACE}${path.startsWith("/") ? path : `/${path}`}`;
+    const res = await fetch(dest, {
+      method: request.method,
+      headers,
+      body: body ? body.slice(0) : undefined,
+      redirect: "manual",
+    });
+    if (res.status !== 404 || path === candidates[candidates.length - 1]) {
+      upstream = res;
+      break;
+    }
+  }
+
+  if (!upstream) {
+    return NextResponse.json({ message: "Workspace unavailable" }, { status: 502 });
+  }
+
+  const outHeaders = new Headers();
+  upstream.headers.forEach((value, key) => {
+    const lower = key.toLowerCase();
+    if (lower === "content-encoding" || lower === "content-length" || lower === "transfer-encoding") return;
+    if (lower === "location") {
+      outHeaders.set("location", rewriteLocation(value, request));
+      return;
+    }
+    if (lower === "set-cookie") {
+      outHeaders.append("set-cookie", rewriteSetCookie(value));
+      return;
+    }
+    outHeaders.set(key, value);
+  });
+
+  const contentType = upstream.headers.get("content-type") ?? "";
+  if (contentType.includes("text/html") || contentType.includes("javascript") || contentType.includes("json")) {
+    const text = await upstream.text();
+    const rewritten = contentType.includes("text/html") ? rewriteHtml(text, request) : text.split(WORKSPACE).join(`${publicOrigin(request)}/app`);
+    return new NextResponse(rewritten, { status: upstream.status, headers: outHeaders });
+  }
+
+  return new NextResponse(upstream.body, { status: upstream.status, headers: outHeaders });
+}
