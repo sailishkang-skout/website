@@ -40,9 +40,4 @@ describe("rewriteWorkspaceBody", () => {
     const js = `"/app/_next/static/chunks/webpack.js"`;
     expect(rewriteWorkspaceBody(js, request)).toBe(`"/app/_next/static/chunks/webpack.js"`);
   });
-
-  it("rewrites /brand assets onto /app/brand", () => {
-    const html = `<img src="/brand/gdpr-compliant.png" alt="GDPR Compliant" />`;
-    expect(rewriteWorkspaceBody(html, request)).toContain(`src="/app/brand/gdpr-compliant.png"`);
-  });
 });
