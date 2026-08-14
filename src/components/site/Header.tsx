@@ -129,7 +129,7 @@ export function Header() {
       ref={headerRef}
       className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all"
     >
-      <div className="mx-auto flex h-16 w-full max-w-7xl 2xl:max-w-350 items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 w-full max-w-7xl 2xl:max-w-[1400px] items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8">
         {/* LOGO */}
         <Link
           href="/"
