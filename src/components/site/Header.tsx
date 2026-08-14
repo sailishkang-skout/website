@@ -38,15 +38,42 @@ import {
 import logo from "@/assets/logo.png";
 import logoDark from "@/assets/logo-dark.png";
 import { LOGIN_URL, WORKSPACE_URL } from "@/lib/constants";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function Header() {
   const pathname = usePathname();
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const isMobile = useIsMobile();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const headerRef = useRef<HTMLElement>(null);
+
+  // Close mobile menu when switching to desktop view
+  useEffect(() => {
+    if (!isMobile && mobileOpen) {
+      setMobileOpen(false);
+    }
+  }, [isMobile, mobileOpen]);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setMobileOpen(false);
+    setActiveMenu(null);
+  }, [pathname]);
+
+  // Prevent body scrolling when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   // Wait for component to mount to avoid hydration issues
   useEffect(() => {
@@ -102,7 +129,7 @@ export function Header() {
       ref={headerRef}
       className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all"
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8">
         {/* LOGO */}
         <Link
           href="/"
@@ -527,9 +554,23 @@ export function Header() {
         </div>
       </div>
 
+      {/* MOBILE DRAWER OVERLAY */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
+          onClick={() => setMobileOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* MOBILE DRAWER (MATCHING DESKTOP NAVBAR 100%) */}
       {mobileOpen && (
-        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-t border-border bg-background p-6 md:hidden">
+        <div
+          className="fixed inset-0 top-16 z-50 max-h-[calc(100vh-4rem)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-t border-border bg-background p-4 sm:p-6 md:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation menu"
+        >
           <div className="flex flex-col gap-6">
             {/* PRODUCTS */}
             <div>
