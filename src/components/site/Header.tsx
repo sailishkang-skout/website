@@ -53,8 +53,8 @@ export function Header() {
     setMounted(true);
   }, []);
 
-  const isDark = mounted && (resolvedTheme === "dark" || theme === "dark");
-  const currentLogo = isDark ? logoDark : logo;
+  const isDark = !mounted || resolvedTheme === "dark" || theme === "dark";
+  const activeLogo = isDark ? logoDark : logo;
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
@@ -109,19 +109,11 @@ export function Header() {
           className="flex items-center py-0.5 transition-opacity hover:opacity-90 shrink-0"
         >
           <Image
-            src={logo}
+            src={activeLogo}
             alt="Skout AI Logo"
             width={140}
             height={36}
-            className="h-7 sm:h-9 w-auto max-w-27.5 sm:max-w-none object-contain block dark:hidden"
-            priority
-          />
-          <Image
-            src={logoDark}
-            alt="Skout AI Logo"
-            width={140}
-            height={36}
-            className="h-7 sm:h-9 w-auto max-w-27.5 sm:max-w-none object-contain hidden dark:block"
+            className="h-7 sm:h-9 w-auto max-w-27.5 sm:max-w-none object-contain"
             priority
           />
         </Link>
