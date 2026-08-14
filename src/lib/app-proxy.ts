@@ -10,7 +10,8 @@ function publicOrigin(request: NextRequest): string {
 
 /** Map marketing /app URLs onto the current web service (with or without basePath). */
 export function mapAppPathToUpstream(pathname: string, search: string): string[] {
-  const rest = pathname === "/app" || pathname === "/app/" ? "/" : pathname.replace(/^\/app/, "") || "/";
+  const rest =
+    pathname === "/app" || pathname === "/app/" ? "/" : pathname.replace(/^\/app/, "") || "/";
   const q = search || "";
   const candidates: string[] = [];
 
@@ -25,12 +26,20 @@ export function mapAppPathToUpstream(pathname: string, search: string): string[]
   }
 
   if (rest.startsWith("/login")) {
-    candidates.push(`/app${rest}${q}`, `/sign-in${rest.slice("/login".length)}${q}`, `/login${rest.slice("/login".length)}${q}`);
+    candidates.push(
+      `/app${rest}${q}`,
+      `/sign-in${rest.slice("/login".length)}${q}`,
+      `/login${rest.slice("/login".length)}${q}`,
+    );
     return candidates;
   }
 
   if (rest.startsWith("/sign-in")) {
-    candidates.push(`/app/signin${q}`, `/signin${q}`, `/sign-in${rest.slice("/sign-in".length)}${q}`);
+    candidates.push(
+      `/app/signin${q}`,
+      `/signin${q}`,
+      `/sign-in${rest.slice("/sign-in".length)}${q}`,
+    );
     return candidates;
   }
 
@@ -109,7 +118,7 @@ function upstreamHeaders(request: NextRequest): Headers {
 
 export async function proxyWorkspaceApp(
   request: NextRequest,
-  pathnameOverride?: string
+  pathnameOverride?: string,
 ): Promise<NextResponse> {
   let origin = WORKSPACE.replace(/\/$/, "");
   try {
@@ -158,7 +167,16 @@ export async function proxyWorkspaceApp(
   const outHeaders = new Headers();
   upstream.headers.forEach((value, key) => {
     const lower = key.toLowerCase();
-    if (lower === "content-encoding" || lower === "content-length" || lower === "transfer-encoding") return;
+    if (lower === "content-encoding" || lower === "content-length" || lower === "transfer-encoding")
+      return;
+    // Next.js's own internal middleware-to-server signaling headers. The upstream (itself a
+    // Next.js app, behind Clerk's auth middleware) leaks these on a raw origin-to-origin fetch —
+    // browsers never see them because Vercel's edge normally strips them before a real client
+    // request completes. Forwarding one verbatim makes *this* app's own route handler response
+    // carry an x-middleware-rewrite header, which Next's router then rejects with "NextResponse
+    // .rewrite() was used in a app route handler" since plain route handlers can't signal a
+    // rewrite that way.
+    if (lower.startsWith("x-middleware-")) return;
     if (lower === "location") {
       outHeaders.set("location", rewriteLocation(value, request));
       return;
@@ -171,9 +189,15 @@ export async function proxyWorkspaceApp(
   });
 
   const contentType = upstream.headers.get("content-type") ?? "";
-  if (contentType.includes("text/html") || contentType.includes("javascript") || contentType.includes("json")) {
+  if (
+    contentType.includes("text/html") ||
+    contentType.includes("javascript") ||
+    contentType.includes("json")
+  ) {
     const text = await upstream.text();
-    const rewritten = contentType.includes("text/html") ? rewriteHtml(text, request) : text.split(WORKSPACE).join(`${publicOrigin(request)}/app`);
+    const rewritten = contentType.includes("text/html")
+      ? rewriteHtml(text, request)
+      : text.split(WORKSPACE).join(`${publicOrigin(request)}/app`);
     return new NextResponse(rewritten, { status: upstream.status, headers: outHeaders });
   }
 
