@@ -79,39 +79,76 @@ function rewriteSetCookie(cookie: string): string {
   return cookie.replace(/;\s*Domain=[^;]*/gi, "");
 }
 
+const DROP_REQUEST_HEADERS = new Set([
+  "host",
+  "connection",
+  "keep-alive",
+  "proxy-authenticate",
+  "proxy-authorization",
+  "te",
+  "trailers",
+  "transfer-encoding",
+  "upgrade",
+  "accept-encoding",
+  "content-encoding",
+  "content-length",
+]);
+
+function upstreamHeaders(request: NextRequest): Headers {
+  const headers = new Headers();
+  request.headers.forEach((value, key) => {
+    if (!DROP_REQUEST_HEADERS.has(key.toLowerCase())) {
+      headers.set(key, value);
+    }
+  });
+  headers.set("x-forwarded-host", request.nextUrl.host);
+  headers.set("x-forwarded-proto", request.nextUrl.protocol.replace(":", "") || "https");
+  headers.set("x-skout-public-origin", publicOrigin(request));
+  return headers;
+}
+
 export async function proxyWorkspaceApp(
   request: NextRequest,
   pathnameOverride?: string
 ): Promise<NextResponse> {
+  const origin = WORKSPACE.replace(/\/$/, "");
+  if (!origin || /skoutai\.io$/i.test(new URL(origin).host)) {
+    return NextResponse.json(
+      { message: "NEXT_PUBLIC_WORKSPACE_URL must be the AWS origin, not www.skoutai.io" },
+      { status: 502 }
+    );
+  }
+
   const pathname = pathnameOverride ?? request.nextUrl.pathname;
   const candidates = mapAppPathToUpstream(pathname, request.nextUrl.search);
-  const headers = new Headers(request.headers);
-  headers.set("x-forwarded-host", request.nextUrl.host);
-  headers.set("x-forwarded-proto", request.nextUrl.protocol.replace(":", "") || "https");
-  headers.set("x-skout-public-origin", publicOrigin(request));
-  headers.delete("host");
-  headers.delete("accept-encoding");
+  const headers = upstreamHeaders(request);
 
   const hasBody = request.method !== "GET" && request.method !== "HEAD";
   const body = hasBody ? await request.arrayBuffer() : undefined;
 
   let upstream: Response | null = null;
+  let lastError: unknown;
   for (const path of candidates) {
-    const dest = `${WORKSPACE}${path.startsWith("/") ? path : `/${path}`}`;
-    const res = await fetch(dest, {
-      method: request.method,
-      headers,
-      body: body ? body.slice(0) : undefined,
-      redirect: "manual",
-    });
-    if (res.status !== 404 || path === candidates[candidates.length - 1]) {
-      upstream = res;
-      break;
+    const dest = `${origin}${path.startsWith("/") ? path : `/${path}`}`;
+    try {
+      const res = await fetch(dest, {
+        method: request.method,
+        headers,
+        body: body ? body.slice(0) : undefined,
+        redirect: "manual",
+      });
+      if (res.status !== 404 || path === candidates[candidates.length - 1]) {
+        upstream = res;
+        break;
+      }
+    } catch (err) {
+      lastError = err;
     }
   }
 
   if (!upstream) {
-    return NextResponse.json({ message: "Workspace unavailable" }, { status: 502 });
+    const detail = lastError instanceof Error ? lastError.message : "Workspace unavailable";
+    return NextResponse.json({ message: detail }, { status: 502 });
   }
 
   const outHeaders = new Headers();
