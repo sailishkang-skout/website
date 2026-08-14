@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { WORKSPACE_ORIGIN } from "@/lib/constants";
+import { AWS_WEB_ORIGIN, WORKSPACE_ORIGIN } from "@/lib/constants";
 
 const WORKSPACE = WORKSPACE_ORIGIN.replace(/\/$/, "");
 
@@ -111,12 +111,16 @@ export async function proxyWorkspaceApp(
   request: NextRequest,
   pathnameOverride?: string
 ): Promise<NextResponse> {
-  const origin = WORKSPACE.replace(/\/$/, "");
-  if (!origin || /skoutai\.io$/i.test(new URL(origin).host)) {
-    return NextResponse.json(
-      { message: "NEXT_PUBLIC_WORKSPACE_URL must be the AWS origin, not www.skoutai.io" },
-      { status: 502 }
-    );
+  let origin = WORKSPACE.replace(/\/$/, "");
+  try {
+    const parsed = new URL(origin);
+    if (!/^https?:$/i.test(parsed.protocol) || /skoutai\.io$/i.test(parsed.hostname)) {
+      origin = AWS_WEB_ORIGIN;
+    } else {
+      origin = parsed.origin;
+    }
+  } catch {
+    origin = AWS_WEB_ORIGIN;
   }
 
   const pathname = pathnameOverride ?? request.nextUrl.pathname;
