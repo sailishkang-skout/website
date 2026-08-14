@@ -13,6 +13,17 @@ const nextConfig = {
         destination: "/legal/privacy-policy",
         permanent: true,
       },
+      {
+        source: "/auth/callback",
+        destination: "/app/auth/callback",
+        permanent: false,
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      { source: "/app", destination: "/api/workspace-proxy" },
+      { source: "/app/:path*", destination: "/api/workspace-proxy/:path*" },
     ];
   },
   async rewrites() {
