@@ -6,6 +6,8 @@ import PageView from "@/lib/models/pageview.model";
 import Waitlist from "@/lib/models/waitlist.model";
 import { subDays, startOfDay, format } from "date-fns";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   await connectDB();
 
