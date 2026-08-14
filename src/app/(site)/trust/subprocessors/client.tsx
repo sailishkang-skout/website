@@ -1,12 +1,20 @@
-import React from "react";
+"use client";
 
-export default function Client() {
+import React from "react";
+import { Server } from "lucide-react";
+import LegalUnderConstruction from "@/components/legal/LegalUnderConstruction";
+
+export default function SubprocessorsClient() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-8">Subprocessors</h1>
-      <div className="prose dark:prose-invert max-w-none">
-        <p className="mb-4">This is a placeholder page for the Subprocessors page. This page is currently under construction.</p>
-      </div>
-    </div>
+    <LegalUnderConstruction
+      badgeText="SKOUT TRUST — SUBPROCESSOR DIRECTORY"
+      title="Authorized Third-Party"
+      gradientWord="Subprocessors"
+      description="Transparency directory of authorized third-party cloud infrastructure hosts, data enrichment vendors, and AI processing APIs utilized by Skout AI."
+      icon={<Server className="h-4 w-4 text-accent" />}
+      statusLabel="Directory Updating"
+      expectedDate="Q1 2026"
+      contactEmail="privacy@skoutai.io"
+    />
   );
 }

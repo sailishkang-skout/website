@@ -1,12 +1,19 @@
-import React from "react";
+"use client";
 
-export default function Client() {
+import React from "react";
+import { Cpu } from "lucide-react";
+import LegalUnderConstruction from "@/components/legal/LegalUnderConstruction";
+
+export default function AITermsClient() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-8">AI Terms</h1>
-      <div className="prose dark:prose-invert max-w-none">
-        <p className="mb-4">This is a placeholder page for the AI Terms. This page is currently under construction.</p>
-      </div>
-    </div>
+    <LegalUnderConstruction
+      badgeText="SKOUT AI — GOVERNANCE & AI TERMS"
+      title="AI & Model Usage"
+      gradientWord="Terms"
+      description="Our Responsible AI Governance, Generative Data Privacy, Model Safety, and Output Ownership Terms are currently undergoing final legal review to support enterprise deployments."
+      icon={<Cpu className="h-4 w-4 text-accent" />}
+      statusLabel="Under Construction & Review"
+      expectedDate="Q1 2026"
+    />
   );
 }

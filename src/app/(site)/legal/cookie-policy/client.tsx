@@ -1,12 +1,19 @@
-import React from "react";
+"use client";
 
-export default function Client() {
+import React from "react";
+import { Cookie } from "lucide-react";
+import LegalUnderConstruction from "@/components/legal/LegalUnderConstruction";
+
+export default function CookiePolicyClient() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-8">Cookie Policy</h1>
-      <div className="prose dark:prose-invert max-w-none">
-        <p className="mb-4">This is a placeholder page for the Cookie Policy. This page is currently under construction.</p>
-      </div>
-    </div>
+    <LegalUnderConstruction
+      badgeText="SKOUT AI — COOKIES & TELEMETRY"
+      title="Cookie & Tracking"
+      gradientWord="Policy"
+      description="Learn how Skout AI uses essential session tokens, performance telemetry, and privacy-preserving cookies to operate, optimize, and secure our websites and SaaS platform."
+      icon={<Cookie className="h-4 w-4 text-accent" />}
+      statusLabel="Under Policy Review"
+      expectedDate="Q1 2026"
+    />
   );
 }
