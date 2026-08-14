@@ -35,7 +35,8 @@ export function collectSiteFaqs(): FaqPair[] {
 export function buildSiteKnowledge(): string {
   const lines: string[] = [
     "Skout AI (skoutai.io) is an AI-powered GTM platform: prospecting, enrichment, email intelligence, sequences, inbox, CRM, deliverability, and Dexter.",
-    "Login / workspace: https://www.skoutai.io/app (opens the product).",
+    "Login / workspace: https://www.skoutai.io/app",
+    "Log in: https://www.skoutai.io/app/login",
     "Book a demo: https://www.skoutai.io/contact",
     "Pricing: https://www.skoutai.io/pricing",
     "Integrations: HubSpot, Google Calendar, BYOK.",
@@ -112,7 +113,7 @@ export function fallbackReply(userMessage: string): { reply: string; suggestDemo
     return {
       suggestDemo: false,
       reply:
-        "Use Log in in the header, or go to https://www.skoutai.io/app — that opens the Skout workspace (same product that currently runs on the API Gateway URL).",
+        "Use Log in in the header, or go to https://www.skoutai.io/app/login — that opens the Skout workspace at https://www.skoutai.io/app.",
     };
   }
 
