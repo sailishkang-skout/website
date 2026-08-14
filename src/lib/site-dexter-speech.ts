@@ -78,29 +78,74 @@ export function pickMaleEnglishVoice(): SpeechSynthesisVoice | null {
   return best;
 }
 
+function pathPhrase(href: string): string {
+  const path = href.replace(/^https?:\/\/(www\.)?skoutai\.io/i, "") || "/";
+  if (path.startsWith("/pricing")) return "the pricing page";
+  if (path.startsWith("/guides") || path.includes("setup-guides")) return "the setup guides";
+  if (path.includes("calculator")) return "the calculator";
+  if (path.startsWith("/resources")) return "the resources page";
+  if (path.startsWith("/integrations")) return "the integrations page";
+  if (path.startsWith("/contact")) return "the contact page";
+  if (path.startsWith("/features")) return "the features page";
+  if (path.startsWith("/intelligence")) return "the intelligence page";
+  if (path.startsWith("/app")) return "the sign in page";
+  if (path.startsWith("/products")) return "that product page";
+  if (path.startsWith("/solutions")) return "that solutions page";
+  return "that page";
+}
+
+/** Spoken English for TTS — never read markup, URLs, or abbreviations like /mo. */
 export function humanizeForSpeech(raw: string): string {
   let text = raw.trim();
   if (!text) return "";
   text = text
     .replace(/```[\s\S]*?```/g, " ")
     .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_m, label: string, href: string) => {
+      if (/^https?:\/\//i.test(href) || href.startsWith("/")) {
+        return `${label} on ${pathPhrase(href)}`;
+      }
+      return String(label);
+    })
+    .replace(/https?:\/\/(www\.)?skoutai\.io(\/\S*)?/gi, (_m, _w, path: string) =>
+      pathPhrase(path || "/")
+    )
+    .replace(/https?:\/\/\S+/gi, "")
     .replace(/\*\*([^*]+)\*\*/g, "$1")
     .replace(/\*([^*]+)\*/g, "$1")
     .replace(/#{1,6}\s*/g, "")
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1")
-    .replace(/https?:\/\/\S+/gi, " that link ")
+    .replace(/^\s*[-*]\s+/gm, ". ")
+    .replace(/^\s*\d+\.\s+/gm, ". ")
+    .replace(/\$(\d+(?:\.\d+)?)/g, "$1 dollars")
+    .replace(/\/\s*(mo|mos|mth|month)\b/gi, " per month")
+    .replace(/\bper mo\b/gi, "per month")
+    .replace(/\bCTA:?/gi, "")
+    .replace(/\bBYOK\b/g, "bring your own keys")
+    .replace(/\bSSO\b/g, "single sign on")
+    .replace(/\bCSV\b/g, "C S V")
     .replace(/\bICP\b/g, "I C P")
     .replace(/\bGTM\b/g, "G T M")
     .replace(/\bAPI\b/g, "A P I")
+    .replace(/\bCRM\b/g, "C R M")
+    .replace(/\bOAuth\b/g, "O Auth")
+    .replace(/\bDNS\b/g, "D N S")
+    .replace(/\bSPF\b/g, "S P F")
+    .replace(/\bDKIM\b/g, "D K I M")
+    .replace(/\bFREE\b/g, "Free")
+    .replace(/\bSTARTER\b/g, "Starter")
+    .replace(/\bSCALE\b/g, "Scale")
+    .replace(/\bENTERPRISE\b/g, "Enterprise")
+    .replace(/\n+/g, ". ")
     .replace(/\s+/g, " ")
     .trim();
   text = text
-    .replace(/([.!?])\s+/g, "$1 ")
-    .replace(/:\s+/g, ". ")
+    .replace(/:\s+/g, ", ")
     .replace(/;\s+/g, ". ")
     .replace(/\s+—\s+/g, ". ")
-    .replace(/\s+–\s+/g, ", ");
-  return text.slice(0, 1400);
+    .replace(/\s+–\s+/g, ", ")
+    .replace(/\s*\.\s*\./g, ".")
+    .replace(/^\.\s*/, "");
+  return text.slice(0, 1600);
 }
 
 function splitIntoSpeakChunks(text: string): string[] {
@@ -157,7 +202,7 @@ export function speakText(
     }
     const chunk = chunks[index++]!;
     const utterance = new SpeechSynthesisUtterance(chunk);
-    utterance.rate = opts?.rate ?? 0.92;
+    utterance.rate = opts?.rate ?? 0.88;
     utterance.pitch = opts?.pitch ?? 0.95;
     utterance.volume = 1;
     if (preferred) utterance.voice = preferred;

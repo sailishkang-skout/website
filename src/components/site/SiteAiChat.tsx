@@ -22,6 +22,7 @@ import {
   warmSpeechVoices,
   type SpeechRecognitionLike,
 } from "@/lib/site-dexter-speech";
+import { DexterMarkdown } from "@/components/site/DexterMarkdown";
 
 interface Turn {
   role: "user" | "assistant";
@@ -297,15 +298,15 @@ export function SiteAiChat() {
                 key={`${t.role}-${i}-${t.content.slice(0, 24)}`}
                 className={t.role === "user" ? "ml-6 text-right" : "mr-6"}
               >
-                <p
-                  className={`inline-block whitespace-pre-wrap rounded-2xl px-3 py-2 text-left text-sm leading-relaxed ${
+                <div
+                  className={`inline-block max-w-full rounded-2xl px-3 py-2 text-left text-sm leading-relaxed ${
                     t.role === "user"
-                      ? "bg-indigo-600 text-white"
+                      ? "whitespace-pre-wrap bg-indigo-600 text-white"
                       : "border border-border bg-card text-foreground"
                   }`}
                 >
-                  {t.content}
-                </p>
+                  {t.role === "assistant" ? <DexterMarkdown content={t.content} /> : t.content}
+                </div>
               </div>
             ))}
             {pending && (

@@ -29,7 +29,29 @@ describe("site chat helpers", () => {
 
   it("answers pricing from the pricing page", () => {
     const res = fallbackReply("I am asking about pricing tell me something about the pricing");
-    expect(res.reply).toMatch(/\$54|\$79|FREE|STARTER|SCALE/i);
+    expect(res.reply).toMatch(/\$54|Starter|Scale/i);
+    expect(res.reply).toMatch(/per month/i);
+    expect(res.reply).not.toMatch(/\/mo/i);
+  });
+
+  it("answers resources and guides from those pages, not random FAQs", () => {
+    const resources = fallbackReply("what about resources can you tell me something about");
+    expect(resources.reply.toLowerCase()).toMatch(/guides|calculator/);
+    expect(resources.reply).toMatch(/\/guides|\/resources/);
+
+    const guides = fallbackReply("can you tell me about guides and where I can find about the gu");
+    expect(guides.reply.toLowerCase()).toMatch(/setup|mailbox|chrome/);
+    expect(guides.reply).not.toMatch(/pipelines with tailored/i);
+
+    const incomplete = fallbackReply("can you take me to the");
+    expect(incomplete.reply.toLowerCase()).toMatch(/which page|pricing|guides/);
+    expect(incomplete.reply).not.toMatch(/chrome web store/i);
+  });
+
+  it("lists real integrations", () => {
+    const res = fallbackReply("can you tell me something about integrations");
+    expect(res.reply).toMatch(/HubSpot/i);
+    expect(res.reply).toMatch(/Google|Microsoft|Calendar/i);
   });
 });
 
