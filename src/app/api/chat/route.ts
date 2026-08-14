@@ -8,7 +8,7 @@ const bodySchema = z.object({
       z.object({
         role: z.enum(["user", "assistant"]),
         content: z.string().min(1).max(4000),
-      })
+      }),
     )
     .min(1)
     .max(20),
@@ -33,18 +33,42 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "A user message is required" }, { status: 422 });
   }
 
-  const apiKey = process.env.OPENAI_API_KEY?.trim();
-  if (apiKey) {
+  // OpenRouter (OpenAI-compatible /chat/completions) — same provider/pattern already used
+  // in Skout AI Backend's apps/crm transcript-extraction.service.ts. Falls back to OPENAI_API_KEY
+  // calling OpenAI directly if that's what's configured instead.
+  const openRouterKey = process.env.OPENROUTER_API_KEY?.trim();
+  const openAiKey = process.env.OPENAI_API_KEY?.trim();
+  const provider = openRouterKey
+    ? {
+        url: "https://openrouter.ai/api/v1/chat/completions",
+        key: openRouterKey,
+        model: process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini",
+        extraHeaders: { "HTTP-Referer": "https://skoutai.io", "X-Title": "Skout AI" } as Record<
+          string,
+          string
+        >,
+      }
+    : openAiKey
+      ? {
+          url: "https://api.openai.com/v1/chat/completions",
+          key: openAiKey,
+          model: process.env.OPENAI_CHAT_MODEL || "gpt-4o-mini",
+          extraHeaders: {} as Record<string, string>,
+        }
+      : null;
+
+  if (provider) {
     try {
-      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+      const res = await fetch(provider.url, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${apiKey}`,
+          Authorization: `Bearer ${provider.key}`,
           "Content-Type": "application/json",
+          ...provider.extraHeaders,
         },
         body: JSON.stringify({
-          model: process.env.OPENAI_CHAT_MODEL || "gpt-4o-mini",
-          temperature: 0.3,
+          model: provider.model,
+          temperature: 0.4,
           max_tokens: 500,
           messages: [{ role: "system", content: systemPrompt() }, ...messages.slice(-12)],
         }),
@@ -62,9 +86,13 @@ export async function POST(req: NextRequest) {
               /\b(demo|book|call|sales|trial|pricing)\b/i.test(lastUser.content),
           });
         }
+        console.error("[chat] LLM returned no reply content", data);
+      } else {
+        console.error("[chat] LLM request failed", res.status, await res.text().catch(() => ""));
       }
-    } catch {
-      // Local FAQ replies still work without OpenAI.
+    } catch (err) {
+      // Local FAQ replies still work without a working LLM call.
+      console.error("[chat] LLM request threw", err);
     }
   }
 
