@@ -166,9 +166,9 @@ export default function AboutClient({ content }: Props) {
               <div className="border-l border-border pl-6 md:pl-8">
                 {timelineItems.map((item, index) => (
                   <div key={index} className="relative pb-10 last:pb-0">
-                    <div className="absolute -left-[34px] top-1 h-4 w-4 rounded-full border border-border bg-background md:-left-[38px]">
+                    <div className="absolute -left-8.5 top-1 h-4 w-4 rounded-full border border-border bg-background md:-left-9.5">
                       <div
-                        className="m-auto mt-[4px] h-1.5 w-1.5 rounded-full"
+                        className="m-auto mt-1 h-1.5 w-1.5 rounded-full"
                         style={{ background: "var(--gradient-accent)" }}
                       />
                     </div>

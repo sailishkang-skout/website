@@ -194,7 +194,7 @@ export default function IntegrationsClient({
               <span>NATIVE GTM INTEGRATIONS ECOSYSTEM</span>
             </div>
 
-            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
+            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] wrap-break-word text-foreground font-semibold">
               Plays nicely with <br />
               <GradientText>everything in your revenue stack.</GradientText>
             </h1>

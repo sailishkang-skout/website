@@ -110,16 +110,18 @@ export function Header() {
     closeMenus();
   }, [pathname]);
 
-  // Close menus on click outside
+  // Close menus on click outside - support both mouse and touch
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
       if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
         closeMenus();
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
       if (menuTimeoutRef.current) clearTimeout(menuTimeoutRef.current);
     };
   }, []);

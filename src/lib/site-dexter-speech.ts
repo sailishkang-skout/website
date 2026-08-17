@@ -6,6 +6,7 @@ export type SpeechRecognitionLike = {
   continuous: boolean;
   interimResults: boolean;
   lang: string;
+  maxAlternatives: number;
   onresult: ((event: SpeechRecognitionResultEventLike) => void) | null;
   onerror: ((event: { error: string }) => void) | null;
   onend: (() => void) | null;
@@ -16,9 +17,9 @@ export type SpeechRecognitionLike = {
 
 type SpeechRecognitionResultEventLike = {
   resultIndex: number;
-  results: ArrayLike<
-    ArrayLike<{ transcript: string }> & { isFinal?: boolean; length: number }
-  > & { length: number };
+  results: ArrayLike<ArrayLike<{ transcript: string }> & { isFinal?: boolean; length: number }> & {
+    length: number;
+  };
 };
 
 type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
@@ -44,9 +45,11 @@ export function createSpeechRecognition(): SpeechRecognitionLike | null {
   const Ctor = getSpeechRecognitionCtor();
   if (!Ctor) return null;
   const recognition = new Ctor();
+  // Google/Chrome's recommended settings - continuous is REQUIRED for long-form speech
   recognition.continuous = true;
   recognition.interimResults = true;
   recognition.lang = "en-US";
+  recognition.maxAlternatives = 1;
   return recognition;
 }
 
@@ -108,7 +111,7 @@ export function humanizeForSpeech(raw: string): string {
       return String(label);
     })
     .replace(/https?:\/\/(www\.)?skoutai\.io(\/\S*)?/gi, (_m, _w, path: string) =>
-      pathPhrase(path || "/")
+      pathPhrase(path || "/"),
     )
     .replace(/https?:\/\/\S+/gi, "")
     .replace(/\*\*([^*]+)\*\*/g, "$1")
@@ -170,7 +173,7 @@ function splitIntoSpeakChunks(text: string): string[] {
 
 export function speakText(
   text: string,
-  opts?: { rate?: number; pitch?: number; onEnd?: () => void }
+  opts?: { rate?: number; pitch?: number; onEnd?: () => void },
 ): { cancel: () => void } {
   if (!isSpeechSynthesisSupported() || !text.trim()) {
     opts?.onEnd?.();

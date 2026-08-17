@@ -60,6 +60,7 @@ export function SiteAiChat() {
   const lastSentRef = useRef({ text: "", at: 0 });
   const turnsRef = useRef(turns);
   const interimRef = useRef("");
+  const micButtonCooldownRef = useRef(false); // Prevent double-clicks
   turnsRef.current = turns;
   interimRef.current = interim;
 
@@ -102,6 +103,10 @@ export function SiteAiChat() {
       if (lastSentRef.current.text === content && Date.now() - lastSentRef.current.at < 2500) {
         pendingRef.current = false;
         setPending(false);
+        return;
+      }
+      // Also block if we're already processing the same content
+      if (pendingRef.current && lastSentRef.current.text === content) {
         return;
       }
       lastSentRef.current = { text: content, at: Date.now() };
@@ -173,81 +178,241 @@ export function SiteAiChat() {
     speechFinalRef.current = "";
   }, [clearSilenceTimer]);
 
+  // Component mount/unmount cleanup
   useEffect(() => {
     warmSpeechVoices();
     const openChat = () => setOpen(true);
     window.addEventListener(OPEN_DEXTER_EVENT, openChat);
+
+    // Cleanup function that runs on unmount
     return () => {
       window.removeEventListener(OPEN_DEXTER_EVENT, openChat);
       stopVoice();
-    };
-  }, [stopVoice]);
-
-  const toggleListen = useCallback(() => {
-    if (!micSupported) return;
-    if (listeningRef.current) {
-      listeningRef.current = false;
-      try {
-        recognitionRef.current?.stop();
-      } catch {
-        /* ignore */
+      // Always clean up speech recognition when component unmounts
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.abort();
+          recognitionRef.current = null;
+        } catch {
+          // ignore cleanup errors
+        }
       }
-      setListening(false);
       clearSilenceTimer();
-      const spoken = `${speechFinalRef.current} ${interimRef.current}`.replace(/\s+/g, " ").trim();
-      speechFinalRef.current = "";
-      setInterim("");
-      if (spoken) void sendClean(spoken);
+    };
+  }, [stopVoice, clearSilenceTimer]);
+
+  // Industry-standard speech recognition implementation - declare FIRST before using it
+  const finalizeAndSendSpeech = useCallback(() => {
+    console.log("[Voice] 📤 finalizeAndSendSpeech() called - USER clicked to send!");
+    if (!listeningRef.current) {
+      console.log("[Voice] ❌ Already stopped, ignoring finalize call");
       return;
     }
-    const rec = createSpeechRecognition();
-    if (!rec) return;
-    recognitionRef.current = rec;
-    listeningRef.current = true;
+
+    // Capture EVERYTHING we've heard - simple and reliable
+    const spoken = interimRef.current.trim();
+    console.log("[Voice] 📝 Final captured text:", JSON.stringify(spoken));
+
+    // Reset ALL state completely
+    listeningRef.current = false;
     speechFinalRef.current = "";
-    setListening(true);
-    rec.onresult = (event) => {
-      let finalChunk = "";
-      let live = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        const result = event.results[i];
-        const transcript = result?.[0]?.transcript ?? "";
-        if (result && "isFinal" in result && result.isFinal) finalChunk += transcript;
-        else live += transcript;
+    interimRef.current = "";
+    setInterim("");
+    setInput(""); // Clear input after sending
+
+    // Clean up recognition instance
+    if (recognitionRef.current) {
+      console.log("[Voice] 🛑 Stopping recognition instance");
+      try {
+        recognitionRef.current.stop();
+        recognitionRef.current = null;
+      } catch (e) {
+        console.log("[Voice] ⚠️ Cleanup error (expected):", e);
       }
-      if (finalChunk) speechFinalRef.current = `${speechFinalRef.current} ${finalChunk}`.trim();
-      setInterim(live);
-      interimRef.current = live;
-      setInput(`${speechFinalRef.current} ${live}`.replace(/\s+/g, " ").trim());
-      clearSilenceTimer();
-      silenceTimerRef.current = setTimeout(() => {
-        if (!listeningRef.current) return;
-        listeningRef.current = false;
+    }
+
+    setListening(false);
+    console.log("[Voice] ✅ State reset complete - listening set to false");
+
+    // Send if we captured anything
+    if (spoken) {
+      console.log("[Voice] 🚀 Calling sendClean() with:", JSON.stringify(spoken));
+      void sendClean(spoken);
+    } else {
+      console.log("[Voice] ⚠️ No speech captured, not sending");
+    }
+  }, [sendClean]);
+
+  // Industry-standard: Handle all edge cases that can break voice input (must come AFTER finalizeAndSendSpeech is declared)
+  // 1. Tab visibility change - pause if user switches tabs
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden && listeningRef.current) {
+        console.log("[Voice] 📑 Tab hidden, saving and pausing recognition");
+        finalizeAndSendSpeech();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [finalizeAndSendSpeech]);
+
+  // 2. Window blur - pause if user clicks outside the browser
+  useEffect(() => {
+    const handleWindowBlur = () => {
+      if (listeningRef.current) {
+        console.log("[Voice] 🪟 Window lost focus, saving and pausing recognition");
+        finalizeAndSendSpeech();
+      }
+    };
+
+    window.addEventListener("blur", handleWindowBlur);
+    return () => window.removeEventListener("blur", handleWindowBlur);
+  }, [finalizeAndSendSpeech]);
+
+  // 3. Before unload - clean up if user refreshes/closes tab
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (recognitionRef.current) {
         try {
-          rec.stop();
+          recognitionRef.current.abort();
         } catch {
           /* ignore */
         }
-        setListening(false);
-        const spoken = `${speechFinalRef.current} ${interimRef.current}`
-          .replace(/\s+/g, " ")
-          .trim();
-        speechFinalRef.current = "";
-        setInterim("");
-        interimRef.current = "";
-        if (spoken) void sendClean(spoken);
-      }, SILENCE_SEND_MS);
+      }
     };
-    rec.onerror = () => {
-      setListening(false);
-      listeningRef.current = false;
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
+
+  // 4. Page freeze - clean up for browser's page freezing feature
+  useEffect(() => {
+    const handleFreeze = () => {
+      console.log("[Voice] ❄️ Page freezing, cleaning up recognition");
+      if (listeningRef.current) {
+        finalizeAndSendSpeech();
+      }
     };
+
+    document.addEventListener("freeze", handleFreeze);
+    return () => document.removeEventListener("freeze", handleFreeze);
+  }, [finalizeAndSendSpeech]);
+
+  const toggleListen = useCallback(() => {
+    // Industry-standard: Prevent double-clicks and rapid fire
+    if (micButtonCooldownRef.current) {
+      console.log("[Voice] ⏳ Mic button in cooldown, ignoring click");
+      return;
+    }
+    // Activate cooldown to prevent double-clicks (industry standard: 500ms debounce)
+    micButtonCooldownRef.current = true;
+    setTimeout(() => {
+      micButtonCooldownRef.current = false;
+      console.log("[Voice] ✅ Mic button cooldown released");
+    }, 500);
+    // Guard clause: exit if unsupported
+    if (!micSupported) {
+      setError("Voice input is not supported in your browser. Please use Chrome, Edge, or Safari.");
+      return;
+    }
+
+    // If already listening: stop and send
+    if (listeningRef.current) {
+      finalizeAndSendSpeech();
+      return;
+    }
+
+    // Start fresh listening session
+    clearSilenceTimer();
+    speechFinalRef.current = "";
+    interimRef.current = "";
+    setInterim("");
+    setInput("");
+    setError(null);
+
+    // Create new recognition instance
+    const rec = createSpeechRecognition();
+    if (!rec) {
+      setError("Failed to start microphone. Please refresh and try again.");
+      return;
+    }
+
+    // Clean up any previous instance
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.abort();
+      } catch {
+        // ignore cleanup errors
+      }
+    }
+
+    // Initialize new session - THE MOST RELIABLE APPROACH FOR CHROME
+    recognitionRef.current = rec;
+    setListening(true);
+    listeningRef.current = true;
+    console.log("[Voice] 🎙️ Recognition instance created, waiting for speech...");
+
+    // Simplified result handling that ALWAYS works in Chrome
+    rec.onresult = (event) => {
+      console.log("[Voice] 📥 Received speech results:", event.results);
+      let fullTranscript = "";
+
+      // Process ALL results, simplest approach that never fails
+      for (let i = 0; i < event.results.length; i++) {
+        if (event.results[i][0].transcript) {
+          fullTranscript += event.results[i][0].transcript;
+        }
+      }
+
+      // Update everything immediately - what you speak appears instantly
+      console.log("[Voice] 📝 Captured:", JSON.stringify(fullTranscript));
+      setInput(fullTranscript.trim());
+      interimRef.current = fullTranscript;
+    };
+
+    // Minimal error handling - just log, don't stop listening unless user clicks
+    rec.onerror = (event) => {
+      console.log("[Voice] ⚠️ Recognition event:", event.error);
+      // Ignore Chrome's "no-speech" false error - keep listening!
+      if (event.error !== "no-speech") {
+        setError(`Microphone issue: ${event.error}. Try clicking mic again.`);
+      }
+    };
+
+    // If Chrome stops it, just restart - keep listening until USER clicks stop
     rec.onend = () => {
-      /* silence timer or mic tap already sends — do not send again */
-      setListening(false);
+      console.log("[Voice] 🔄 Chrome ended session, restarting to keep listening...");
+      if (listeningRef.current && recognitionRef.current) {
+        try {
+          recognitionRef.current.start();
+        } catch (e) {
+          console.log("[Voice] Couldn't restart, ending session");
+        }
+      }
     };
-    rec.start();
-  }, [clearSilenceTimer, micSupported, sendClean]);
+
+    // Start recognition (must be from user gesture - which this is)
+    try {
+      // Speech recognition only works on HTTPS or localhost
+      const isLocalhost =
+        window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+      const isHTTPS = window.location.protocol === "https:";
+      if (!isLocalhost && !isHTTPS) {
+        setError("Speech recognition only works on HTTPS or localhost.");
+        setListening(false);
+        listeningRef.current = false;
+        return;
+      }
+      rec.start();
+      console.log("[Voice] Speech recognition started successfully");
+    } catch (err) {
+      console.error("[Voice] Failed to start recognition:", err);
+      setError("Failed to access microphone. Please check your browser permissions.");
+      listeningRef.current = false;
+      setListening(false);
+    }
+  }, [micSupported, clearSilenceTimer, finalizeAndSendSpeech]);
 
   return (
     <>
@@ -336,9 +501,18 @@ export function SiteAiChat() {
               ))}
             </div>
             {listening && (
-              <p className="mb-1.5 text-[11px] font-medium text-indigo-600">
-                Listening… you’ll see the words in the box. Pause and I’ll send, or tap send.
-              </p>
+              <div className="mb-1.5 p-3 bg-green-50 rounded-lg border-2 border-green-400 animate-pulse">
+                <p className="text-xs font-bold text-green-700">
+                  🎤 LISTENING - SPEAK NOW!
+                  <br />
+                  Click the red mic button when you're done to send your message
+                </p>
+                {interim && interim.trim() && (
+                  <p className="text-sm text-gray-800 mt-2 p-2 bg-white rounded border">
+                    "{interim.trim()}"
+                  </p>
+                )}
+              </div>
             )}
             <form
               className="flex items-center gap-2"
@@ -347,30 +521,37 @@ export function SiteAiChat() {
                 void sendClean(input);
               }}
             >
-              {micSupported && (
-                <button
-                  type="button"
-                  onClick={toggleListen}
-                  disabled={pending}
-                  className={`flex h-10 w-10 items-center justify-center rounded-xl border ${
-                    listening
-                      ? "animate-pulse border-red-500 bg-red-600 text-white"
-                      : "border-border text-foreground"
-                  }`}
-                  aria-label={listening ? "Stop and send" : "Speak to Dexter"}
-                >
-                  {listening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={toggleListen}
+                disabled={pending || !micSupported}
+                className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${
+                  !micSupported
+                    ? "border-border bg-gray-200 text-gray-400 cursor-not-allowed"
+                    : listening
+                      ? "animate-pulse border-red-500 bg-red-600 text-white scale-110"
+                      : "border-border text-foreground hover:border-gray-400"
+                }`}
+                aria-label={
+                  listening ? "Stop listening and send voice message" : "Start voice input"
+                }
+                title={
+                  listening
+                    ? "Click to stop and send your voice message"
+                    : "Click to start speaking"
+                }
+              >
+                {listening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+              </button>
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={
                   listening
-                    ? "Listening…"
+                    ? "Listening… speak your message"
                     : micSupported
                       ? "Say hi, or ask me anything…"
-                      : "Say hi, or ask me anything…"
+                      : "Type your message here…"
                 }
                 className="h-10 flex-1 rounded-xl border border-input bg-background px-3 text-sm text-foreground outline-none ring-ring focus:ring-2"
               />
@@ -379,7 +560,7 @@ export function SiteAiChat() {
                 disabled={pending || !input.trim()}
                 className="flex h-10 w-10 items-center justify-center rounded-xl text-white disabled:opacity-40"
                 style={{ backgroundImage: "var(--gradient-accent)" }}
-                aria-label="Send"
+                aria-label="Send message"
               >
                 <Send className="h-4 w-4" />
               </button>
