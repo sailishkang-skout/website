@@ -125,434 +125,436 @@ export function Header() {
   }, []);
 
   return (
-    <header
-      ref={headerRef}
-      className="sticky top-0 z-200 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all"
-    >
-      <div className="mx-auto flex h-16 w-full max-w-7xl 2xl:max-w-350 items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8">
-        {/* LOGO */}
-        <Link
-          href="/"
-          className="flex items-center py-0.5 transition-opacity hover:opacity-90 shrink-0"
-        >
-          <Image
-            src={activeLogo}
-            alt="Skout AI Logo"
-            width={140}
-            height={36}
-            className="h-7 sm:h-9 w-auto max-w-27.5 sm:max-w-none object-contain"
-            priority
-          />
-        </Link>
-
-        {/* DESKTOP NAVIGATION */}
-        <nav className="hidden md:flex items-center gap-1">
-          {/* PRODUCTS MEGA MENU */}
-          <div
-            className="relative"
-            onMouseEnter={() => handleMouseEnter("products")}
-            onMouseLeave={handleMouseLeave}
+    <>
+      <header
+        ref={headerRef}
+        className="sticky top-0 z-200 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all"
+      >
+        <div className="mx-auto flex h-16 w-full max-w-7xl 2xl:max-w-350 items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8">
+          {/* LOGO */}
+          <Link
+            href="/"
+            className="flex items-center py-0.5 transition-opacity hover:opacity-90 shrink-0"
           >
-            <button
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                activeMenu === "products"
-                  ? "bg-muted text-foreground"
-                  : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-              }`}
-              onClick={() => setActiveMenu(activeMenu === "products" ? null : "products")}
+            <Image
+              src={activeLogo}
+              alt="Skout AI Logo"
+              width={140}
+              height={36}
+              className="h-7 sm:h-9 w-auto max-w-27.5 sm:max-w-none object-contain"
+              priority
+            />
+          </Link>
+
+          {/* DESKTOP NAVIGATION */}
+          <nav className="hidden md:flex items-center gap-1">
+            {/* PRODUCTS MEGA MENU */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMouseEnter("products")}
+              onMouseLeave={handleMouseLeave}
             >
-              Products
-              <ChevronDown
-                className={`h-4 w-4 transition-transform duration-200 ${
-                  activeMenu === "products" ? "rotate-180" : ""
+              <button
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  activeMenu === "products"
+                    ? "bg-muted text-foreground"
+                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
                 }`}
-              />
-            </button>
+                onClick={() => setActiveMenu(activeMenu === "products" ? null : "products")}
+              >
+                Products
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-200 ${
+                    activeMenu === "products" ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
 
-            {activeMenu === "products" && (
-              <div className="absolute left-1/2 top-full w-220 -translate-x-1/2 pt-2">
-                <div className="max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
-                  <div className="grid grid-cols-3 gap-6">
-                    {/* DISCOVER COLUMN */}
-                    <div>
-                      <div className="mb-3 flex items-center gap-2 border-b border-border/80 pb-2 font-display text-base font-semibold tracking-wide text-foreground">
-                        <Search className="h-4 w-4 text-accent" /> Discover
+              {activeMenu === "products" && (
+                <div className="absolute left-1/2 top-full w-220 -translate-x-1/2 pt-2">
+                  <div className="max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
+                    <div className="grid grid-cols-3 gap-6">
+                      {/* DISCOVER COLUMN */}
+                      <div>
+                        <div className="mb-3 flex items-center gap-2 border-b border-border/80 pb-2 font-display text-base font-semibold tracking-wide text-foreground">
+                          <Search className="h-4 w-4 text-accent" /> Discover
+                        </div>
+                        <div className="space-y-3">
+                          <MegaItem
+                            title="Prospect Search"
+                            desc="Find companies and contacts using the signals and criteria that matter to your ICP."
+                            href="/products/prospect-search"
+                            icon={Search}
+                          />
+                          <MegaItem
+                            title="Smart Lists"
+                            desc="Turn your targeting criteria into dynamic, AI-assisted prospect lists."
+                            href="/products/smart-lists"
+                            icon={ListFilter}
+                          />
+                          <MegaItem
+                            title="ICP Setup"
+                            desc="Define target firmographics and technographics for your workspace."
+                            href="/products/icp-setup"
+                            icon={Target}
+                          />
+                          <MegaItem
+                            title="Import"
+                            desc="Bring your existing prospects into Skout and continue building intelligence."
+                            href="/products/import"
+                            icon={FileSpreadsheet}
+                          />
+                          <MegaItem
+                            title="Contact Enrichment"
+                            desc="Complete missing prospect and company information before you reach out."
+                            href="/products/enrichment"
+                            icon={Sparkles}
+                          />
+                          <MegaItem
+                            title="Chrome Extension"
+                            desc="Capture, enrich, and score prospects directly inside LinkedIn."
+                            href="/products/chrome-extension"
+                            icon={Chrome}
+                          />
+                        </div>
                       </div>
-                      <div className="space-y-3">
-                        <MegaItem
-                          title="Prospect Search"
-                          desc="Find companies and contacts using the signals and criteria that matter to your ICP."
-                          href="/products/prospect-search"
-                          icon={Search}
-                        />
-                        <MegaItem
-                          title="Smart Lists"
-                          desc="Turn your targeting criteria into dynamic, AI-assisted prospect lists."
-                          href="/products/smart-lists"
-                          icon={ListFilter}
-                        />
-                        <MegaItem
-                          title="ICP Setup"
-                          desc="Define target firmographics and technographics for your workspace."
-                          href="/products/icp-setup"
-                          icon={Target}
-                        />
-                        <MegaItem
-                          title="Import"
-                          desc="Bring your existing prospects into Skout and continue building intelligence."
-                          href="/products/import"
-                          icon={FileSpreadsheet}
-                        />
-                        <MegaItem
-                          title="Contact Enrichment"
-                          desc="Complete missing prospect and company information before you reach out."
-                          href="/products/enrichment"
-                          icon={Sparkles}
-                        />
-                        <MegaItem
-                          title="Chrome Extension"
-                          desc="Capture, enrich, and score prospects directly inside LinkedIn."
-                          href="/products/chrome-extension"
-                          icon={Chrome}
-                        />
+
+                      {/* ENGAGE COLUMN */}
+                      <div>
+                        <div className="mb-3 flex items-center gap-2 border-b border-border/80 pb-2 font-display text-base font-semibold tracking-wide text-foreground">
+                          <Workflow className="h-4 w-4 text-accent" /> Engage
+                        </div>
+                        <div className="space-y-3">
+                          <MegaItem
+                            title="Sequences"
+                            desc="Build and manage automated outbound sequences from one workspace."
+                            href="/products/sequences"
+                            icon={Workflow}
+                          />
+                          <MegaItem
+                            title="Inbox"
+                            desc="Keep replies and conversations connected to prospects and accounts."
+                            href="/products/inbox"
+                            icon={InboxIcon}
+                          />
+                          <MegaItem
+                            title="AI Review"
+                            desc="Use AI to review outbound messaging before it reaches prospects."
+                            href="/products/ai-review"
+                            icon={CheckCircle2}
+                          />
+                          <MegaItem
+                            title="Deliverability"
+                            desc="Monitor signals affecting outbound email health and sending performance."
+                            href="/products/deliverability"
+                            icon={ShieldCheck}
+                          />
+                        </div>
+                      </div>
+
+                      {/* CONVERT COLUMN */}
+                      <div>
+                        <div className="mb-3 flex items-center gap-2 border-b border-border/80 pb-2 font-display text-base font-semibold tracking-wide text-foreground">
+                          <Database className="h-4 w-4 text-accent" /> Convert
+                        </div>
+                        <div className="space-y-3">
+                          <MegaItem
+                            title="CRM"
+                            desc="Manage companies, contacts, deals, tasks, and meetings in Skout."
+                            href="/products/crm"
+                            icon={Database}
+                          />
+                          <MegaItem
+                            title="Pipeline"
+                            desc="Move opportunities through a visual deal pipeline with account context."
+                            href="/products/pipeline"
+                            icon={Kanban}
+                          />
+                          <MegaItem
+                            title="Tasks & Meetings"
+                            desc="Keep required actions to move deals forward in the same workspace."
+                            href="/products/tasks-meetings"
+                            icon={CalendarCheck}
+                          />
+                          <MegaItem
+                            title="Analytics"
+                            desc="Understand activity and pipeline movement across your GTM workflow."
+                            href="/products/analytics"
+                            icon={BarChart3}
+                          />
+                        </div>
                       </div>
                     </div>
 
-                    {/* ENGAGE COLUMN */}
-                    <div>
-                      <div className="mb-3 flex items-center gap-2 border-b border-border/80 pb-2 font-display text-base font-semibold tracking-wide text-foreground">
-                        <Workflow className="h-4 w-4 text-accent" /> Engage
+                    {/* BOTTOM FEATURE CARD: DEXTER AI */}
+                    <Link
+                      href="/products/dexter-ai"
+                      onClick={() => setActiveMenu(null)}
+                      className="mt-6 block rounded-xl border border-border/80 bg-muted/40 p-4 transition-colors hover:bg-muted/80 group"
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foreground text-background">
+                            <Bot className="h-4 w-4" />
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2 text-sm font-semibold text-foreground group-hover:text-accent transition-colors">
+                              Dexter AI{" "}
+                              <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-medium text-accent">
+                                GTM Intelligence Layer
+                              </span>
+                            </div>
+                            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                              Your AI-powered sales copilot. Ask Dexter to research target
+                              prospects, summarize account threads, and write high-converting copy.
+                            </p>
+                          </div>
+                        </div>
+                        <span className="shrink-0 text-xs font-semibold text-accent group-hover:underline flex items-center gap-1">
+                          Explore Dexter AI →
+                        </span>
                       </div>
-                      <div className="space-y-3">
-                        <MegaItem
-                          title="Sequences"
-                          desc="Build and manage automated outbound sequences from one workspace."
-                          href="/products/sequences"
-                          icon={Workflow}
-                        />
-                        <MegaItem
-                          title="Inbox"
-                          desc="Keep replies and conversations connected to prospects and accounts."
-                          href="/products/inbox"
-                          icon={InboxIcon}
-                        />
-                        <MegaItem
-                          title="AI Review"
-                          desc="Use AI to review outbound messaging before it reaches prospects."
-                          href="/products/ai-review"
-                          icon={CheckCircle2}
-                        />
-                        <MegaItem
-                          title="Deliverability"
-                          desc="Monitor signals affecting outbound email health and sending performance."
-                          href="/products/deliverability"
-                          icon={ShieldCheck}
-                        />
-                      </div>
-                    </div>
+                    </Link>
 
-                    {/* CONVERT COLUMN */}
-                    <div>
-                      <div className="mb-3 flex items-center gap-2 border-b border-border/80 pb-2 font-display text-base font-semibold tracking-wide text-foreground">
-                        <Database className="h-4 w-4 text-accent" /> Convert
+                    {/* INTEGRATIONS FOOTER STRIP */}
+                    <Link
+                      href="/integrations"
+                      onClick={() => setActiveMenu(null)}
+                      className="mt-3 flex items-center justify-between rounded-lg border border-border/50 bg-background/50 p-2.5 text-xs text-muted-foreground hover:text-foreground transition-colors group"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Zap className="h-3.5 w-3.5 text-accent" />
+                        <span>
+                          <strong>Integrations:</strong> Connect HubSpot, Google Calendar, and BYOK
+                          AI models
+                        </span>
                       </div>
-                      <div className="space-y-3">
-                        <MegaItem
-                          title="CRM"
-                          desc="Manage companies, contacts, deals, tasks, and meetings in Skout."
-                          href="/products/crm"
-                          icon={Database}
-                        />
-                        <MegaItem
-                          title="Pipeline"
-                          desc="Move opportunities through a visual deal pipeline with account context."
-                          href="/products/pipeline"
-                          icon={Kanban}
-                        />
-                        <MegaItem
-                          title="Tasks & Meetings"
-                          desc="Keep required actions to move deals forward in the same workspace."
-                          href="/products/tasks-meetings"
-                          icon={CalendarCheck}
-                        />
-                        <MegaItem
-                          title="Analytics"
-                          desc="Understand activity and pipeline movement across your GTM workflow."
-                          href="/products/analytics"
-                          icon={BarChart3}
-                        />
-                      </div>
+                      <span className="font-semibold text-foreground group-hover:underline flex items-center gap-1">
+                        View Integrations →
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* SOLUTIONS MEGA MENU */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMouseEnter("solutions")}
+              onMouseLeave={handleMouseLeave}
+            >
+              <button
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  activeMenu === "solutions"
+                    ? "bg-muted text-foreground"
+                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
+                }`}
+                onClick={() => setActiveMenu(activeMenu === "solutions" ? null : "solutions")}
+              >
+                Solutions
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-200 ${
+                    activeMenu === "solutions" ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {activeMenu === "solutions" && (
+                <div className="absolute left-1/2 top-full w-150 -translate-x-1/2 pt-2">
+                  <div className="max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
+                    <div className="grid grid-cols-2 gap-4">
+                      <MegaItem
+                        title="Outbound Prospecting"
+                        desc="Build targeted prospect lists without starting from spreadsheets."
+                        href="/solutions/outbound-prospecting"
+                        icon={Target}
+                      />
+                      <MegaItem
+                        title="Account-Based Sales"
+                        desc="Define your ICP and focus your team on accounts that fit."
+                        href="/solutions/account-based-sales"
+                        icon={Layers}
+                      />
+                      <MegaItem
+                        title="Pipeline Management"
+                        desc="Connect prospecting activity to contacts, deals, and meetings."
+                        href="/solutions/pipeline-management"
+                        icon={LineChart}
+                      />
+                      <MegaItem
+                        title="Sales Intelligence"
+                        desc="Turn company and contact information into usable context."
+                        href="/solutions/sales-intelligence"
+                        icon={Bot}
+                      />
+                      <MegaItem
+                        title="Smarter Outbound"
+                        desc="Combine enrichment, sequencing, AI review, and deliverability."
+                        href="/solutions/smarter-outbound"
+                        icon={Workflow}
+                      />
+                      <MegaItem
+                        title="AI-Assisted Selling"
+                        desc="Use Dexter to turn prospect data into useful sales actions."
+                        href="/solutions/ai-assisted-selling"
+                        icon={Sparkles}
+                      />
                     </div>
                   </div>
+                </div>
+              )}
+            </div>
 
-                  {/* BOTTOM FEATURE CARD: DEXTER AI */}
-                  <Link
-                    href="/products/dexter-ai"
-                    onClick={() => setActiveMenu(null)}
-                    className="mt-6 block rounded-xl border border-border/80 bg-muted/40 p-4 transition-colors hover:bg-muted/80 group"
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-start gap-3">
-                        <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foreground text-background">
-                          <Bot className="h-4 w-4" />
-                        </div>
+            {/* INTELLIGENCE LINK */}
+            <Link
+              href="/intelligence"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground flex items-center gap-1.5"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-accent" />
+              <span>Intelligence</span>
+            </Link>
+
+            {/* PRICING LINK */}
+            <Link
+              href="/pricing"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+            >
+              Pricing
+            </Link>
+
+            {/* INTEGRATIONS LINK */}
+            <Link
+              href="/integrations"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+            >
+              Integrations
+            </Link>
+
+            {/* RESOURCES MENU */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMouseEnter("resources")}
+              onMouseLeave={handleMouseLeave}
+            >
+              <button
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  activeMenu === "resources"
+                    ? "bg-muted text-foreground"
+                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
+                }`}
+                onClick={() => setActiveMenu(activeMenu === "resources" ? null : "resources")}
+              >
+                Resources
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-200 ${
+                    activeMenu === "resources" ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {activeMenu === "resources" && (
+                <div className="absolute left-0 top-full w-105 pt-2">
+                  <div className="max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-5 shadow-2xl backdrop-blur-2xl">
+                    <div className="space-y-4">
+                      <Link
+                        href="/resources/gtm-outbound-calculator"
+                        onClick={() => setActiveMenu(null)}
+                        className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-muted"
+                      >
+                        <Calculator className="mt-0.5 h-5 w-5 text-accent shrink-0" />
                         <div>
-                          <div className="flex items-center gap-2 text-sm font-semibold text-foreground group-hover:text-accent transition-colors">
-                            Dexter AI{" "}
-                            <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-medium text-accent">
-                              GTM Intelligence Layer
-                            </span>
+                          <div className="text-sm font-semibold text-foreground group-hover:underline">
+                            GTM Outbound Calculator
                           </div>
-                          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                            Your AI-powered sales copilot. Ask Dexter to research target prospects,
-                            summarize account threads, and write high-converting copy.
+                          <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
+                            Estimate contact sourcing, email finding, verification, and inbox
+                            tooling costs. Benchmark Apollo + Smartlead vs Skout AI.
                           </p>
                         </div>
-                      </div>
-                      <span className="shrink-0 text-xs font-semibold text-accent group-hover:underline flex items-center gap-1">
-                        Explore Dexter AI →
-                      </span>
+                      </Link>
+
+                      <Link
+                        href="/resources/setup-guides"
+                        onClick={() => setActiveMenu(null)}
+                        className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-muted"
+                      >
+                        <BookOpen className="mt-0.5 h-5 w-5 text-foreground shrink-0" />
+                        <div>
+                          <div className="text-sm font-semibold text-foreground group-hover:underline">
+                            Setup Guides
+                          </div>
+                          <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
+                            Step-by-step guides for getting your Skout workspace, ICP, prospecting,
+                            enrichment, CRM, and outreach workflows running.
+                          </p>
+                        </div>
+                      </Link>
                     </div>
-                  </Link>
-
-                  {/* INTEGRATIONS FOOTER STRIP */}
-                  <Link
-                    href="/integrations"
-                    onClick={() => setActiveMenu(null)}
-                    className="mt-3 flex items-center justify-between rounded-lg border border-border/50 bg-background/50 p-2.5 text-xs text-muted-foreground hover:text-foreground transition-colors group"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Zap className="h-3.5 w-3.5 text-accent" />
-                      <span>
-                        <strong>Integrations:</strong> Connect HubSpot, Google Calendar, and BYOK AI
-                        models
-                      </span>
-                    </div>
-                    <span className="font-semibold text-foreground group-hover:underline flex items-center gap-1">
-                      View Integrations →
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* SOLUTIONS MEGA MENU */}
-          <div
-            className="relative"
-            onMouseEnter={() => handleMouseEnter("solutions")}
-            onMouseLeave={handleMouseLeave}
-          >
-            <button
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                activeMenu === "solutions"
-                  ? "bg-muted text-foreground"
-                  : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-              }`}
-              onClick={() => setActiveMenu(activeMenu === "solutions" ? null : "solutions")}
-            >
-              Solutions
-              <ChevronDown
-                className={`h-4 w-4 transition-transform duration-200 ${
-                  activeMenu === "solutions" ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-
-            {activeMenu === "solutions" && (
-              <div className="absolute left-1/2 top-full w-150 -translate-x-1/2 pt-2">
-                <div className="max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
-                  <div className="grid grid-cols-2 gap-4">
-                    <MegaItem
-                      title="Outbound Prospecting"
-                      desc="Build targeted prospect lists without starting from spreadsheets."
-                      href="/solutions/outbound-prospecting"
-                      icon={Target}
-                    />
-                    <MegaItem
-                      title="Account-Based Sales"
-                      desc="Define your ICP and focus your team on accounts that fit."
-                      href="/solutions/account-based-sales"
-                      icon={Layers}
-                    />
-                    <MegaItem
-                      title="Pipeline Management"
-                      desc="Connect prospecting activity to contacts, deals, and meetings."
-                      href="/solutions/pipeline-management"
-                      icon={LineChart}
-                    />
-                    <MegaItem
-                      title="Sales Intelligence"
-                      desc="Turn company and contact information into usable context."
-                      href="/solutions/sales-intelligence"
-                      icon={Bot}
-                    />
-                    <MegaItem
-                      title="Smarter Outbound"
-                      desc="Combine enrichment, sequencing, AI review, and deliverability."
-                      href="/solutions/smarter-outbound"
-                      icon={Workflow}
-                    />
-                    <MegaItem
-                      title="AI-Assisted Selling"
-                      desc="Use Dexter to turn prospect data into useful sales actions."
-                      href="/solutions/ai-assisted-selling"
-                      icon={Sparkles}
-                    />
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          </nav>
 
-          {/* INTELLIGENCE LINK */}
-          <Link
-            href="/intelligence"
-            className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground flex items-center gap-1.5"
-          >
-            <Sparkles className="h-3.5 w-3.5 text-accent" />
-            <span>Intelligence</span>
-          </Link>
-
-          {/* PRICING LINK */}
-          <Link
-            href="/pricing"
-            className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
-          >
-            Pricing
-          </Link>
-
-          {/* INTEGRATIONS LINK */}
-          <Link
-            href="/integrations"
-            className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
-          >
-            Integrations
-          </Link>
-
-          {/* RESOURCES MENU */}
-          <div
-            className="relative"
-            onMouseEnter={() => handleMouseEnter("resources")}
-            onMouseLeave={handleMouseLeave}
-          >
+          {/* RIGHT CTAS */}
+          <div className="hidden md:flex items-center gap-3">
             <button
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                activeMenu === "resources"
-                  ? "bg-muted text-foreground"
-                  : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-              }`}
-              onClick={() => setActiveMenu(activeMenu === "resources" ? null : "resources")}
+              onClick={toggleTheme}
+              className="rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
+              aria-label="Toggle theme"
             >
-              Resources
-              <ChevronDown
-                className={`h-4 w-4 transition-transform duration-200 ${
-                  activeMenu === "resources" ? "rotate-180" : ""
-                }`}
-              />
+              {mounted ? (
+                theme === "dark" ? (
+                  <Sun className="h-5 w-5" />
+                ) : (
+                  <Moon className="h-5 w-5" />
+                )
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
             </button>
-
-            {activeMenu === "resources" && (
-              <div className="absolute left-0 top-full w-105 pt-2">
-                <div className="max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-5 shadow-2xl backdrop-blur-2xl">
-                  <div className="space-y-4">
-                    <Link
-                      href="/resources/gtm-outbound-calculator"
-                      onClick={() => setActiveMenu(null)}
-                      className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-muted"
-                    >
-                      <Calculator className="mt-0.5 h-5 w-5 text-accent shrink-0" />
-                      <div>
-                        <div className="text-sm font-semibold text-foreground group-hover:underline">
-                          GTM Outbound Calculator
-                        </div>
-                        <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                          Estimate contact sourcing, email finding, verification, and inbox tooling
-                          costs. Benchmark Apollo + Smartlead vs Skout AI.
-                        </p>
-                      </div>
-                    </Link>
-
-                    <Link
-                      href="/resources/setup-guides"
-                      onClick={() => setActiveMenu(null)}
-                      className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-muted"
-                    >
-                      <BookOpen className="mt-0.5 h-5 w-5 text-foreground shrink-0" />
-                      <div>
-                        <div className="text-sm font-semibold text-foreground group-hover:underline">
-                          Setup Guides
-                        </div>
-                        <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                          Step-by-step guides for getting your Skout workspace, ICP, prospecting,
-                          enrichment, CRM, and outreach workflows running.
-                        </p>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
+            <a
+              href={LOGIN_URL}
+              className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Log in
+            </a>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.02]"
+            >
+              Book a demo <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
-        </nav>
 
-        {/* RIGHT CTAS */}
-        <div className="hidden md:flex items-center gap-3">
-          <button
-            onClick={toggleTheme}
-            className="rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
-            aria-label="Toggle theme"
-          >
-            {mounted ? (
-              theme === "dark" ? (
-                <Sun className="h-5 w-5" />
+          {/* MOBILE MENU TOGGLE WITH THEME TOGGLE */}
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              onClick={toggleTheme}
+              className="rounded-lg p-2 text-foreground hover:bg-muted"
+              aria-label="Toggle theme"
+            >
+              {mounted ? (
+                theme === "dark" ? (
+                  <Sun className="h-5 w-5" />
+                ) : (
+                  <Moon className="h-5 w-5" />
+                )
               ) : (
                 <Moon className="h-5 w-5" />
-              )
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </button>
-          <a
-            href={LOGIN_URL}
-            className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Log in
-          </a>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.02]"
-          >
-            Book a demo <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
+              )}
+            </button>
+            <button
+              className="rounded-lg p-2 text-foreground hover:bg-muted"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
-
-        {/* MOBILE MENU TOGGLE WITH THEME TOGGLE */}
-        <div className="flex items-center gap-2 md:hidden">
-          <button
-            onClick={toggleTheme}
-            className="rounded-lg p-2 text-foreground hover:bg-muted"
-            aria-label="Toggle theme"
-          >
-            {mounted ? (
-              theme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </button>
-          <button
-            className="rounded-lg p-2 text-foreground hover:bg-muted"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle Navigation Menu"
-          >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
+      </header>
 
       {/* MOBILE DRAWER OVERLAY */}
       {mobileOpen && (
@@ -798,7 +800,7 @@ export function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
 
