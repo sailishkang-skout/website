@@ -130,7 +130,7 @@ export function Header() {
         ref={headerRef}
         className="sticky top-0 z-200 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all"
       >
-        <div className="mx-auto flex h-16 w-full max-w-7xl 2xl:max-w-350 items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 w-full max-w-7xl 2xl:max-w-350 items-center justify-between px-3 sm:px-4 md:px-6 lg:px-4 xl:px-8">
           {/* LOGO */}
           <Link
             href="/"
@@ -141,13 +141,13 @@ export function Header() {
               alt="Skout AI Logo"
               width={140}
               height={36}
-              className="h-7 sm:h-9 w-auto max-w-27.5 sm:max-w-none object-contain"
+              className="h-7 sm:h-9 lg:h-8 xl:h-9 w-auto max-w-27.5 sm:max-w-none object-contain"
               priority
             />
           </Link>
 
           {/* DESKTOP NAVIGATION */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
             {/* PRODUCTS MEGA MENU */}
             <div
               className="relative"
@@ -155,7 +155,7 @@ export function Header() {
               onMouseLeave={handleMouseLeave}
             >
               <button
-                className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                className={`flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium whitespace-nowrap xl:px-3 transition-colors ${
                   activeMenu === "products"
                     ? "bg-muted text-foreground"
                     : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
@@ -171,7 +171,7 @@ export function Header() {
               </button>
 
               {activeMenu === "products" && (
-                <div className="absolute left-1/2 top-full w-220 -translate-x-1/2 pt-2">
+                <div className="absolute left-0 top-full w-200 xl:w-220 pt-2">
                   <div className="max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
                     <div className="grid grid-cols-3 gap-6">
                       {/* DISCOVER COLUMN */}
@@ -345,7 +345,7 @@ export function Header() {
               onMouseLeave={handleMouseLeave}
             >
               <button
-                className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                className={`flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium whitespace-nowrap xl:px-3 transition-colors ${
                   activeMenu === "solutions"
                     ? "bg-muted text-foreground"
                     : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
@@ -409,7 +409,7 @@ export function Header() {
             {/* INTELLIGENCE LINK */}
             <Link
               href="/intelligence"
-              className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground flex items-center gap-1.5"
+              className="rounded-lg px-2 py-2 text-sm font-medium whitespace-nowrap xl:px-3 text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground flex items-center gap-1.5"
             >
               <Sparkles className="h-3.5 w-3.5 text-accent" />
               <span>Intelligence</span>
@@ -418,7 +418,7 @@ export function Header() {
             {/* PRICING LINK */}
             <Link
               href="/pricing"
-              className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+              className="rounded-lg px-2 py-2 text-sm font-medium whitespace-nowrap xl:px-3 text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
             >
               Pricing
             </Link>
@@ -426,7 +426,7 @@ export function Header() {
             {/* INTEGRATIONS LINK */}
             <Link
               href="/integrations"
-              className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+              className="rounded-lg px-2 py-2 text-sm font-medium whitespace-nowrap xl:px-3 text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
             >
               Integrations
             </Link>
@@ -438,7 +438,7 @@ export function Header() {
               onMouseLeave={handleMouseLeave}
             >
               <button
-                className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                className={`flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium whitespace-nowrap xl:px-3 transition-colors ${
                   activeMenu === "resources"
                     ? "bg-muted text-foreground"
                     : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
@@ -454,7 +454,7 @@ export function Header() {
               </button>
 
               {activeMenu === "resources" && (
-                <div className="absolute left-0 top-full w-105 pt-2">
+                <div className="absolute right-0 top-full w-105 pt-2">
                   <div className="max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-border bg-card p-5 shadow-2xl backdrop-blur-2xl">
                     <div className="space-y-4">
                       <Link
@@ -498,10 +498,10 @@ export function Header() {
           </nav>
 
           {/* RIGHT CTAS */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-1.5 xl:gap-3">
             <button
               onClick={toggleTheme}
-              className="rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
+              className="rounded-full p-1.5 xl:p-2 text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
               aria-label="Toggle theme"
             >
               {mounted ? (
@@ -516,20 +516,20 @@ export function Header() {
             </button>
             <a
               href={LOGIN_URL}
-              className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="whitespace-nowrap rounded-full px-2.5 py-2 xl:px-4 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               Log in
             </a>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:scale-[1.02]"
+              className="inline-flex items-center gap-1 xl:gap-1.5 whitespace-nowrap rounded-full bg-foreground px-3 py-2 xl:px-4 text-sm font-medium text-background transition-transform hover:scale-[1.02]"
             >
-              Book a demo <ArrowRight className="h-3.5 w-3.5" />
+              Book a demo <ArrowRight className="hidden xl:inline-block h-3.5 w-3.5" />
             </Link>
           </div>
 
           {/* MOBILE MENU TOGGLE WITH THEME TOGGLE */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <button
               onClick={toggleTheme}
               className="rounded-lg p-2 text-foreground hover:bg-muted"
@@ -559,7 +559,7 @@ export function Header() {
       {/* MOBILE DRAWER OVERLAY */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-140 bg-black/50 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-140 bg-black/50 backdrop-blur-sm lg:hidden"
           onClick={() => setMobileOpen(false)}
           aria-hidden="true"
         />
@@ -568,7 +568,7 @@ export function Header() {
       {/* MOBILE DRAWER (MATCHING DESKTOP NAVBAR 100%) */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 top-16 z-150 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-t border-border bg-background p-4 pb-32 sm:p-6 sm:pb-32 md:hidden shadow-2xl"
+          className="fixed inset-0 top-16 z-150 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-t border-border bg-background p-4 pb-10 sm:p-6 sm:pb-12 lg:hidden shadow-2xl"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation menu"
@@ -579,118 +579,124 @@ export function Header() {
               <div className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 Products
               </div>
-              <div className="grid grid-cols-1 gap-1.5 pl-2 text-sm">
-                <div className="pt-1 text-[11px] font-bold text-accent uppercase">Discover</div>
-                <Link
-                  href="/products/prospect-search"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Prospect Search
-                </Link>
-                <Link
-                  href="/products/smart-lists"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Smart Lists
-                </Link>
-                <Link
-                  href="/products/import"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Import & Mapping
-                </Link>
-
-                <div className="pt-2 text-[11px] font-bold text-accent uppercase">
-                  Enrich & Intelligence
+              <div className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 pl-2 text-sm">
+                <div className="flex flex-col gap-1.5">
+                  <div className="text-[11px] font-bold text-accent uppercase">Discover</div>
+                  <Link
+                    href="/products/prospect-search"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Prospect Search
+                  </Link>
+                  <Link
+                    href="/products/smart-lists"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Smart Lists
+                  </Link>
+                  <Link
+                    href="/products/import"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Import & Mapping
+                  </Link>
                 </div>
-                <Link
-                  href="/products/enrichment"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Waterfall Enrichment
-                </Link>
-                <Link
-                  href="/products/chrome-extension"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Chrome Extension
-                </Link>
-                <Link
-                  href="/products/dexter-ai"
-                  onClick={() => setMobileOpen(false)}
-                  className="font-bold text-accent py-0.5"
-                >
-                  Dexter AI Copilot
-                </Link>
 
-                <div className="pt-2 text-[11px] font-bold text-accent uppercase">
-                  Engage & Deliver
+                <div className="flex flex-col gap-1.5">
+                  <div className="text-[11px] font-bold text-accent uppercase">
+                    Enrich & Intelligence
+                  </div>
+                  <Link
+                    href="/products/enrichment"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Waterfall Enrichment
+                  </Link>
+                  <Link
+                    href="/products/chrome-extension"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Chrome Extension
+                  </Link>
+                  <Link
+                    href="/products/dexter-ai"
+                    onClick={() => setMobileOpen(false)}
+                    className="font-bold text-accent py-0.5"
+                  >
+                    Dexter AI Copilot
+                  </Link>
                 </div>
-                <Link
-                  href="/products/sequences"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Multichannel Sequences
-                </Link>
-                <Link
-                  href="/products/inbox"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Unified Inbox
-                </Link>
-                <Link
-                  href="/products/ai-review"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  AI Outbound Review
-                </Link>
-                <Link
-                  href="/products/deliverability"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Deliverability & Warmup
-                </Link>
 
-                <div className="pt-2 text-[11px] font-bold text-accent uppercase">
-                  CRM & Pipeline
+                <div className="flex flex-col gap-1.5">
+                  <div className="text-[11px] font-bold text-accent uppercase">
+                    Engage & Deliver
+                  </div>
+                  <Link
+                    href="/products/sequences"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Multichannel Sequences
+                  </Link>
+                  <Link
+                    href="/products/inbox"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Unified Inbox
+                  </Link>
+                  <Link
+                    href="/products/ai-review"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    AI Outbound Review
+                  </Link>
+                  <Link
+                    href="/products/deliverability"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Deliverability & Warmup
+                  </Link>
                 </div>
-                <Link
-                  href="/products/crm"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Native GTM CRM
-                </Link>
-                <Link
-                  href="/products/pipeline"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Visual Deal Pipeline
-                </Link>
-                <Link
-                  href="/products/tasks-meetings"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Tasks & Meetings
-                </Link>
-                <Link
-                  href="/products/analytics"
-                  onClick={() => setMobileOpen(false)}
-                  className="text-foreground py-0.5"
-                >
-                  Sales Analytics
-                </Link>
+
+                <div className="flex flex-col gap-1.5">
+                  <div className="text-[11px] font-bold text-accent uppercase">CRM & Pipeline</div>
+                  <Link
+                    href="/products/crm"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Native GTM CRM
+                  </Link>
+                  <Link
+                    href="/products/pipeline"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Visual Deal Pipeline
+                  </Link>
+                  <Link
+                    href="/products/tasks-meetings"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Tasks & Meetings
+                  </Link>
+                  <Link
+                    href="/products/analytics"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-foreground py-0.5"
+                  >
+                    Sales Analytics
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -699,7 +705,7 @@ export function Header() {
               <div className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 Solutions
               </div>
-              <div className="grid grid-cols-1 gap-1.5 pl-2 text-sm">
+              <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2 sm:gap-x-6 pl-2 text-sm">
                 <Link
                   href="/solutions/outbound-prospecting"
                   onClick={() => setMobileOpen(false)}
