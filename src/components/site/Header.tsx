@@ -127,9 +127,9 @@ export function Header() {
   return (
     <header
       ref={headerRef}
-      className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all"
+      className="sticky top-0 z-200 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all"
     >
-      <div className="mx-auto flex h-16 w-full max-w-7xl 2xl:max-w-[1400px] items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 w-full max-w-7xl 2xl:max-w-350 items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8">
         {/* LOGO */}
         <Link
           href="/"
@@ -557,7 +557,7 @@ export function Header() {
       {/* MOBILE DRAWER OVERLAY */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-140 bg-black/50 backdrop-blur-sm md:hidden"
           onClick={() => setMobileOpen(false)}
           aria-hidden="true"
         />
@@ -566,7 +566,7 @@ export function Header() {
       {/* MOBILE DRAWER (MATCHING DESKTOP NAVBAR 100%) */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 top-16 z-50 max-h-[calc(100vh-4rem)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-t border-border bg-background p-4 sm:p-6 md:hidden"
+          className="fixed inset-0 top-16 z-150 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-t border-border bg-background p-4 pb-32 sm:p-6 sm:pb-32 md:hidden shadow-2xl"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation menu"

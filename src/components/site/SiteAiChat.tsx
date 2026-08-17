@@ -80,7 +80,7 @@ export function SiteAiChat() {
       });
       speakCancelRef.current = handle.cancel;
     },
-    [ttsSupported, voiceOn]
+    [ttsSupported, voiceOn],
   );
 
   const clearSilenceTimer = useCallback(() => {
@@ -154,7 +154,7 @@ export function SiteAiChat() {
         setPending(false);
       }
     },
-    [speakReply]
+    [speakReply],
   );
 
   const stopVoice = useCallback(() => {
@@ -229,7 +229,9 @@ export function SiteAiChat() {
           /* ignore */
         }
         setListening(false);
-        const spoken = `${speechFinalRef.current} ${interimRef.current}`.replace(/\s+/g, " ").trim();
+        const spoken = `${speechFinalRef.current} ${interimRef.current}`
+          .replace(/\s+/g, " ")
+          .trim();
         speechFinalRef.current = "";
         setInterim("");
         interimRef.current = "";
@@ -250,7 +252,7 @@ export function SiteAiChat() {
   return (
     <>
       {open && (
-        <div className="fixed bottom-24 right-4 z-50 flex w-[min(100%-2rem,22rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:right-6">
+        <div className="fixed bottom-24 right-4 z-80 flex w-[min(100%-2rem,22rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:right-6">
           <div
             className="flex items-center justify-between px-4 py-3 text-white"
             style={{ backgroundImage: "var(--gradient-accent)" }}
@@ -292,7 +294,10 @@ export function SiteAiChat() {
             </div>
           </div>
 
-          <div ref={scrollRef} className="flex max-h-80 flex-col gap-3 overflow-y-auto bg-background px-4 py-3">
+          <div
+            ref={scrollRef}
+            className="flex max-h-80 flex-col gap-3 overflow-y-auto bg-background px-4 py-3"
+          >
             {turns.map((t, i) => (
               <div
                 key={`${t.role}-${i}-${t.content.slice(0, 24)}`}
@@ -360,7 +365,13 @@ export function SiteAiChat() {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder={listening ? "Listening…" : micSupported ? "Say hi, or ask me anything…" : "Say hi, or ask me anything…"}
+                placeholder={
+                  listening
+                    ? "Listening…"
+                    : micSupported
+                      ? "Say hi, or ask me anything…"
+                      : "Say hi, or ask me anything…"
+                }
                 className="h-10 flex-1 rounded-xl border border-input bg-background px-3 text-sm text-foreground outline-none ring-ring focus:ring-2"
               />
               <button
@@ -375,11 +386,17 @@ export function SiteAiChat() {
             </form>
             <p className="mt-2 text-center text-[11px] text-muted-foreground">
               Ready to talk?{" "}
-              <Link href="/contact" className="font-medium text-foreground underline underline-offset-2">
+              <Link
+                href="/contact"
+                className="font-medium text-foreground underline underline-offset-2"
+              >
                 Book a demo
               </Link>
               {" · "}
-              <Link href="/app/signin" className="font-medium text-foreground underline underline-offset-2">
+              <Link
+                href="/app/signin"
+                className="font-medium text-foreground underline underline-offset-2"
+              >
                 Log in
               </Link>
             </p>
@@ -390,7 +407,7 @@ export function SiteAiChat() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-5 right-4 z-50 flex h-14 items-center gap-2 rounded-full px-4 text-sm font-semibold text-white shadow-lg sm:right-6"
+        className="fixed bottom-5 right-4 z-80 flex h-14 items-center gap-2 rounded-full px-4 text-sm font-semibold text-white shadow-lg sm:right-6"
         style={{ backgroundImage: "var(--gradient-accent)" }}
         aria-label={open ? "Close Dexter chat" : "Open Dexter chat"}
       >
