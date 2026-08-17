@@ -407,11 +407,11 @@ export function SiteAiChat() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-5 right-4 z-80 flex h-14 items-center gap-2 rounded-full px-4 text-sm font-semibold text-white shadow-lg sm:right-6"
+        className="fixed bottom-5 right-4 z-80 flex h-14 w-14 shrink-0 items-center justify-center gap-2 rounded-full text-sm font-semibold text-white shadow-lg sm:right-6 sm:w-auto sm:px-4"
         style={{ backgroundImage: "var(--gradient-accent)" }}
         aria-label={open ? "Close Dexter chat" : "Open Dexter chat"}
       >
-        {open ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
+        {open ? <X className="h-5 w-5 shrink-0" /> : <MessageCircle className="h-5 w-5 shrink-0" />}
         <span className="hidden sm:inline">{open ? "Close" : "Ask Dexter"}</span>
       </button>
     </>

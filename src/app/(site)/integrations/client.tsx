@@ -184,7 +184,7 @@ export default function IntegrationsClient({
   });
 
   return (
-    <div className="flex flex-col gap-0 text-foreground overflow-hidden">
+    <div className="flex flex-col gap-0 text-foreground overflow-x-hidden">
       {/* HERO SECTION */}
       <div style={{ background: "var(--gradient-hero)" }} className="border-b border-border/60">
         <Section className="py-8! md:py-14! text-center">
@@ -205,15 +205,15 @@ export default function IntegrationsClient({
             </p>
 
             {/* SEARCH BAR */}
-            <div className="pt-2 mx-auto max-w-xl">
-              <div className="relative">
+            <div className="pt-2 mx-auto w-full max-w-xl">
+              <div className="relative w-full min-w-0">
                 <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Search integrations (HubSpot, Gmail, Chrome Extension, Claude...)"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full border border-border bg-card/80 pl-11 pr-4 py-2.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent backdrop-blur-md"
+                  className="block w-full min-w-0 rounded-full border border-border bg-card/80 pl-11 pr-4 py-2.5 text-left text-xs sm:text-sm text-foreground placeholder:text-muted-foreground placeholder:truncate focus:outline-none focus:ring-2 focus:ring-accent backdrop-blur-md"
                 />
               </div>
             </div>
