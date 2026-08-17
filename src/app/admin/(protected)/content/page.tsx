@@ -2,8 +2,9 @@ import Link from "next/link";
 import { FileText, ArrowRight } from "lucide-react";
 import { connectDB } from "@/lib/db/connect";
 import { Content } from "@/lib/models/content.model";
+import { PRODUCTS_DATA } from "@/lib/productData";
 
-const pages = [
+const corePages = [
   { id: "home", label: "Home", description: "Hero, stats, platform section, manifesto, CTA" },
   { id: "about", label: "About", description: "Hero, values, timeline, team, press, manifesto" },
   {
@@ -22,12 +23,26 @@ const pages = [
     label: "Integrations",
     description: "Hero, integration groups, items and custom API section",
   },
+  {
+    id: "resources",
+    label: "Resources",
+    description: "Resource library listing, calculator, guides and free tools",
+  },
 ];
+
+const productPages = Object.values(PRODUCTS_DATA).map((product) => ({
+  id: product.slug,
+  label: product.title,
+  description: `${product.eyebrow} — ${product.subheadline.substring(0, 50)}...`,
+}));
+
+const pages = [...corePages, ...productPages];
 
 async function getLastUpdated(): Promise<Record<string, Date | null>> {
   try {
     await connectDB();
-    const docs = await Content.find({ pageId: { $in: pages.map((p) => p.id) } })
+    const pageIds = pages.map((p) => p.id);
+    const docs = await Content.find({ pageId: { $in: pageIds } })
       .select("pageId updatedAt")
       .lean();
     return Object.fromEntries(docs.map((d) => [d.pageId, d.updatedAt]));
