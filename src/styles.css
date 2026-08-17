@@ -100,11 +100,18 @@
     border-color: var(--color-border);
   }
 
+  html {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     letter-spacing: -0.01em;
+    overflow-x: hidden;
+    width: 100%;
   }
 
   .font-display {
@@ -117,5 +124,10 @@
     font-family: "Instrument Serif", Georgia, serif;
     font-style: italic;
     font-weight: 400;
+    line-height: 1.4;
+    padding-inline: 0.05em;
+    -webkit-text-fill-color: transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
 }
