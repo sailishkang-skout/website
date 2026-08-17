@@ -3,8 +3,11 @@ import type { NextRequest } from "next/server";
 import { connectDB } from "@/lib/db/connect";
 import { Content } from "@/lib/models/content.model";
 import { defaultContent } from "@/lib/content/defaults";
+import { PRODUCTS_DATA } from "@/lib/productData";
 
-const VALID_PAGES = ["home", "about", "features", "pricing", "solutions", "integrations"];
+const CORE_PAGES = ["home", "about", "features", "pricing", "solutions", "integrations", "resources"];
+const PRODUCT_SLUGS = Object.keys(PRODUCTS_DATA);
+const VALID_PAGES = [...CORE_PAGES, ...PRODUCT_SLUGS];
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ page: string }> }) {
   const { page } = await params;
