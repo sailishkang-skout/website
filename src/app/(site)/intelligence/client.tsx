@@ -29,7 +29,9 @@ import { WORKSPACE_URL } from "@/lib/constants";
 
 export default function IntelligenceClient() {
   const [selectedNode, setSelectedNode] = useState<number>(0);
-  const [activeTab, setActiveTab] = useState<"waterfall" | "email" | "regional" | "stack">("waterfall");
+  const [activeTab, setActiveTab] = useState<"waterfall" | "email" | "regional" | "stack">(
+    "waterfall",
+  );
 
   const pipelineNodes = [
     {
@@ -38,8 +40,14 @@ export default function IntelligenceClient() {
       sub: "Multi-Source Sourcing",
       badge: "Sourcing Layer",
       color: "border-blue-500/40 bg-blue-500/10 text-blue-400",
-      description: "Aggregates multi-vendor prospect data, firmographics, technographics, and Intent signals across global sources.",
-      inputs: ["Person & Contact Data", "Company Firmographics", "Installed Tech Stack", "Historical Databases"],
+      description:
+        "Aggregates multi-vendor prospect data, firmographics, technographics, and Intent signals across global sources.",
+      inputs: [
+        "Person & Contact Data",
+        "Company Firmographics",
+        "Installed Tech Stack",
+        "Historical Databases",
+      ],
       output: "Raw Unverified Prospect Candidates",
     },
     {
@@ -48,8 +56,14 @@ export default function IntelligenceClient() {
       sub: "Live Signal Checking",
       badge: "Verification Layer",
       color: "border-emerald-500/40 bg-emerald-500/10 text-emerald-400",
-      description: "Validates email reachability, domain MX records, live SMTP handshakes, catch-all patterns, and phone health in real-time.",
-      inputs: ["DNS MX Records", "Live SMTP Handshake", "Catch-All Pattern Check", "Provider Detection"],
+      description:
+        "Validates email reachability, domain MX records, live SMTP handshakes, catch-all patterns, and phone health in real-time.",
+      inputs: [
+        "DNS MX Records",
+        "Live SMTP Handshake",
+        "Catch-All Pattern Check",
+        "Provider Detection",
+      ],
       output: "Verified Reachable Contacts & Risk Scores",
     },
     {
@@ -58,8 +72,14 @@ export default function IntelligenceClient() {
       sub: "Account Graph",
       badge: "Contextual Layer",
       color: "border-amber-500/40 bg-amber-500/10 text-amber-400",
-      description: "Constructs a rich account graph combining company news, hiring trends, technological shifts, and regional market rules.",
-      inputs: ["Hiring Signals", "Executive Leadership Changes", "Funding & Expansion", "Regional Compliance"],
+      description:
+        "Constructs a rich account graph combining company news, hiring trends, technological shifts, and regional market rules.",
+      inputs: [
+        "Hiring Signals",
+        "Executive Leadership Changes",
+        "Funding & Expansion",
+        "Regional Compliance",
+      ],
       output: "Unified Account & Persona Context Graph",
     },
     {
@@ -68,8 +88,14 @@ export default function IntelligenceClient() {
       sub: "Signal Engine",
       badge: "Intelligence Layer",
       color: "border-purple-500/40 bg-purple-500/10 text-purple-400",
-      description: "Evaluates why an account matters right now and synthesizes relevant context into actionable buyer insights.",
-      inputs: ["Intent Signals", "Persona Relevance", "Historical Conversational Data", "Dexter AI Reasoning"],
+      description:
+        "Evaluates why an account matters right now and synthesizes relevant context into actionable buyer insights.",
+      inputs: [
+        "Intent Signals",
+        "Persona Relevance",
+        "Historical Conversational Data",
+        "Dexter AI Reasoning",
+      ],
       output: "Scored Opportunity Insights & Value Hooks",
     },
     {
@@ -78,8 +104,14 @@ export default function IntelligenceClient() {
       sub: "ICP & Route",
       badge: "Decision Layer",
       color: "border-pink-500/40 bg-pink-500/10 text-pink-400",
-      description: "Determines whether an account fits your ICP, scores lead priority, and assigns the appropriate GTM playbook.",
-      inputs: ["ICP Fit Score", "Lead Qualification Rules", "Territory Mapping", "Team Assignment Rules"],
+      description:
+        "Determines whether an account fits your ICP, scores lead priority, and assigns the appropriate GTM playbook.",
+      inputs: [
+        "ICP Fit Score",
+        "Lead Qualification Rules",
+        "Territory Mapping",
+        "Team Assignment Rules",
+      ],
       output: "Prioritized Target Account & Contact List",
     },
     {
@@ -88,7 +120,8 @@ export default function IntelligenceClient() {
       sub: "Outreach & CRM",
       badge: "Action Layer",
       color: "border-accent bg-accent/20 text-accent font-bold shadow-lg shadow-accent/20",
-      description: "Triggers multi-channel outreach sequences, updates CRM fields, assigns tasks, and executes automated GTM workflows.",
+      description:
+        "Triggers multi-channel outreach sequences, updates CRM fields, assigns tasks, and executes automated GTM workflows.",
       inputs: ["Personalized Sequences", "Two-Way CRM Sync", "Task Creation", "Mailbox Rotation"],
       output: "Active Pipeline Opportunities & Scheduled Calls",
     },
@@ -105,12 +138,13 @@ export default function IntelligenceClient() {
               <span>SKOUT PLATFORM INTELLIGENCE</span>
             </div>
 
-            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
+            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] wrap-break-word text-foreground font-semibold">
               The intelligence layer behind your <GradientText>GTM ecosystem.</GradientText>
             </h1>
 
             <p className="mx-auto max-w-xl text-xs sm:text-sm leading-relaxed text-muted-foreground">
-              Explore how Skout transforms fragmented data into verified context, intelligent prioritization, and automated revenue execution.
+              Explore how Skout transforms fragmented data into verified context, intelligent
+              prioritization, and automated revenue execution.
             </p>
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
@@ -140,7 +174,8 @@ export default function IntelligenceClient() {
             From raw data → <GradientText>automated revenue action.</GradientText>
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground">
-            Click on any pipeline stage below to inspect its underlying inputs, signals, and output deliverables.
+            Click on any pipeline stage below to inspect its underlying inputs, signals, and output
+            deliverables.
           </p>
         </div>
 
@@ -156,7 +191,9 @@ export default function IntelligenceClient() {
                   : "border-border bg-card text-muted-foreground hover:border-accent/40 hover:text-foreground"
               }`}
             >
-              <span className="font-display text-xs font-extrabold uppercase tracking-wider">{node.label}</span>
+              <span className="font-display text-xs font-extrabold uppercase tracking-wider">
+                {node.label}
+              </span>
               <span className="text-[10px] opacity-80 font-medium">{node.sub}</span>
             </button>
           ))}
@@ -173,7 +210,9 @@ export default function IntelligenceClient() {
                 {pipelineNodes[selectedNode].label}: {pipelineNodes[selectedNode].sub}
               </h3>
             </div>
-            <span className="text-xs text-muted-foreground font-mono">Stage {selectedNode + 1} of 6</span>
+            <span className="text-xs text-muted-foreground font-mono">
+              Stage {selectedNode + 1} of 6
+            </span>
           </div>
 
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
@@ -182,7 +221,9 @@ export default function IntelligenceClient() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
             <div className="p-4 rounded-2xl bg-background border border-border space-y-2">
-              <h4 className="font-display text-xs font-bold text-accent uppercase tracking-wider">Input Signals & Sources</h4>
+              <h4 className="font-display text-xs font-bold text-accent uppercase tracking-wider">
+                Input Signals & Sources
+              </h4>
               <ul className="space-y-1.5 text-xs text-muted-foreground">
                 {pipelineNodes[selectedNode].inputs.map((inp, i) => (
                   <li key={i} className="flex items-center gap-2">
@@ -194,7 +235,9 @@ export default function IntelligenceClient() {
             </div>
 
             <div className="p-4 rounded-2xl bg-background border border-border space-y-2">
-              <h4 className="font-display text-xs font-bold text-emerald-400 uppercase tracking-wider">Output Deliverable</h4>
+              <h4 className="font-display text-xs font-bold text-emerald-400 uppercase tracking-wider">
+                Output Deliverable
+              </h4>
               <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-semibold text-xs">
                 {pipelineNodes[selectedNode].output}
               </div>
@@ -229,7 +272,9 @@ export default function IntelligenceClient() {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={() =>
+                    setActiveTab(tab.id as "waterfall" | "email" | "regional" | "stack")
+                  }
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
                     activeTab === tab.id
                       ? "bg-accent text-accent-foreground shadow-md"
@@ -248,19 +293,29 @@ export default function IntelligenceClient() {
         {activeTab === "waterfall" && (
           <div className="max-w-4xl mx-auto space-y-4 animate-in fade-in duration-200">
             <div className="rounded-2xl border border-border bg-card p-6 space-y-3 shadow-md">
-              <h3 className="font-display text-lg font-bold text-foreground">Waterfall Enrichment Protocol</h3>
+              <h3 className="font-display text-lg font-bold text-foreground">
+                Waterfall Enrichment Protocol
+              </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Skout queries multiple data providers in sequence (<span className="text-accent font-bold">Source → Compare → Verify → Score → Resolve → Learn</span>). If Provider A fails or lacks freshness, Skout moves automatically to Provider B. You only pay for verified, high-confidence results.
+                Skout queries multiple data providers in sequence (
+                <span className="text-accent font-bold">
+                  Source → Compare → Verify → Score → Resolve → Learn
+                </span>
+                ). If Provider A fails or lacks freshness, Skout moves automatically to Provider B.
+                You only pay for verified, high-confidence results.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
                 <div className="p-3 rounded-xl bg-background border border-border text-xs">
-                  <span className="font-bold text-foreground">Multi-Vendor Coverage:</span> Eliminates single-vendor data blind spots.
+                  <span className="font-bold text-foreground">Multi-Vendor Coverage:</span>{" "}
+                  Eliminates single-vendor data blind spots.
                 </div>
                 <div className="p-3 rounded-xl bg-background border border-border text-xs">
-                  <span className="font-bold text-foreground">Cost Optimization:</span> Pay only for verified match results.
+                  <span className="font-bold text-foreground">Cost Optimization:</span> Pay only for
+                  verified match results.
                 </div>
                 <div className="p-3 rounded-xl bg-background border border-border text-xs">
-                  <span className="font-bold text-foreground">Real-Time Resolution:</span> Data is queried fresh at execution time.
+                  <span className="font-bold text-foreground">Real-Time Resolution:</span> Data is
+                  queried fresh at execution time.
                 </div>
               </div>
             </div>
@@ -271,15 +326,27 @@ export default function IntelligenceClient() {
         {activeTab === "email" && (
           <div className="max-w-4xl mx-auto space-y-4 animate-in fade-in duration-200">
             <div className="rounded-2xl border border-border bg-card p-6 space-y-3 shadow-md">
-              <h3 className="font-display text-lg font-bold text-foreground">Email Intelligence & Signal Engine</h3>
+              <h3 className="font-display text-lg font-bold text-foreground">
+                Email Intelligence & Signal Engine
+              </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Replaces traditional binary checking with 8 deep deliverability signals: Domain MX health, live SMTP handshakes, catch-all pattern analysis, provider detection (O365 vs Google), and historical verification evidence.
+                Replaces traditional binary checking with 8 deep deliverability signals: Domain MX
+                health, live SMTP handshakes, catch-all pattern analysis, provider detection (O365
+                vs Google), and historical verification evidence.
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 text-xs">
-                <div className="p-3 rounded-xl bg-background border border-border font-semibold">Live SMTP Handshake</div>
-                <div className="p-3 rounded-xl bg-background border border-border font-semibold">Catch-All Analysis</div>
-                <div className="p-3 rounded-xl bg-background border border-border font-semibold">MX Infrastructure</div>
-                <div className="p-3 rounded-xl bg-background border border-border font-semibold">Send Eligibility Rating</div>
+                <div className="p-3 rounded-xl bg-background border border-border font-semibold">
+                  Live SMTP Handshake
+                </div>
+                <div className="p-3 rounded-xl bg-background border border-border font-semibold">
+                  Catch-All Analysis
+                </div>
+                <div className="p-3 rounded-xl bg-background border border-border font-semibold">
+                  MX Infrastructure
+                </div>
+                <div className="p-3 rounded-xl bg-background border border-border font-semibold">
+                  Send Eligibility Rating
+                </div>
               </div>
             </div>
           </div>
@@ -289,9 +356,13 @@ export default function IntelligenceClient() {
         {activeTab === "regional" && (
           <div className="max-w-4xl mx-auto space-y-4 animate-in fade-in duration-200">
             <div className="rounded-2xl border border-border bg-card p-6 space-y-3 shadow-md">
-              <h3 className="font-display text-lg font-bold text-foreground">Regional Market Context Engine</h3>
+              <h3 className="font-display text-lg font-bold text-foreground">
+                Regional Market Context Engine
+              </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Adapts data workflows around local market differences: North America, EU (GDPR compliance), APAC, LATAM, and India. Accounts for local corporate registries, domain conventions, and regional communication channels.
+                Adapts data workflows around local market differences: North America, EU (GDPR
+                compliance), APAC, LATAM, and India. Accounts for local corporate registries, domain
+                conventions, and regional communication channels.
               </p>
             </div>
           </div>
@@ -301,9 +372,12 @@ export default function IntelligenceClient() {
         {activeTab === "stack" && (
           <div className="max-w-4xl mx-auto space-y-4 animate-in fade-in duration-200">
             <div className="rounded-2xl border border-border bg-card p-6 space-y-3 shadow-md">
-              <h3 className="font-display text-lg font-bold text-foreground">Modular Stack Architecture</h3>
+              <h3 className="font-display text-lg font-bold text-foreground">
+                Modular Stack Architecture
+              </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Connect your existing CRM (HubSpot, Salesforce), data warehouses (Snowflake, BigQuery), AI models (BYOK OpenAI/Anthropic), and email infrastructure seamlessly.
+                Connect your existing CRM (HubSpot, Salesforce), data warehouses (Snowflake,
+                BigQuery), AI models (BYOK OpenAI/Anthropic), and email infrastructure seamlessly.
               </p>
             </div>
           </div>
@@ -319,24 +393,28 @@ export default function IntelligenceClient() {
             </div>
             <div>
               <h3 className="font-display text-xl font-bold text-foreground">Dexter AI Copilot</h3>
-              <p className="text-xs text-accent font-semibold">GTM Copilot operating directly inside the Skout Intelligence Graph.</p>
+              <p className="text-xs text-accent font-semibold">
+                GTM Copilot operating directly inside the Skout Intelligence Graph.
+              </p>
             </div>
           </div>
 
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-            Dexter uses the account graph, signals, and verification evidence stored inside Skout to answer queries, summarize account history, and write high-converting outbound outreach.
+            Dexter uses the account graph, signals, and verification evidence stored inside Skout to
+            answer queries, summarize account history, and write high-converting outbound outreach.
           </p>
         </div>
       </Section>
 
       {/* 5. FINAL CTA */}
       <Section className="py-12! md:py-16!">
-        <div className="rounded-3xl border border-accent/30 bg-gradient-to-r from-accent/15 via-card to-card p-8 sm:p-12 text-center max-w-4xl mx-auto space-y-6 shadow-2xl">
+        <div className="rounded-3xl border border-accent/30 bg-linear-to-r from-accent/15 via-card to-card p-8 sm:p-12 text-center max-w-4xl mx-auto space-y-6 shadow-2xl">
           <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-foreground">
             Build your GTM on an <GradientText>intelligence foundation.</GradientText>
           </h2>
           <p className="text-xs sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Connect prospecting, enrichment, verification, AI research, outreach, CRM, and analytics into one workspace.
+            Connect prospecting, enrichment, verification, AI research, outreach, CRM, and analytics
+            into one workspace.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <a
