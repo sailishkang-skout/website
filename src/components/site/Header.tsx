@@ -113,7 +113,13 @@ export function Header() {
   // Close menus on click outside - support both mouse and touch
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
-      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+      const mobileMenuElement = document.querySelector(
+        '[role="dialog"][aria-label="Mobile navigation menu"]',
+      );
+      const isClickInHeader = headerRef.current && headerRef.current.contains(e.target as Node);
+      const isClickInMobileMenu = mobileMenuElement && mobileMenuElement.contains(e.target as Node);
+
+      if (!isClickInHeader && !isClickInMobileMenu) {
         closeMenus();
       }
     };
