@@ -326,12 +326,20 @@ export default function IntegrationsClient({
                 <Code className="h-4 w-4 text-accent" /> Custom Webhook Relay Specs
               </div>
               <div className="font-mono text-accent bg-muted/60 p-2.5 rounded-xl overflow-x-auto text-[11px]">
-                POST /api/v1/webhooks/custom-relay
+                POST /your-unique-webhook-url
               </div>
+              <p className="text-[11px] text-muted-foreground mb-2">
+                Every customer receives a dedicated, secure webhook endpoint tailored to your
+                integration needs.
+              </p>
               <ul className="space-y-1 text-muted-foreground text-[11px]">
-                <li className="flex items-center gap-1.5">✓ HMAC SHA-256 Payload Signature</li>
-                <li className="flex items-center gap-1.5">✓ Custom Field Transformation Schema</li>
-                <li className="flex items-center gap-1.5">✓ 99.99% Uptime Guarantee</li>
+                <li className="flex items-center gap-1.5">
+                  ✓ HMAC SHA-256 payload signing for security
+                </li>
+                <li className="flex items-center gap-1.5">
+                  ✓ Custom field mapping and transformation
+                </li>
+                <li className="flex items-center gap-1.5">✓ Enterprise-grade 99.99% uptime SLA</li>
               </ul>
               <Link
                 href="/contact"
