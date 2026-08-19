@@ -92,7 +92,7 @@ export default function GTMOutboundCalculator() {
     totalToolingCost > 0 ? Math.max(0, Math.round((monthlySavings / totalToolingCost) * 100)) : 0;
 
   return (
-    <div className="flex flex-col gap-0 text-foreground overflow-hidden">
+    <div className="flex flex-col gap-0 text-foreground">
       {/* HERO SECTION */}
       <div style={{ background: "var(--gradient-hero)" }} className="border-b border-border/60">
         <Section className="py-8! md:py-14! text-center">
@@ -102,9 +102,8 @@ export default function GTMOutboundCalculator() {
               <span>GTM OUTBOUND ROI & COST CALCULATOR</span>
             </div>
 
-            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
-              GTM Outbound Cost Calculator <br />
-              <GradientText>Estimate tooling & pipeline acquisition costs.</GradientText>
+            <h1 className="mx-auto max-w-3xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] wrap-break-word text-foreground font-semibold">
+              Calculate your <GradientText>outbound SDR ROI</GradientText>
             </h1>
 
             <p className="mx-auto max-w-xl text-xs sm:text-sm leading-relaxed text-muted-foreground">
@@ -386,7 +385,7 @@ export default function GTMOutboundCalculator() {
             </div>
 
             {/* SKOUT AI UNIFIED SAVINGS COMPARISON CARD */}
-            <div className="rounded-3xl border border-accent/40 bg-gradient-to-b from-accent/10 via-card to-card p-6 shadow-xl space-y-4">
+            <div className="rounded-3xl border border-accent/40 bg-linear-to-b from-accent/10 via-card to-card p-6 shadow-xl space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 font-bold text-foreground text-sm">
                   <Zap className="h-4 w-4 text-accent" /> With Skout AI Unified Workspace
