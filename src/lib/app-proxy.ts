@@ -97,6 +97,39 @@ function rewriteSetCookie(cookie: string): string {
   return cookie.replace(/;\s*Domain=[^;]*/gi, "");
 }
 
+/**
+ * Clerk handshake JWTs nested into `/app/gate?next=` exceed API Gateway / Node
+ * header limits (HTTP 431). Bounce those browser URLs to a short gate page
+ * before we proxy. Do not strip `__clerk_handshake` on `/app/signin` — Clerk
+ * needs that query to finish the session.
+ */
+export function oversizedWorkspaceRedirect(request: NextRequest): URL | null {
+  const { pathname, search, searchParams } = request.nextUrl;
+  const next = searchParams.get("next") ?? "";
+  const onGate = pathname === "/app/gate" || pathname.startsWith("/app/gate/");
+  const nestedHandshake =
+    next.includes("__clerk_handshake") || (onGate && searchParams.has("__clerk_handshake"));
+  const gateTooLong = onGate && (search.length > 2048 || next.length > 200 || next.includes("/gate"));
+
+  if (onGate && (nestedHandshake || gateTooLong)) {
+    const url = request.nextUrl.clone();
+    url.search = "";
+    if (searchParams.get("error") === "1") url.searchParams.set("error", "1");
+    url.searchParams.set("next", "/signin");
+    return url;
+  }
+
+  if (!onGate && search.length >= 12000) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/app/gate";
+    url.search = "";
+    url.searchParams.set("next", "/signin");
+    return url;
+  }
+
+  return null;
+}
+
 const DROP_REQUEST_HEADERS = new Set([
   "host",
   "connection",
@@ -119,6 +152,10 @@ function upstreamHeaders(request: NextRequest): Headers {
       headers.set(key, value);
     }
   });
+  const referer = headers.get("referer");
+  if (referer && referer.length > 2048) {
+    headers.delete("referer");
+  }
   headers.set("x-forwarded-host", request.nextUrl.host);
   headers.set("x-forwarded-proto", request.nextUrl.protocol.replace(":", "") || "https");
   headers.set("x-skout-public-origin", publicOrigin(request));
@@ -139,6 +176,11 @@ export async function proxyWorkspaceApp(
     }
   } catch {
     origin = AWS_WEB_ORIGIN;
+  }
+
+  const bounce = oversizedWorkspaceRedirect(request);
+  if (bounce) {
+    return NextResponse.redirect(bounce, 303);
   }
 
   const pathname = pathnameOverride ?? request.nextUrl.pathname;

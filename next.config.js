@@ -13,6 +13,11 @@ const nextConfig = {
         destination: "/legal/privacy-policy",
         permanent: true,
       },
+      {
+        source: "/auth/callback",
+        destination: "/app/auth/callback",
+        permanent: false,
+      },
     ];
   },
   async rewrites() {
