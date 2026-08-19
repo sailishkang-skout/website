@@ -47,7 +47,7 @@ export default function SolutionDetailClient({ solution }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <div className="flex flex-col gap-0 text-foreground overflow-hidden">
+    <div className="flex flex-col gap-0 text-foreground">
       {/* 1. DISTINCT HERO LAYOUT: SPLIT 2-COLUMN DESIGN (USING SITE HERO GRADIENT & SITE COLORS) */}
       <div style={{ background: "var(--gradient-hero)" }} className="border-b border-border/60">
         <Section className="py-8! md:py-14!">
@@ -59,7 +59,7 @@ export default function SolutionDetailClient({ solution }: Props) {
                 <span>USE CASE · {solution.eyebrow}</span>
               </div>
 
-              <h1 className="font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
+              <h1 className="font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] wrap-break-word text-foreground font-semibold">
                 {solution.headline} <br />
                 <GradientText>{solution.headlineGradient}</GradientText>
               </h1>

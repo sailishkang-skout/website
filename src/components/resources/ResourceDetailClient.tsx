@@ -46,7 +46,7 @@ export default function ResourceDetailClient({ resource }: Props) {
   const selectedCategory = categoriesList.find((c) => c.id === activeCategory) || categoriesList[0];
 
   return (
-    <div className="flex flex-col gap-0 text-foreground overflow-hidden">
+    <div className="flex flex-col gap-0 text-foreground">
       {/* HERO SECTION - CLEAN & SIMPLE HEADER */}
       <div style={{ background: "var(--gradient-hero)" }} className="border-b border-border/60">
         <Section className="py-8! md:py-14! text-center">
@@ -56,7 +56,7 @@ export default function ResourceDetailClient({ resource }: Props) {
               <span>SIMPLE SETUP GUIDE</span>
             </div>
 
-            <h1 className="mx-auto max-w-2xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] break-words text-foreground font-semibold">
+            <h1 className="mx-auto max-w-2xl font-display text-2xl sm:text-4xl md:text-5xl leading-[1.15] wrap-break-word text-foreground font-semibold">
               {resource.headline} <br />
               <GradientText>{resource.headlineGradient}</GradientText>
             </h1>

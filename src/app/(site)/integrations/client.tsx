@@ -184,7 +184,7 @@ export default function IntegrationsClient({
   });
 
   return (
-    <div className="flex flex-col gap-0 text-foreground overflow-hidden">
+    <div className="flex flex-col gap-0 text-foreground">
       {/* HERO SECTION */}
       <div style={{ background: "var(--gradient-hero)" }} className="border-b border-border/60">
         <Section className="py-8! md:py-14! text-center">
