@@ -30,6 +30,7 @@ import {
   Menu,
 } from "lucide-react";
 import { Section, GradientText } from "@/components/site/Section";
+import { scrollElementIntoContainer } from "@/lib/scroll-into-container";
 
 const sections = [
   { id: "agreement", title: "1. Agreement to These Terms" },
@@ -100,16 +101,11 @@ export default function TermsClient() {
     return () => observer.disconnect();
   }, []);
 
-  // AUTO-SCROLL ACTIVE INDEX BUTTON INSIDE SIDEBAR CONTAINER
+  // Keep the active TOC item visible in the sidebar without scrolling the page
   useEffect(() => {
     if (!activeSection) return;
     const activeBtn = document.getElementById(`nav-btn-${activeSection}`);
-    if (activeBtn) {
-      activeBtn.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-    }
+    if (activeBtn) scrollElementIntoContainer(activeBtn);
   }, [activeSection]);
 
   const scrollToSection = (id: string) => {
