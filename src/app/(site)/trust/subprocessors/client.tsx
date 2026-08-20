@@ -13,7 +13,7 @@ export default function SubprocessorsClient() {
       description="Transparency directory of authorized third-party cloud infrastructure hosts, data enrichment vendors, and AI processing APIs utilized by Skout AI."
       icon={<Server className="h-4 w-4 text-accent" />}
       statusLabel="Directory Updating"
-      expectedDate="Q1 2026"
+      expectedDate="Q1 2027"
       contactEmail="privacy@skoutai.io"
     />
   );

@@ -13,7 +13,7 @@ export default function DPAClient() {
       description="Standard Contractual Clauses (SCCs), GDPR Data Processor terms, and enterprise subprocessor guarantees for European and global enterprise customers."
       icon={<FileCheck className="h-4 w-4 text-accent" />}
       statusLabel="Enterprise Review"
-      expectedDate="Q1 2026"
+      expectedDate="Q1 2027"
     />
   );
 }

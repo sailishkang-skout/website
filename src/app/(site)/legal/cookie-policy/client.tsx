@@ -13,7 +13,7 @@ export default function CookiePolicyClient() {
       description="Learn how Skout AI uses essential session tokens, performance telemetry, and privacy-preserving cookies to operate, optimize, and secure our websites and SaaS platform."
       icon={<Cookie className="h-4 w-4 text-accent" />}
       statusLabel="Under Policy Review"
-      expectedDate="Q1 2026"
+      expectedDate="Q1 2027"
     />
   );
 }
