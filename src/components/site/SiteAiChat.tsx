@@ -178,6 +178,22 @@ export function SiteAiChat() {
     speechFinalRef.current = "";
   }, [clearSilenceTimer]);
 
+  // Prevent body scrolling when chat is open on mobile
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "auto";
+    }
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "auto";
+    };
+  }, [open]);
+
   // Component mount/unmount cleanup
   useEffect(() => {
     warmSpeechVoices();
@@ -198,6 +214,8 @@ export function SiteAiChat() {
         }
       }
       clearSilenceTimer();
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "auto";
     };
   }, [stopVoice, clearSilenceTimer]);
 
@@ -416,6 +434,15 @@ export function SiteAiChat() {
 
   return (
     <>
+      {open && (
+        <div
+          className="fixed inset-0 z-70 bg-black/50 sm:hidden"
+          onClick={() => {
+            stopVoice();
+            setOpen(false);
+          }}
+        />
+      )}
       {open && (
         <div className="fixed bottom-24 right-4 z-80 flex w-[min(100%-2rem,22rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:right-6">
           <div

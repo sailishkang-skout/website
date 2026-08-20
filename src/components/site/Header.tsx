@@ -63,15 +63,35 @@ export function Header() {
     setActiveMenu(null);
   }, [pathname]);
 
-  // Prevent body scrolling when mobile menu is open
+  // Prevent body scrolling when mobile menu is open - works on all devices including iOS
   useEffect(() => {
     if (mobileOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      // Fix body position to prevent scrolling
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
     } else {
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
       document.body.style.overflow = "";
+      window.scrollTo(0, parseInt(scrollY || "0") * -1);
     }
     return () => {
+      // Cleanup on unmount
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
       document.body.style.overflow = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY) * -1);
+      }
     };
   }, [mobileOpen]);
 
@@ -136,7 +156,7 @@ export function Header() {
     <>
       <header
         ref={headerRef}
-        className="sticky top-0 z-200 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all"
+        className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all"
       >
         <div className="mx-auto flex h-16 w-full max-w-7xl 2xl:max-w-350 items-center justify-between px-3 sm:px-4 md:px-6 lg:px-4 xl:px-8">
           {/* LOGO */}
@@ -567,7 +587,7 @@ export function Header() {
       {/* MOBILE DRAWER OVERLAY */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-140 bg-black/50 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm lg:hidden"
           onClick={() => setMobileOpen(false)}
           aria-hidden="true"
         />
@@ -576,12 +596,27 @@ export function Header() {
       {/* MOBILE DRAWER (MATCHING DESKTOP NAVBAR 100%) */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 top-16 z-150 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-t border-border bg-background p-4 pb-10 sm:p-6 sm:pb-12 lg:hidden shadow-2xl"
+          className="fixed inset-0 top-16 z-50 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-t border-border bg-background p-4 pb-10 sm:p-6 sm:pb-12 lg:hidden shadow-2xl"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation menu"
         >
           <div className="flex flex-col gap-6">
+            {/* Mobile Menu Logo */}
+            <Link
+              href="/"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center py-0.5 transition-opacity hover:opacity-90 shrink-0"
+            >
+              <Image
+                src={activeLogo}
+                alt="Skout AI Logo"
+                width={140}
+                height={36}
+                className="h-9 w-auto object-contain"
+                priority
+              />
+            </Link>
             {/* PRODUCTS */}
             <div>
               <div className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
