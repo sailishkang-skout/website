@@ -13,7 +13,7 @@ export default function AcceptableUsePolicyClient() {
       description="Standards governing authorized platform usage, anti-spam outbound rules, domain reputation safeguards, and system rate limits across all Skout AI accounts."
       icon={<ShieldCheck className="h-4 w-4 text-accent" />}
       statusLabel="Finalizing Compliance Guidelines"
-      expectedDate="Q1 2026"
+      expectedDate="Q1 2027"
     />
   );
 }
