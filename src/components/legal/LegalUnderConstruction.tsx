@@ -2,13 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import {
-  Clock,
-  ArrowLeft,
-  Mail,
-  FileText,
-  Construction,
-} from "lucide-react";
+import { Clock, ArrowLeft, Mail, FileText, Construction } from "lucide-react";
 import { Section, GradientText } from "@/components/site/Section";
 
 export interface LegalUnderConstructionProps {
@@ -29,7 +23,7 @@ export default function LegalUnderConstruction({
   description,
   icon,
   statusLabel = "Under Construction & Review",
-  expectedDate = "Q1 2026",
+  expectedDate = "Q1 2027",
   contactEmail = "legal@skoutai.io",
 }: LegalUnderConstructionProps) {
   return (
@@ -74,7 +68,8 @@ export default function LegalUnderConstruction({
               Document In Preparation
             </h2>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-              This policy document is currently under construction to match Skout AI&apos;s latest platform standards. Please reference our active legal policies below.
+              This policy document is currently under construction to match Skout AI&apos;s latest
+              platform standards. Please reference our active legal policies below.
             </p>
           </div>
 

@@ -13,7 +13,7 @@ export default function AITermsClient() {
       description="Our Responsible AI Governance, Generative Data Privacy, Model Safety, and Output Ownership Terms are currently undergoing final legal review to support enterprise deployments."
       icon={<Cpu className="h-4 w-4 text-accent" />}
       statusLabel="Under Construction & Review"
-      expectedDate="Q1 2026"
+      expectedDate="Q1 2027"
     />
   );
 }
