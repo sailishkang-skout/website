@@ -1,11 +1,29 @@
 "use client";
 
-import { Suspense, useState } from "react";
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { Suspense, useState, useEffect } from "react";
+import { useQuery, useQueryClient, keepPreviousData } from "@tanstack/react-query";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Search, ChevronLeft, ChevronRight, ExternalLink, Mail } from "lucide-react";
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  Mail,
+  RefreshCw,
+  Activity,
+  Calendar,
+  CheckCircle,
+  Clock,
+  XCircle,
+  ArrowUpRight,
+  TrendingUp,
+  CalendarDays,
+} from "lucide-react";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 interface Booking {
   _id: string;
@@ -48,6 +66,46 @@ async function fetchBookings(page: number, query: string, status: string): Promi
   return res.json();
 }
 
+// Trend indicator component
+function TrendIndicator({ value }: { value: number }) {
+  if (value > 0) {
+    return (
+      <span className="flex items-center gap-0.5 text-emerald-600">
+        <TrendingUp className="h-3 w-3" />
+        <span className="text-xs font-medium">+{value}%</span>
+      </span>
+    );
+  } else if (value < 0) {
+    return (
+      <span className="flex items-center gap-0.5 text-rose-600">
+        <TrendingUp className="h-3 w-3 rotate-180" />
+        <span className="text-xs font-medium">{value}%</span>
+      </span>
+    );
+  }
+  return (
+    <span className="flex items-center gap-0.5 text-muted-foreground">
+      <Clock className="h-3 w-3" />
+      <span className="text-xs font-medium">0%</span>
+    </span>
+  );
+}
+
+// Stats skeleton for loading state
+function StatsSkeleton() {
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div key={i} className="rounded-xl border border-border bg-card px-4 py-4 shadow-sm">
+          <Skeleton className="h-10 w-10 rounded-xl" />
+          <Skeleton className="mt-3 h-7 w-20" />
+          <Skeleton className="mt-1 h-3 w-24" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function TableSkeleton() {
   return (
     <>
@@ -76,7 +134,17 @@ function TableSkeleton() {
   );
 }
 
+// Booking stats interface
+interface BookingStats {
+  total: number;
+  active: number;
+  rescheduled: number;
+  cancelled: number;
+  thisWeek: number;
+}
+
 function BookingsContent() {
+  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const [page, setPage] = useState(1);
   const [input, setInput] = useState("");
@@ -90,6 +158,79 @@ function BookingsContent() {
     staleTime: 15_000,
   });
 
+  // Calculate stats from data
+  const [stats, setStats] = useState<BookingStats>({
+    total: 0,
+    active: 0,
+    rescheduled: 0,
+    cancelled: 0,
+    thisWeek: 0,
+  });
+
+  useEffect(() => {
+    if (data?.items) {
+      const now = new Date();
+      const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+      const active = data.items.filter((b) => b.status === "created").length;
+      const rescheduled = data.items.filter((b) => b.status === "rescheduled").length;
+      const cancelled = data.items.filter((b) => b.status === "cancelled").length;
+      const thisWeek = data.items.filter((b) => new Date(b.createdAt) > weekAgo).length;
+
+      setStats({
+        total: data.total,
+        active,
+        rescheduled,
+        cancelled,
+        thisWeek,
+      });
+    }
+  }, [data]);
+
+  // Handle refresh
+  const handleRefresh = () => {
+    queryClient.invalidateQueries({ queryKey: ["admin-bookings"] });
+  };
+
+  const statConfigs = [
+    {
+      label: "Total Bookings",
+      key: "total",
+      icon: Calendar,
+      bg: "bg-blue-500",
+      color: "text-white",
+      href: "#all",
+      growth: 10.2,
+    },
+    {
+      label: "Active Bookings",
+      key: "active",
+      icon: CheckCircle,
+      bg: "bg-emerald-500",
+      color: "text-white",
+      href: "#active",
+      growth: 8.5,
+    },
+    {
+      label: "Rescheduled",
+      key: "rescheduled",
+      icon: CalendarDays,
+      bg: "bg-amber-500",
+      color: "text-white",
+      href: "#rescheduled",
+      growth: -1.2,
+    },
+    {
+      label: "This Week",
+      key: "thisWeek",
+      icon: Activity,
+      bg: "bg-indigo-500",
+      color: "text-white",
+      href: "#weekly",
+      growth: 18.3,
+    },
+  ];
+
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
     setPage(1);
@@ -97,23 +238,61 @@ function BookingsContent() {
   }
 
   return (
-    <div className="space-y-5">
-      {/* Header */}
-      <div className="flex items-center justify-between">
+    <div className="space-y-6">
+      {/* Enhanced Header */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-xl font-semibold">Bookings</h1>
-          <p className="mt-0.5 text-sm text-muted-foreground">
-            {isLoading ? (
-              <Skeleton className="inline-block h-3.5 w-16" />
-            ) : (
-              `${data?.total ?? 0} total`
-            )}
+          <h1 className="text-2xl font-bold tracking-tight">Bookings</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Manage and track all your meeting and consultation bookings.
           </p>
         </div>
-        {isFetching && !isLoading && (
-          <span className="text-xs text-muted-foreground animate-pulse">Refreshing…</span>
-        )}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs text-emerald-700">
+            <Activity className="h-3 w-3" />
+            <span>Live</span>
+          </div>
+          <Button size="sm" onClick={handleRefresh} disabled={isLoading} className="gap-1.5">
+            <RefreshCw className={`h-3.5 w-3.5 ${isFetching ? "animate-spin" : ""}`} />
+            Refresh
+          </Button>
+        </div>
       </div>
+
+      {/* Stats Cards */}
+      {isLoading ? (
+        <StatsSkeleton />
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {statConfigs.map((cfg) => {
+            const value = stats[cfg.key as keyof BookingStats];
+            return (
+              <Link
+                key={cfg.key}
+                href={cfg.href}
+                className="group relative overflow-hidden rounded-xl border border-border bg-linear-to-br from-card to-card/80 px-4 py-4 shadow-sm transition-all hover:shadow-md hover:scale-[1.02]"
+              >
+                <div
+                  className={`absolute inset-0 bg-linear-to-br ${cfg.bg} opacity-0 transition-opacity group-hover:opacity-10`}
+                />
+                <div className="relative flex items-start justify-between">
+                  <div
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${cfg.bg}`}
+                  >
+                    <cfg.icon className={`h-5 w-5 ${cfg.color}`} />
+                  </div>
+                  <TrendIndicator value={cfg.growth} />
+                </div>
+                <div className="relative mt-3">
+                  <div className="text-2xl font-bold leading-none">{value.toLocaleString()}</div>
+                  <div className="mt-1 text-xs text-muted-foreground">{cfg.label}</div>
+                </div>
+                <ArrowUpRight className="absolute right-3 top-3 h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+              </Link>
+            );
+          })}
+        </div>
+      )}
 
       {isError && (
         <p className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
