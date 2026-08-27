@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   ChevronDown,
   ChevronUp,
@@ -1849,9 +1850,35 @@ interface Props {
 }
 
 export default function ContentEditor({ pageId, pageLabel, initialContent }: Props) {
-  const [data, setData] = useState<Record<string, unknown>>(initialContent);
+  const [data, setData] = useState<Record<string, unknown>>({});
+  const [isLoading, setIsLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+
+  // Fetch initial content if not provided
+  useEffect(() => {
+    async function fetchContent() {
+      if (initialContent && Object.keys(initialContent).length > 0) {
+        setData(initialContent);
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/admin/content/${pageId}`);
+        if (res.ok) {
+          const content = await res.json();
+          setData(content);
+        }
+      } catch (error) {
+        console.error("Failed to fetch content:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchContent();
+  }, [pageId, initialContent]);
 
   const handleChange = useCallback((d: Record<string, unknown>) => {
     setData(d);
@@ -1884,6 +1911,17 @@ export default function ContentEditor({ pageId, pageLabel, initialContent }: Pro
     solutions: SolutionsEditor,
     integrations: IntegrationsEditor,
   }[pageId];
+
+  if (isLoading) {
+    return (
+      <div className="space-y-4">
+        <Skeleton className="h-10 w-full max-w-md" />
+        <Skeleton className="h-64 w-full rounded-xl" />
+        <Skeleton className="h-80 w-full rounded-xl" />
+        <Skeleton className="h-72 w-full rounded-xl" />
+      </div>
+    );
+  }
 
   return (
     <div>

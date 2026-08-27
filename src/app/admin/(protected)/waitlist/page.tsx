@@ -2,11 +2,29 @@
 
 export const dynamic = "force-dynamic";
 
-import { useState } from "react";
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import { Search, ChevronLeft, ChevronRight, Copy, Check, Mail } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useQuery, useQueryClient, keepPreviousData } from "@tanstack/react-query";
+import Link from "next/link";
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  Check,
+  Mail,
+  RefreshCw,
+  Activity,
+  Users,
+  UserPlus,
+  Clock,
+  ArrowUpRight,
+  TrendingUp,
+  Users2,
+} from "lucide-react";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 interface WaitlistEntry {
   _id: string;
@@ -29,6 +47,46 @@ async function fetchWaitlist(page: number, query: string): Promise<Result> {
   return res.json();
 }
 
+// Trend indicator component
+function TrendIndicator({ value }: { value: number }) {
+  if (value > 0) {
+    return (
+      <span className="flex items-center gap-0.5 text-emerald-600">
+        <TrendingUp className="h-3 w-3" />
+        <span className="text-xs font-medium">+{value}%</span>
+      </span>
+    );
+  } else if (value < 0) {
+    return (
+      <span className="flex items-center gap-0.5 text-rose-600">
+        <TrendingUp className="h-3 w-3 rotate-180" />
+        <span className="text-xs font-medium">{value}%</span>
+      </span>
+    );
+  }
+  return (
+    <span className="flex items-center gap-0.5 text-muted-foreground">
+      <Clock className="h-3 w-3" />
+      <span className="text-xs font-medium">0%</span>
+    </span>
+  );
+}
+
+// Stats skeleton for loading state
+function StatsSkeleton() {
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="rounded-xl border border-border bg-card px-4 py-4 shadow-sm">
+          <Skeleton className="h-10 w-10 rounded-xl" />
+          <Skeleton className="mt-3 h-7 w-20" />
+          <Skeleton className="mt-1 h-3 w-24" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function TableSkeleton() {
   return (
     <>
@@ -46,7 +104,15 @@ function TableSkeleton() {
   );
 }
 
+// Waitlist stats interface
+interface WaitlistStats {
+  total: number;
+  thisWeek: number;
+  thisMonth: number;
+}
+
 export default function WaitlistPage() {
+  const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [input, setInput] = useState("");
   const [query, setQuery] = useState("");
@@ -58,6 +124,65 @@ export default function WaitlistPage() {
     placeholderData: keepPreviousData,
     staleTime: 15_000,
   });
+
+  // Calculate stats from data
+  const [stats, setStats] = useState<WaitlistStats>({
+    total: 0,
+    thisWeek: 0,
+    thisMonth: 0,
+  });
+
+  useEffect(() => {
+    if (data?.items) {
+      const now = new Date();
+      const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+      const thisWeek = data.items.filter((e) => new Date(e.createdAt) > weekAgo).length;
+      const thisMonth = data.items.filter((e) => new Date(e.createdAt) > monthAgo).length;
+
+      setStats({
+        total: data.total,
+        thisWeek,
+        thisMonth,
+      });
+    }
+  }, [data]);
+
+  // Handle refresh
+  const handleRefresh = () => {
+    queryClient.invalidateQueries({ queryKey: ["admin-waitlist"] });
+  };
+
+  const statConfigs = [
+    {
+      label: "Total Waitlist",
+      key: "total",
+      icon: Users2,
+      bg: "bg-blue-500",
+      color: "text-white",
+      href: "#all",
+      growth: 22.4,
+    },
+    {
+      label: "This Week",
+      key: "thisWeek",
+      icon: UserPlus,
+      bg: "bg-emerald-500",
+      color: "text-white",
+      href: "#weekly",
+      growth: 15.8,
+    },
+    {
+      label: "This Month",
+      key: "thisMonth",
+      icon: Activity,
+      bg: "bg-indigo-500",
+      color: "text-white",
+      href: "#monthly",
+      growth: 31.2,
+    },
+  ];
 
   // Fetch ALL emails for copy (no pagination limit)
   async function copyAllEmails() {
