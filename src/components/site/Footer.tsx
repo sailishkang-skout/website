@@ -7,6 +7,12 @@ import { useTheme } from "next-themes";
 import logo from "@/assets/logo.png";
 import logoDark from "@/assets/logo-dark.png";
 import { WORKSPACE_URL } from "@/lib/constants";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import "./footer.css";
 
 // ALL ITEMS FROM HEADER DROPDOWNS
@@ -75,7 +81,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-card text-card-foreground">
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-350 px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-12">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
           {/* BRAND COLUMN */}
           <div className="md:col-span-3 space-y-4">
             <Link href="/" className="inline-block">
@@ -109,98 +115,220 @@ export function Footer() {
             </div>
           </div>
 
-          {/* PRODUCTS DROPDOWN LINKS */}
-          <div className="md:col-span-2">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Products</h4>
-            <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
-              {productDropdownItems.map((l) => (
-                <li key={l.label}>
+          {/* MOBILE ACCORDION LAYOUT - Only visible on mobile */}
+          <div className="md:hidden col-span-1 -mt-6">
+            <Accordion type="single" collapsible className="w-full">
+              {/* PRODUCTS */}
+              <AccordionItem value="products" className="border-border">
+                <AccordionTrigger className="text-xs font-bold uppercase tracking-wider text-foreground py-4 hover:no-underline">
+                  Products
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ul className="space-y-2 text-xs text-muted-foreground pb-2">
+                    {productDropdownItems.map((l) => (
+                      <li key={l.label}>
+                        <Link
+                          href={l.to}
+                          className={`transition-colors ${l.label.includes("Dexter") ? "font-semibold text-accent" : "hover:text-foreground"}`}
+                        >
+                          {l.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* SOLUTIONS */}
+              <AccordionItem value="solutions" className="border-border">
+                <AccordionTrigger className="text-xs font-bold uppercase tracking-wider text-foreground py-4 hover:no-underline">
+                  Solutions
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ul className="space-y-2 text-xs text-muted-foreground pb-2">
+                    {solutionDropdownItems.map((l) => (
+                      <li key={l.label}>
+                        <Link href={l.to} className="transition-colors hover:text-foreground">
+                          {l.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* RESOURCES */}
+              <AccordionItem value="resources" className="border-border">
+                <AccordionTrigger className="text-xs font-bold uppercase tracking-wider text-foreground py-4 hover:no-underline">
+                  Resources
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ul className="space-y-2 text-xs text-muted-foreground pb-2">
+                    {resourceDropdownItems.map((l) => (
+                      <li key={l.label}>
+                        <Link href={l.to} className="transition-colors hover:text-foreground">
+                          {l.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* LEGAL */}
+              <AccordionItem value="legal" className="border-border">
+                <AccordionTrigger className="text-xs font-bold uppercase tracking-wider text-foreground py-4 hover:no-underline">
+                  Legal
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ul className="space-y-2 text-xs text-muted-foreground pb-2">
+                    {legalDropdownItems.map((l) => (
+                      <li key={l.label}>
+                        <Link href={l.to} className="transition-colors hover:text-foreground">
+                          {l.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* PLATFORM */}
+              <AccordionItem value="platform" className="border-border">
+                <AccordionTrigger className="text-xs font-bold uppercase tracking-wider text-foreground py-4 hover:no-underline">
+                  Platform
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ul className="space-y-2 text-xs text-muted-foreground pb-2">
+                    <li>
+                      <Link
+                        href="/pricing"
+                        className="transition-colors hover:text-foreground font-medium"
+                      >
+                        Pricing
+                      </Link>
+                    </li>
+                    <li>
+                      <a
+                        href={WORKSPACE_URL}
+                        className="transition-colors hover:text-foreground font-medium"
+                      >
+                        Log In
+                      </a>
+                    </li>
+                    <li>
+                      <Link
+                        href="/contact"
+                        className="transition-colors hover:text-foreground font-medium"
+                      >
+                        Book a Demo
+                      </Link>
+                    </li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+
+          {/* DESKTOP LAYOUT - Only visible on md screens and above */}
+          <div className="hidden md:contents">
+            {/* PRODUCTS DROPDOWN LINKS */}
+            <div className="md:col-span-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                Products
+              </h4>
+              <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
+                {productDropdownItems.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      href={l.to}
+                      className={`transition-colors ${l.label.includes("Dexter") ? "font-semibold text-accent" : "hover:text-foreground"}`}
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* SOLUTIONS DROPDOWN LINKS */}
+            <div className="md:col-span-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                Solutions
+              </h4>
+              <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
+                {solutionDropdownItems.map((l) => (
+                  <li key={l.label}>
+                    <Link href={l.to} className="transition-colors hover:text-foreground">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* RESOURCES DROPDOWN */}
+            <div className="md:col-span-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                Resources
+              </h4>
+              <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
+                {resourceDropdownItems.map((l) => (
+                  <li key={l.label}>
+                    <Link href={l.to} className="transition-colors hover:text-foreground">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* LEGAL DROPDOWN LINKS */}
+            <div className="md:col-span-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Legal</h4>
+              <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
+                {legalDropdownItems.map((l) => (
+                  <li key={l.label}>
+                    <Link href={l.to} className="transition-colors hover:text-foreground">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* PLATFORM LINKS */}
+            <div className="md:col-span-1">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                Platform
+              </h4>
+              <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
+                <li>
                   <Link
-                    href={l.to}
-                    className={`transition-colors ${l.label.includes("Dexter") ? "font-semibold text-accent" : "hover:text-foreground"}`}
+                    href="/pricing"
+                    className="transition-colors hover:text-foreground font-medium"
                   >
-                    {l.label}
+                    Pricing
                   </Link>
                 </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* SOLUTIONS DROPDOWN LINKS */}
-          <div className="md:col-span-2">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
-              Solutions
-            </h4>
-            <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
-              {solutionDropdownItems.map((l) => (
-                <li key={l.label}>
-                  <Link href={l.to} className="transition-colors hover:text-foreground">
-                    {l.label}
+                <li>
+                  <a
+                    href={WORKSPACE_URL}
+                    className="transition-colors hover:text-foreground font-medium"
+                  >
+                    Log In
+                  </a>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="transition-colors hover:text-foreground font-medium"
+                  >
+                    Book a Demo
                   </Link>
                 </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* RESOURCES DROPDOWN */}
-          <div className="md:col-span-2">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
-              Resources
-            </h4>
-            <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
-              {resourceDropdownItems.map((l) => (
-                <li key={l.label}>
-                  <Link href={l.to} className="transition-colors hover:text-foreground">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* LEGAL DROPDOWN LINKS */}
-          <div className="md:col-span-2">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Legal</h4>
-            <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
-              {legalDropdownItems.map((l) => (
-                <li key={l.label}>
-                  <Link href={l.to} className="transition-colors hover:text-foreground">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* PLATFORM LINKS */}
-          <div className="md:col-span-1">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Platform</h4>
-            <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
-              <li>
-                <Link
-                  href="/pricing"
-                  className="transition-colors hover:text-foreground font-medium"
-                >
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <a
-                  href={WORKSPACE_URL}
-                  className="transition-colors hover:text-foreground font-medium"
-                >
-                  Log In
-                </a>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="transition-colors hover:text-foreground font-medium"
-                >
-                  Book a Demo
-                </Link>
-              </li>
-            </ul>
+              </ul>
+            </div>
           </div>
         </div>
 
