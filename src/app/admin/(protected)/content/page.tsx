@@ -114,7 +114,7 @@ async function fetchContentStats(): Promise<{
   const USE_MOCK_DATA = process.env.NODE_ENV === "test" ? false : true;
 
   if (USE_MOCK_DATA) {
-    // Mock data for development
+    // Mock data for development - fix: set recent updates to dates within last 7 days
     const now = new Date();
     const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
 
@@ -122,7 +122,8 @@ async function fetchContentStats(): Promise<{
       .slice(0, 8)
       .map((page, i) => ({
         pageId: page.id,
-        updatedAt: i < 3 ? weekAgo.toISOString() : null,
+        // First 3 pages updated within the last week (show as recently updated)
+        updatedAt: i < 3 ? new Date(now.getTime() - i * 24 * 60 * 60 * 1000).toISOString() : null,
       }))
       .filter(Boolean) as PageUpdateInfo[];
 
@@ -149,7 +150,7 @@ async function fetchContentStats(): Promise<{
     throw new Error("Failed to fetch content stats");
   } catch (error) {
     console.error("Error fetching content stats, falling back to mock data:", error);
-    // Return mock data when API fails
+    // Return mock data when API fails - fix: set recent updates to dates within last 7 days
     const now = new Date();
     const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
 
@@ -157,7 +158,8 @@ async function fetchContentStats(): Promise<{
       .slice(0, 8)
       .map((page, i) => ({
         pageId: page.id,
-        updatedAt: i < 3 ? weekAgo.toISOString() : null,
+        // First 3 pages updated within the last week (show as recently updated)
+        updatedAt: i < 3 ? new Date(now.getTime() - i * 24 * 60 * 60 * 1000).toISOString() : null,
       }))
       .filter(Boolean) as PageUpdateInfo[];
 
@@ -177,6 +179,45 @@ async function fetchContentStats(): Promise<{
   }
 }
 
+// Calculate actual growth percentages based on real data
+const calculateGrowths = (data: { updates: PageUpdateInfo[]; stats: ContentStats }) => {
+  if (!data?.updates || data.updates.length === 0)
+    return { editedPages: 0, usingDefaults: 0, recentlyUpdated: 0 };
+
+  const now = new Date();
+  const twoWeeksAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
+  const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+  // Calculate updates from previous week to compare
+  const updatesLastTwoWeeks = data.updates.filter(
+    (u: PageUpdateInfo) => new Date(u.updatedAt) > twoWeeksAgo,
+  );
+  const updatesPreviousWeek = updatesLastTwoWeeks.filter(
+    (u: PageUpdateInfo) => new Date(u.updatedAt) <= weekAgo,
+  ).length;
+  const updatesCurrentWeek = updatesLastTwoWeeks.filter(
+    (u: PageUpdateInfo) => new Date(u.updatedAt) > weekAgo,
+  ).length;
+
+  // Calculate growth rates (avoid division by zero)
+  const calculateGrowth = (current: number, previous: number) => {
+    if (previous === 0) return current > 0 ? 100 : 0;
+    return Number((((current - previous) / previous) * 100).toFixed(1));
+  };
+
+  return {
+    editedPages: calculateGrowth(
+      data.stats.editedPages,
+      data.stats.editedPages - updatesCurrentWeek,
+    ),
+    usingDefaults: calculateGrowth(
+      data.stats.usingDefaults,
+      Math.max(0, pages.length - (data.stats.editedPages - updatesCurrentWeek)),
+    ),
+    recentlyUpdated: calculateGrowth(updatesCurrentWeek, updatesPreviousWeek),
+  };
+};
+
 const statConfigs = [
   {
     label: "Total Pages",
@@ -185,7 +226,7 @@ const statConfigs = [
     bg: "bg-blue-500",
     color: "text-white",
     href: "#all",
-    growth: 0,
+    growth: 0, // Total pages is fixed, no growth needed
   },
   {
     label: "Edited Pages",
@@ -194,7 +235,6 @@ const statConfigs = [
     bg: "bg-emerald-500",
     color: "text-white",
     href: "#edited",
-    growth: 12.5,
   },
   {
     label: "Using Defaults",
@@ -203,7 +243,6 @@ const statConfigs = [
     bg: "bg-amber-500",
     color: "text-white",
     href: "#defaults",
-    growth: -8.3,
   },
   {
     label: "Recently Updated",
@@ -212,13 +251,13 @@ const statConfigs = [
     bg: "bg-indigo-500",
     color: "text-white",
     href: "#recent",
-    growth: 28.6,
   },
 ];
 
 export default function ContentPage() {
   const queryClient = useQueryClient();
   const [stats, setStats] = useState<ContentStats | null>(null);
+  const [growths, setGrowths] = useState({ editedPages: 0, usingDefaults: 0, recentlyUpdated: 0 });
   const [lastUpdatedMap, setLastUpdatedMap] = useState<Record<string, string>>({});
 
   const { data, isLoading, isError } = useQuery({
@@ -231,6 +270,8 @@ export default function ContentPage() {
   useEffect(() => {
     if (data) {
       setStats(data.stats);
+      const calculatedGrowths = calculateGrowths(data);
+      setGrowths(calculatedGrowths);
       const map: Record<string, string> = {};
       data.updates.forEach((update: PageUpdateInfo) => {
         map[update.pageId] = update.updatedAt;
@@ -276,28 +317,39 @@ export default function ContentPage() {
         <StatsSkeleton />
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {statConfigs.map((cfg) => (
-            <Link
-              key={cfg.key}
-              href={cfg.href}
-              className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-colors hover:bg-muted/40"
-            >
-              <div
-                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${cfg.bg}`}
+          {statConfigs.map((cfg) => {
+            // Get the correct growth value for each stat
+            const getGrowth = () => {
+              if (cfg.key === "totalPages") return 0;
+              if (cfg.key === "editedPages") return growths.editedPages;
+              if (cfg.key === "usingDefaults") return growths.usingDefaults;
+              if (cfg.key === "recentlyUpdated") return growths.recentlyUpdated;
+              return 0;
+            };
+
+            return (
+              <Link
+                key={cfg.key}
+                href={cfg.href}
+                className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-colors hover:bg-muted/40"
               >
-                <cfg.icon className={`h-5 w-5 ${cfg.color}`} />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <p className="text-2xl font-bold">
-                    {stats?.[cfg.key as keyof ContentStats] ?? 0}
-                  </p>
-                  <TrendIndicator value={cfg.growth} />
+                <div
+                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${cfg.bg}`}
+                >
+                  <cfg.icon className={`h-5 w-5 ${cfg.color}`} />
                 </div>
-                <p className="mt-1 text-xs text-muted-foreground">{cfg.label}</p>
-              </div>
-            </Link>
-          ))}
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <p className="text-2xl font-bold">
+                      {stats?.[cfg.key as keyof ContentStats] ?? 0}
+                    </p>
+                    <TrendIndicator value={getGrowth()} />
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">{cfg.label}</p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       )}
 

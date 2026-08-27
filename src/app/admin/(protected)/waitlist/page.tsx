@@ -271,8 +271,8 @@ export default function WaitlistPage() {
       </form>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-xl border border-border">
-        <table className="w-full text-sm">
+      <div className="overflow-x-auto overflow-hidden rounded-xl border border-border">
+        <table className="w-full min-w-100 text-sm">
           <thead className="border-b border-border bg-muted/40">
             <tr>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground">Email</th>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { PanelLeftClose, PanelLeftOpen, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { AdminNav, SignOutButton } from "./AdminSidebar";
 
@@ -11,6 +11,7 @@ const STORAGE_KEY = "admin-sidebar-collapsed";
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -18,7 +19,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     setMounted(true);
   }, []);
 
-  // If browser restores this page from bfcache (back button after sign-out),
+  // If browser restores this page from cache (back button after sign-out),
   // the server was never hit so middleware didn't run. Force a reload so the
   // middleware can check the cookie and redirect to login if needed.
   useEffect(() => {
@@ -31,6 +32,17 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("pageshow", handlePageShow);
   }, []);
 
+  // Close mobile menu when screen size changes to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   function toggle() {
     setCollapsed((c) => {
       const next = !c;
@@ -39,18 +51,27 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     });
   }
 
+  function toggleMobileMenu() {
+    setMobileMenuOpen(!mobileMenuOpen);
+  }
+
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      {/* Sidebar */}
+      {/* Mobile Overlay */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-black/50 md:hidden" onClick={toggleMobileMenu} />
+      )}
+
+      {/* Sidebar - Mobile: fixed overlay, Desktop: static */}
       <aside
-        className={`flex h-full shrink-0 flex-col border-r border-border bg-card transition-[width] duration-200 ease-in-out ${
-          mounted && collapsed ? "w-14" : "w-56"
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 flex h-full w-64 shrink-0 flex-col border-r border-border bg-card transition-transform duration-200 ease-in-out md:static ${
+          mobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        } ${mounted && collapsed && "md:w-14 md:translate-x-0"}`}
       >
         {/* Header */}
         <div
           className={`flex h-14 shrink-0 items-center border-b border-border transition-[padding] duration-200 ${
-            mounted && collapsed ? "justify-center px-2" : "gap-2.5 px-4"
+            mounted && collapsed ? "md:justify-center md:px-2" : "gap-2.5 px-4"
           }`}
         >
           {(!mounted || !collapsed) && (
@@ -68,10 +89,18 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               <div className="mt-0.5 text-[11px] text-muted-foreground">Admin</div>
             </div>
           )}
+          {/* Mobile close button */}
+          <button
+            onClick={toggleMobileMenu}
+            className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden"
+          >
+            <X className="h-4 w-4" />
+          </button>
+          {/* Desktop toggle button */}
           <button
             onClick={toggle}
             title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-            className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="hidden shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:inline-flex"
           >
             {mounted && collapsed ? (
               <PanelLeftOpen className="h-4 w-4" />
@@ -92,9 +121,21 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      {/* Main */}
+      {/* Main Content */}
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
-        <main className="flex-1 overflow-y-auto p-6">{children}</main>
+        {/* Mobile Header */}
+        <header className="flex h-14 shrink-0 items-center border-b border-border px-4 md:hidden">
+          <button
+            onClick={toggleMobileMenu}
+            className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+          <div className="ml-4 flex-1">
+            <div className="text-sm font-semibold">Skout AI Admin</div>
+          </div>
+        </header>
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6">{children}</main>
       </div>
     </div>
   );
