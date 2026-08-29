@@ -167,6 +167,52 @@ function BookingsContent() {
     thisWeek: 0,
   });
 
+  // Calculate actual growth percentages based on real data
+  const calculateGrowths = () => {
+    if (!data?.items || data.items.length === 0)
+      return { total: 0, active: 0, rescheduled: 0, thisWeek: 0 };
+
+    const now = new Date();
+    const twoWeeksAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+    // Calculate items from previous week to compare
+    const itemsLastTwoWeeks = data.items.filter((e) => new Date(e.createdAt) > twoWeeksAgo);
+    const itemsPreviousWeek = itemsLastTwoWeeks.filter(
+      (e) => new Date(e.createdAt) <= weekAgo,
+    ).length;
+    const itemsCurrentWeek = itemsLastTwoWeeks.filter(
+      (e) => new Date(e.createdAt) > weekAgo,
+    ).length;
+
+    const activeInPreviousWeek = itemsLastTwoWeeks.filter(
+      (e) => e.status === "created" && new Date(e.createdAt) <= weekAgo,
+    ).length;
+    const activeInCurrentWeek = itemsLastTwoWeeks.filter(
+      (e) => e.status === "created" && new Date(e.createdAt) > weekAgo,
+    ).length;
+
+    const rescheduledInPreviousWeek = itemsLastTwoWeeks.filter(
+      (e) => e.status === "rescheduled" && new Date(e.createdAt) <= weekAgo,
+    ).length;
+    const rescheduledInCurrentWeek = itemsLastTwoWeeks.filter(
+      (e) => e.status === "rescheduled" && new Date(e.createdAt) > weekAgo,
+    ).length;
+
+    // Calculate growth rates (avoid division by zero)
+    const calculateGrowth = (current: number, previous: number) => {
+      if (previous === 0) return current > 0 ? 100 : 0;
+      return Number((((current - previous) / previous) * 100).toFixed(1));
+    };
+
+    return {
+      total: calculateGrowth(data.total, data.total - itemsCurrentWeek),
+      active: calculateGrowth(activeInCurrentWeek, activeInPreviousWeek),
+      rescheduled: calculateGrowth(rescheduledInCurrentWeek, rescheduledInPreviousWeek),
+      thisWeek: calculateGrowth(itemsCurrentWeek, itemsPreviousWeek),
+    };
+  };
+
   useEffect(() => {
     if (data?.items) {
       const now = new Date();
@@ -187,6 +233,9 @@ function BookingsContent() {
     }
   }, [data]);
 
+  // Get actual calculated growths
+  const growths = calculateGrowths();
+
   // Handle refresh
   const handleRefresh = () => {
     queryClient.invalidateQueries({ queryKey: ["admin-bookings"] });
@@ -200,7 +249,7 @@ function BookingsContent() {
       bg: "bg-blue-500",
       color: "text-white",
       href: "#all",
-      growth: 10.2,
+      growth: growths.total,
     },
     {
       label: "Active Bookings",
@@ -209,7 +258,7 @@ function BookingsContent() {
       bg: "bg-emerald-500",
       color: "text-white",
       href: "#active",
-      growth: 8.5,
+      growth: growths.active,
     },
     {
       label: "Rescheduled",
@@ -218,7 +267,7 @@ function BookingsContent() {
       bg: "bg-amber-500",
       color: "text-white",
       href: "#rescheduled",
-      growth: -1.2,
+      growth: growths.rescheduled,
     },
     {
       label: "This Week",
@@ -227,7 +276,7 @@ function BookingsContent() {
       bg: "bg-indigo-500",
       color: "text-white",
       href: "#weekly",
-      growth: 18.3,
+      growth: growths.thisWeek,
     },
   ];
 
@@ -350,8 +399,8 @@ function BookingsContent() {
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-xl border border-border">
-        <table className="w-full text-sm">
+      <div className="overflow-x-auto overflow-hidden rounded-xl border border-border">
+        <table className="w-full min-w-175 text-sm">
           <thead className="border-b border-border bg-muted/40">
             <tr>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground">Guest</th>

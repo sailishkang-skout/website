@@ -324,6 +324,48 @@ export default function EnquiriesPage() {
     thisWeek: 0,
   });
 
+  // Calculate actual growth percentages based on real data
+  const calculateGrowths = () => {
+    if (!data?.items || data.items.length === 0)
+      return { total: 0, replied: 0, pending: 0, thisWeek: 0 };
+
+    const now = new Date();
+    const twoWeeksAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+    // Calculate items from previous week to compare
+    const itemsLastTwoWeeks = data.items.filter((e) => new Date(e.createdAt) > twoWeeksAgo);
+    const itemsPreviousWeek = itemsLastTwoWeeks.filter(
+      (e) => new Date(e.createdAt) <= weekAgo,
+    ).length;
+    const itemsCurrentWeek = itemsLastTwoWeeks.filter(
+      (e) => new Date(e.createdAt) > weekAgo,
+    ).length;
+
+    const repliedInPreviousWeek = itemsLastTwoWeeks.filter(
+      (e) => e.repliedAt && new Date(e.createdAt) <= weekAgo,
+    ).length;
+    const repliedInCurrentWeek = itemsLastTwoWeeks.filter(
+      (e) => e.repliedAt && new Date(e.createdAt) > weekAgo,
+    ).length;
+
+    // Calculate growth rates (avoid division by zero)
+    const calculateGrowth = (current: number, previous: number) => {
+      if (previous === 0) return current > 0 ? 100 : 0;
+      return Number((((current - previous) / previous) * 100).toFixed(1));
+    };
+
+    return {
+      total: calculateGrowth(data.total, data.total - itemsCurrentWeek),
+      replied: calculateGrowth(repliedInCurrentWeek, repliedInPreviousWeek),
+      pending: calculateGrowth(
+        stats.pending,
+        Math.max(0, itemsPreviousWeek - repliedInPreviousWeek),
+      ),
+      thisWeek: calculateGrowth(itemsCurrentWeek, itemsPreviousWeek),
+    };
+  };
+
   useEffect(() => {
     if (data?.items) {
       const now = new Date();
@@ -341,6 +383,9 @@ export default function EnquiriesPage() {
     }
   }, [data]);
 
+  // Get actual calculated growths
+  const growths = calculateGrowths();
+
   // Handle refresh
   const handleRefresh = () => {
     queryClient.invalidateQueries({ queryKey: ["admin-enquiries"] });
@@ -354,7 +399,7 @@ export default function EnquiriesPage() {
       bg: "bg-blue-500",
       color: "text-white",
       href: "#all",
-      growth: 12.5,
+      growth: growths.total,
     },
     {
       label: "Replied",
@@ -363,7 +408,7 @@ export default function EnquiriesPage() {
       bg: "bg-emerald-500",
       color: "text-white",
       href: "#replied",
-      growth: 8.3,
+      growth: growths.replied,
     },
     {
       label: "Pending",
@@ -372,7 +417,7 @@ export default function EnquiriesPage() {
       bg: "bg-amber-500",
       color: "text-white",
       href: "#pending",
-      growth: -2.1,
+      growth: growths.pending,
     },
     {
       label: "This Week",
@@ -381,7 +426,7 @@ export default function EnquiriesPage() {
       bg: "bg-indigo-500",
       color: "text-white",
       href: "#weekly",
-      growth: 15.2,
+      growth: growths.thisWeek,
     },
   ];
 
@@ -481,8 +526,8 @@ export default function EnquiriesPage() {
       </form>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-xl border border-border">
-        <table className="w-full text-sm">
+      <div className="overflow-x-auto overflow-hidden rounded-xl border border-border">
+        <table className="w-full min-w-150 text-sm">
           <thead className="border-b border-border bg-muted/40">
             <tr>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground">Name</th>

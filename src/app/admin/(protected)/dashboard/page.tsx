@@ -225,7 +225,7 @@ export default function DashboardPage() {
       )}
 
       {/* Stat cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7">
         {isLoading
           ? Array.from({ length: 7 }).map((_, i) => <StatCardSkeleton key={i} />)
           : STAT_CONFIG.map((cfg) => {

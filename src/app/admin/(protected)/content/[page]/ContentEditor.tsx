@@ -1910,6 +1910,23 @@ export default function ContentEditor({ pageId, pageLabel, initialContent }: Pro
     pricing: PricingEditor,
     solutions: SolutionsEditor,
     integrations: IntegrationsEditor,
+    resources: IntegrationsEditor,
+    // All product pages - use FeaturesEditor as fallback
+    "prospect-search": FeaturesEditor,
+    "smart-lists": FeaturesEditor,
+    import: FeaturesEditor,
+    "icp-setup": FeaturesEditor,
+    "enrichment-engine": FeaturesEditor,
+    "chrome-extension": FeaturesEditor,
+    sequences: FeaturesEditor,
+    "unified-inbox": FeaturesEditor,
+    "ai-review": FeaturesEditor,
+    deliverability: FeaturesEditor,
+    "companies-contacts": FeaturesEditor,
+    pipeline: FeaturesEditor,
+    "tasks-meetings": FeaturesEditor,
+    analytics: FeaturesEditor,
+    "dexter-ai": FeaturesEditor,
   }[pageId];
 
   if (isLoading) {
