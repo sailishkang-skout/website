@@ -21,7 +21,10 @@ export function mapAppPathToUpstream(pathname: string, search: string): string[]
   }
 
   if (rest.startsWith("/signin") || rest.startsWith("/singin")) {
-    candidates.push(`/app/signin${q}`, `/signin${q}`, `/sign-in${q}`);
+    const suffix = rest.replace(/^\/signin|^\/singin/, "") || "";
+    // Hit /app/sign-in first — AWS Next redirects /app/signin → /app/sign-in (307), which
+    // loops if we rewrite Location back to /app/signin on www.skoutai.io.
+    candidates.push(`/app/sign-in${suffix}${q}`, `/sign-in${suffix}${q}`, `/app/signin${q}`, `/signin${q}`);
     return candidates;
   }
 
@@ -35,10 +38,12 @@ export function mapAppPathToUpstream(pathname: string, search: string): string[]
   }
 
   if (rest.startsWith("/sign-in")) {
+    const suffix = rest.slice("/sign-in".length);
     candidates.push(
+      `/app/sign-in${suffix}${q}`,
+      `/sign-in${suffix}${q}`,
       `/app/signin${q}`,
       `/signin${q}`,
-      `/sign-in${rest.slice("/sign-in".length)}${q}`,
     );
     return candidates;
   }
@@ -54,12 +59,11 @@ export function rewriteLocation(location: string, request: NextRequest): string 
   value = value.split(WORKSPACE).join(`${pub}/app`);
   value = value.split(encodeURIComponent(WORKSPACE)).join(encodeURIComponent(`${pub}/app`));
   value = value.replace(/\/app\/app/g, "/app");
-  value = value.replace(/\/app\/sign-in/g, "/app/signin");
   value = value.replace(/\/app\/login/g, "/app/signin");
 
   if (value.startsWith("/")) {
     if (value.startsWith("/sign-in")) {
-      value = `${pub}/app/signin${value.slice("/sign-in".length)}`;
+      value = `${pub}/app/sign-in${value.slice("/sign-in".length)}`;
     } else if (value.startsWith("/login")) {
       value = `${pub}/app/signin${value.slice("/login".length)}`;
     } else if (!value.startsWith("/app")) {

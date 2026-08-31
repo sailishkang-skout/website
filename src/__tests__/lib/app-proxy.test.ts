@@ -8,9 +8,10 @@ describe("mapAppPathToUpstream", () => {
     expect(paths).toContain("/signin");
   });
 
-  it("maps /app/signin onto Clerk sign-in paths", () => {
+  it("maps /app/signin onto Clerk sign-in paths (sign-in first)", () => {
     const paths = mapAppPathToUpstream("/app/signin", "");
-    expect(paths[0]).toBe("/app/signin");
+    expect(paths[0]).toBe("/app/sign-in");
+    expect(paths).toContain("/app/signin");
     expect(paths).toContain("/signin");
   });
 
