@@ -54,7 +54,7 @@ export const PRODUCTS_DATA: Record<string, ProductData> = {
     headline: "Pinpoint high-intent decision makers",
     headlineGradient: "across 250M+ verified global contacts.",
     subheadline:
-      "Search companies and contacts using OpenSearch filters. Target by seniority level, department, technographic stack (Salesforce, React, AWS), funding series, and verified contact status.",
+      "Leverage lightning-fast OpenSearch to identify and target the exact companies and contacts that match your ICP. Filter by seniority, department, technographics, funding rounds, buying signals, and verified contact status to maximize conversion rates.",
     category: "Discover",
     iconName: "Search",
     mockupType: "search",
@@ -968,9 +968,9 @@ export const PRODUCTS_DATA: Record<string, ProductData> = {
     title: "Sales & GTM Analytics",
     eyebrow: "Convert Pillar",
     headline: "End-to-end GTM performance visibility",
-    headlineGradient: "from prospect discovery to closed revenue.",
+    headlineGradient: "with actionable, real-time dashboards.",
     subheadline:
-      "Track outbound campaign conversion rates, email deliverability health, deal stage movement, and team activity with real-time reporting dashboards.",
+      "Build fully customizable dashboards to monitor reply rates, pipeline velocity, rep performance, and multi-touch attribution. Sync with your existing BI tools or leverage our native reporting to make data-driven decisions instantly.",
     category: "Convert",
     iconName: "BarChart3",
     mockupType: "analytics",
