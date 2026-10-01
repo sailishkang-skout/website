@@ -97,7 +97,7 @@ export default function IntegrationsClient({
       iconLetter: "CR",
       capabilities: [
         "1-click LinkedIn profile capture",
-        "Clerk session authorization",
+        "Secure session authorization",
         "Bulk search export",
       ],
     },

@@ -89,9 +89,6 @@ export function rewriteWorkspaceBody(body: string, request: NextRequest): string
   out = out.replaceAll("/app/_next/", "\0APP_NEXT\0");
   out = out.replaceAll("/_next/", "/app/_next/");
   out = out.replaceAll("\0APP_NEXT\0", "/app/_next/");
-  out = out.replaceAll("/app/__clerk/", "\0APP_CLERK\0");
-  out = out.replaceAll("/__clerk/", "/app/__clerk/");
-  out = out.replaceAll("\0APP_CLERK\0", "/app/__clerk/");
   out = out.replace(/(src|href|action)=(["'])\/sign-in/g, `$1=$2/app/signin`);
   out = out.replace(/(src|href|action)=(["'])\/login/g, `$1=$2/app/signin`);
   return out;
@@ -102,20 +99,16 @@ function rewriteSetCookie(cookie: string): string {
 }
 
 /**
- * Clerk handshake JWTs nested into `/app/gate?next=` exceed API Gateway / Node
- * header limits (HTTP 431). Bounce those browser URLs to a short gate page
- * before we proxy. Do not strip `__clerk_handshake` on `/app/signin` — Clerk
- * needs that query to finish the session.
+ * An oversized `next` param nested into `/app/gate?next=` can exceed API Gateway / Node
+ * header limits (HTTP 431). Bounce those browser URLs to a short gate page before we proxy.
  */
 export function oversizedWorkspaceRedirect(request: NextRequest): URL | null {
   const { pathname, search, searchParams } = request.nextUrl;
   const next = searchParams.get("next") ?? "";
   const onGate = pathname === "/app/gate" || pathname.startsWith("/app/gate/");
-  const nestedHandshake =
-    next.includes("__clerk_handshake") || (onGate && searchParams.has("__clerk_handshake"));
   const gateTooLong = onGate && (search.length > 2048 || next.length > 200 || next.includes("/gate"));
 
-  if (onGate && (nestedHandshake || gateTooLong)) {
+  if (onGate && gateTooLong) {
     const url = request.nextUrl.clone();
     url.search = "";
     if (searchParams.get("error") === "1") url.searchParams.set("error", "1");
@@ -225,7 +218,7 @@ export async function proxyWorkspaceApp(
     if (lower === "content-encoding" || lower === "content-length" || lower === "transfer-encoding")
       return;
     // Next.js's own internal middleware-to-server signaling headers. The upstream (itself a
-    // Next.js app, behind Clerk's auth middleware) leaks these on a raw origin-to-origin fetch —
+    // Next.js app behind its own auth middleware) leaks these on a raw origin-to-origin fetch —
     // browsers never see them because Vercel's edge normally strips them before a real client
     // request completes. Forwarding one verbatim makes *this* app's own route handler response
     // carry an x-middleware-rewrite header, which Next's router then rejects with "NextResponse
