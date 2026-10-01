@@ -365,7 +365,7 @@ export const PRODUCTS_DATA: Record<string, ProductData> = {
     metrics: [
       { label: "Manifest Version", value: "V3 Sidepanel" },
       { label: "Capture Speed", value: "1-Click Instant" },
-      { label: "Auth Sync", value: "Seamless Clerk Sync" },
+      { label: "Auth Sync", value: "Seamless Session Sync" },
     ],
     features: [
       {

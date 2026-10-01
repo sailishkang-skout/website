@@ -8,7 +8,7 @@ describe("mapAppPathToUpstream", () => {
     expect(paths).toContain("/signin");
   });
 
-  it("maps /app/signin onto Clerk sign-in paths (sign-in first)", () => {
+  it("maps /app/signin onto the hyphenated sign-in path first", () => {
     const paths = mapAppPathToUpstream("/app/signin", "");
     expect(paths[0]).toBe("/app/sign-in");
     expect(paths).toContain("/app/signin");
@@ -28,20 +28,19 @@ describe("mapAppPathToUpstream", () => {
 });
 
 describe("oversizedWorkspaceRedirect", () => {
-  it("bounces gate URLs that nested a Clerk handshake (HTTP 431)", () => {
+  it("bounces gate URLs that nest another /gate URL (HTTP 431)", () => {
     const request = new NextRequest(
-      "https://www.skoutai.io/app/gate?next=%2Fapp%2Fgate%3F__clerk_handshake%3DeyJhbGciOiJSUzI1NiJ9.aaa",
+      "https://www.skoutai.io/app/gate?next=%2Fapp%2Fgate%3Ftoken%3DeyJhbGciOiJSUzI1NiJ9.aaa",
     );
     const url = oversizedWorkspaceRedirect(request);
     expect(url).not.toBeNull();
     expect(url?.pathname).toBe("/app/gate");
     expect(url?.searchParams.get("next")).toBe("/signin");
-    expect(url?.search ?? "").not.toContain("clerk_handshake");
   });
 
-  it("leaves a normal Clerk handshake on sign-in alone", () => {
+  it("leaves a normal query on sign-in alone", () => {
     const request = new NextRequest(
-      "https://www.skoutai.io/app/signin?__clerk_handshake=eyJhbGciOiJSUzI1NiJ9.aaa",
+      "https://www.skoutai.io/app/signin?token=eyJhbGciOiJSUzI1NiJ9.aaa",
     );
     expect(oversizedWorkspaceRedirect(request)).toBeNull();
   });

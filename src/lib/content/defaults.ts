@@ -701,7 +701,7 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
           "Extract, enrich, and score LinkedIn prospects directly inside your Chrome browser sidepanel.",
         features: [
           "1-click LinkedIn profile capture",
-          "Clerk session authorization",
+          "Secure session authorization",
           "Bulk search export",
         ],
         status: "Workspace Ready",
