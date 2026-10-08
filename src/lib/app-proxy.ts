@@ -59,6 +59,8 @@ export function rewriteLocation(location: string, request: NextRequest): string 
   value = value.split(WORKSPACE).join(`${pub}/app`);
   value = value.split(encodeURIComponent(WORKSPACE)).join(encodeURIComponent(`${pub}/app`));
   value = value.replace(/\/app\/app/g, "/app");
+  // Same collapse for the URL-encoded form, e.g. a Google OAuth redirect_uri query value.
+  value = value.replace(/%2Fapp%2Fapp/gi, "%2Fapp");
   value = value.replace(/\/app\/login/g, "/app/signin");
 
   if (value.startsWith("/")) {
