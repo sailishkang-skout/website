@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { AWS_WEB_ORIGIN, WORKSPACE_ORIGIN } from "@/lib/constants";
+import { WORKSPACE_ORIGIN, resolveWorkspaceOrigin } from "@/lib/constants";
 
 const WORKSPACE = WORKSPACE_ORIGIN.replace(/\/$/, "");
 
@@ -163,17 +163,7 @@ export async function proxyWorkspaceApp(
   request: NextRequest,
   pathnameOverride?: string,
 ): Promise<NextResponse> {
-  let origin = WORKSPACE.replace(/\/$/, "");
-  try {
-    const parsed = new URL(origin);
-    if (!/^https?:$/i.test(parsed.protocol) || /skoutai\.io$/i.test(parsed.hostname)) {
-      origin = AWS_WEB_ORIGIN;
-    } else {
-      origin = parsed.origin;
-    }
-  } catch {
-    origin = AWS_WEB_ORIGIN;
-  }
+  const origin = resolveWorkspaceOrigin(WORKSPACE);
 
   const bounce = oversizedWorkspaceRedirect(request);
   if (bounce) {
