@@ -6,9 +6,9 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
       titleHighlight: "Know why they matter.",
       titleSuffix: "Sell with context.",
       subheadline:
-        "Skout AI brings prospecting, enrichment, outreach, CRM, and GTM intelligence into one workspace — so your team can spend less time moving data between tools and more time creating pipeline.",
-      primaryCta: { text: "Book a demo", href: "/contact" },
-      secondaryCta: { text: "Explore platform", href: "#scavenger-hunt" },
+        "Skout AI unifies prospecting, enrichment, multi-channel outreach, native CRM, and predictive GTM intelligence into a single workspace — cutting through data silos so your team spends less time juggling tools and more time closing deals.",
+      primaryCta: { text: "Start your free trial", href: "/contact" },
+      secondaryCta: { text: "Watch product tour", href: "#features" },
       supportingLine:
         "From first prospect to active opportunity — Skout keeps the context connected.",
       dexterEyebrow: "Meet Dexter",
@@ -325,29 +325,41 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
     hero: {
       eyebrow: "The company",
       title: "Rebuilding the B2B data stack — from the schema up.",
+      description:
+        "Skout AI was founded by ex-GTM leaders who spent years frustrated with disjointed sales tools. We're building the unified workspace we always wished existed for revenue teams.",
       primaryCta: { text: "Work with us", href: "/contact" },
       secondaryCta: { text: "Explore the product", href: "/features" },
     },
     manifesto: {
       eyebrow: "Manifesto",
       title: "We believe data is a craft, not a CSV.",
+      description:
+        "Quality data is the foundation of successful outbound. We obsess over verification, enrichment, and context because your team deserves better than outdated, incomplete contact lists that waste time.",
     },
     values: {
       eyebrow: "Values",
       title: "Four rules we don't break.",
+      description:
+        "Our core principles guide every product decision: obsess over customer success, build for teams, maintain radical transparency, and iterate with purpose to solve real problems.",
     },
     timeline: {
       eyebrow: "Timeline",
       title: "A short, fast story. Two years in. Plenty left to build.",
+      description:
+        "From our first beta to serving hundreds of GTM teams, we've grown alongside our customers. Every feature we ship is rooted in real feedback from teams using Skout to close more deals.",
     },
     team: {
       eyebrow: "Team",
       title: "Operators, not pundits.",
+      description:
+        "We're ex-founders, ex-AEs, and ex-RevOps leaders who've actually executed outbound at scale. We've been in your shoes, juggling multiple tools, and built Skout to fix the pain points we faced.",
       cta: { text: "View open roles →", href: "/careers" },
     },
     join: {
       eyebrow: "Join us",
       title: "Help us build the last data tool your team installs.",
+      description:
+        "We're building something transformative for revenue teams worldwide. If you're passionate about solving hard problems and creating tools that people love, we want to hear from you.",
       primaryCta: { text: "Get in touch", href: "/contact" },
       secondaryCta: { text: "See pricing", href: "/pricing" },
     },
@@ -356,7 +368,8 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
     hero: {
       eyebrow: "Platform",
       title: "One platform. Five tools you can cancel.",
-      description: "Ready to consolidate your stack?",
+      description:
+        "Consolidate your disjointed sales stack into a unified GTM workspace that handles prospecting, enrichment, outreach, CRM, and intelligence — all in one place. Ready to stop juggling tools and start closing deals?",
     },
     featureGrid: {
       eyebrow: "Core capabilities",
@@ -454,7 +467,8 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
     hero: {
       eyebrow: "GTM AI Layer",
       title: "Your autonomous GTM AI assistant",
-      description: "Dexter AI connects natively to your Skout workspace database.",
+      description:
+        "Dexter continuously analyzes your entire pipeline, crafts hyper-personalized outreach sequences at scale, and answers complex questions about your accounts in real-time — turning hours of manual work into minutes. It connects natively to your Skout workspace database, unlocking full workspace context for every interaction.",
     },
     featureGrid: {
       eyebrow: "Core capabilities",
@@ -530,13 +544,13 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
   pricing: {
     hero: {
       eyebrow: "TRANSPARENT OUTBOUND PRICING",
-      title: "Start free. Scale when your outbound grows.",
+      title: "Start free. Scale limitlessly. Pay only for what you use.",
       description:
-        "Everything you need to find prospects, enrich contacts, organize your pipeline, and start outbound. No long-term commitment.",
-      yearlyBillingLabel: "Yearly billing",
-      yearlySaveLabel: "Save 20%",
-      noCreditCard: "No credit card required",
-      cancelAnytime: "Cancel anytime",
+        "Everything you need to identify high-value prospects, enrich contact data, manage your pipeline, and execute high-converting outbound campaigns. No lock-in contracts, no hidden fees.",
+      yearlyBillingLabel: "Annual billing",
+      yearlySaveLabel: "Save 25%",
+      noCreditCard: "No credit card required to start",
+      cancelAnytime: "Cancel in 1-click, anytime",
     },
     tiers: [
       {
@@ -625,10 +639,14 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
     hero: {
       eyebrow: "Solutions",
       title: "Built for the way your team works.",
+      description:
+        "Skout AI adapts to your unique GTM motion, whether you're a startup scaling outbound for the first time or an enterprise team optimizing multi-channel revenue operations.",
     },
     useCases: {
       eyebrow: "Use cases",
       title: "One platform for every revenue workflow.",
+      description:
+        "From SDR teams scaling cold outreach to account managers expanding existing accounts, Skout provides the tools, intelligence, and automation to accelerate every stage of your customer journey.",
       primaryCta: { text: "View pricing", href: "/pricing" },
       secondaryCta: { text: "Book demo", href: "/contact" },
     },
@@ -636,9 +654,9 @@ export const defaultContent: Record<string, Record<string, unknown>> = {
   integrations: {
     hero: {
       eyebrow: "NATIVE GTM INTEGRATIONS ECOSYSTEM",
-      title: "Plays nicely with everything in your revenue stack.",
+      title: "Seamlessly connects to your entire revenue stack.",
       description:
-        "Connect your CRM, sending mailboxes, LinkedIn extension, calendars, and BYOK AI models to turn Skout AI into your central GTM control center.",
+        "Unify your CRM, sending mailboxes, LinkedIn outreach, calendar scheduling, and BYOK AI models into a single, synchronized GTM command center that eliminates data silos and automates workflows.",
     },
     categories: [
       "All Integrations",
