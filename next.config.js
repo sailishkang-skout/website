@@ -1,3 +1,5 @@
+const { publicApiRewrites } = require("./public-api-origin");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@tanstack/react-query", "@tanstack/query-core"],
@@ -21,10 +23,14 @@ const nextConfig = {
     ];
   },
   async rewrites() {
-    return [
-      { source: "/app", destination: "/api/workspace-proxy" },
-      { source: "/app/:path*", destination: "/api/workspace-proxy/:path*" },
-    ];
+    return {
+      // PAPI-001: the public API goes straight to the Skout API, before any of this site's own routes.
+      beforeFiles: publicApiRewrites(),
+      afterFiles: [
+        { source: "/app", destination: "/api/workspace-proxy" },
+        { source: "/app/:path*", destination: "/api/workspace-proxy/:path*" },
+      ],
+    };
   },
 };
 
